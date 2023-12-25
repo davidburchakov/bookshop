@@ -1,0 +1,14 @@
+{% extends "shopapp/base.html" %}
+{% load static %}
+
+{% block body %}
+    <h1>Single book</h1>
+    <section id="single-book">
+        <figure>
+            <img class="book-cover" src="/static/img/{{ book.img }}" alt="book title">
+            <figcaption>{{ book.author }}</figcaption>
+        </figure>
+        <p>{{ book.description }}</p>
+        <h4>Available in stock: {{ book.stock }}</h4>
+    </section>
+{% endblock %}

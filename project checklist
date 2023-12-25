@@ -1,0 +1,61 @@
+Book shop checklist:
+
+--- Pages:
+1	Home/Index
+	About/Contact page
+	FAQ
+	Terms of Service/Accept cookies
+	List all books
+1	List a single book details
+	Cart page
+	User personal page
+
+--- Features:
+	
+1	User Registration
+1	User authentication
+1	User Logout
+	User account deletion
+	Password recovery
+	Update user details
+	Remove the user
+	User Access Control - meaning some features are available only to admins
+	Administration features
+	Create a book as an admin
+	Read a book
+	Update a book as an admin
+	Remove a book as an admin
+
+	Add to card as user
+	View Корзину 
+	Update amount of books to buy
+	Remove from card as a user
+	Payment available
+	Captcha
+
+	Full-text search
+	Advanced search using filters
+	AJAX interactions
+	Feedback messages - errors, Notifications
+	Responsive Design
+
+	HTML validation
+	CSS validation
+	Input validation on client (frontend)
+	Input validation on server (backend) 
+	Contextual support
+
+--- Advanced:
+	Comments/Review section
+	Score/likes
+	Chatbot with semantic analysis
+	Chatbot that improves the user experience
+	able to add to cart via chatbot
+	Able to ask for advise from chatbot
+	Store user location, ip
+
+--- Database:
+	Create Triggers
+	Different Indexes
+	Transactions
+	

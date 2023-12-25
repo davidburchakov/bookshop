@@ -1,0 +1,11 @@
+.idea/
+__pycache__/
+/chat/__pycache__
+*.pyc
+db.sqlite3
+.env
+media/
+node_modules/
+.DS_Store
+*.log
+*.csv
