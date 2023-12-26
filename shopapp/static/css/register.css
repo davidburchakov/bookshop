@@ -1,0 +1,28 @@
+.register-card{
+    display: flex;
+    flex-direction: column;
+    border-color: black;
+    border-style: solid;
+    text-align: center;
+    align-content: center;
+    /*justify-content: center;*/
+    height: 25rem;
+    width: 25rem;
+}
+
+.register-card input{
+    width: 20rem;
+}
+
+.register-card form{
+    align-items: center;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    /*text-align: center;*/
+    /*align-content: center;*/
+    /*align-items: center;*/
+    /*align-self: center;*/
+}

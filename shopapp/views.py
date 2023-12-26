@@ -80,6 +80,13 @@ def login_view(request: HttpRequest):
     return render(request, 'shopapp/login.html')
 
 
+def profile_view(request: HttpRequest):
+    context = {
+        'request': request,
+        'user': request.user
+    }
+    return render(request, 'user/profile.html', context=context)
+
 def logout_view(request):
     logout(request)
     return redirect('index')  # Redirects to the home page after logout

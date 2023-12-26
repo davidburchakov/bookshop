@@ -1,0 +1,9 @@
+{% extends "shopapp/../base.html" %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+        <h1>Profile {{ user.email }}</h1>
+    {% else %}
+        <h1>User's not authenticated</h1>
+    {% endif %}
+{% endblock %}

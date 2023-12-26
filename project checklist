@@ -8,7 +8,7 @@ Book shop checklist:
 	List all books
 1	List a single book details
 	Cart page
-	User personal page
+	User profile page
 
 --- Features:
 	
@@ -53,9 +53,11 @@ Book shop checklist:
 	able to add to cart via chatbot
 	Able to ask for advise from chatbot
 	Store user location, ip
+	Blacklist
+	Confirm Email
 
 --- Database:
 	Create Triggers
 	Different Indexes
 	Transactions
-	
+

@@ -12,7 +12,7 @@
         {% endblock %}
     </title>
     {% block css_files %}
-        <link rel="stylesheet" href="{% static 'css/index.css' %}">
+        <link rel="stylesheet" href="{% static 'css/general.css' %}">
     {% endblock %}
 
 </head>
@@ -21,7 +21,7 @@
         <header id="topnav">
             <div id="logo">
                 <a href="{% url "index" %}">
-                    <img src="../../static/img/bookman.png" alt="bookman logo"  style="max-height: 70px; max-width: 70px; border-radius: 50%;">
+                    <img src="../static/img/bookman.png" alt="bookman logo" style="max-height: 70px; max-width: 70px; border-radius: 50%;">
                 </a>
             </div>
             {% if user.is_authenticated %}
@@ -34,6 +34,9 @@
 
     {% block body %}
         Base Body
+        {% block main %}
+            
+        {% endblock %}
     {% endblock %}
     
     {% block footer %}
@@ -42,3 +45,7 @@
     {% endblock %}
 </body>
 </html>
+
+{% block javascript %}
+<!-- JavaScript files go here -->
+{% endblock javascript %}
