@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+    <main>
+        <div>
+            <h1>update form</h1>
+            <form action="{% url "profile-update" %}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <label for="username">Username</label>
+                <input value="{{ user.username }}" type="text" name="username">
+                <input value="Update" type="submit">
+            </form>
+        </div>
+    </main>
+    
+{% endblock %}

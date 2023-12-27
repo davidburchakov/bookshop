@@ -1,0 +1,9 @@
+main{
+    display: flex;
+    justify-content: center;
+}
+.profile{
+    width: 50rem;
+    border-style: solid;
+    text-align: center;
+}

@@ -1,9 +1,24 @@
 {% extends "shopapp/../base.html" %}
-
+{% load static %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "css/general.css" %}">
+    <link rel="stylesheet" href="{% static "css/profile.css" %}">
+{% endblock %}
 {% block body %}
-    {% if user.is_authenticated %}
-        <h1>Profile {{ user.email }}</h1>
-    {% else %}
-        <h1>User's not authenticated</h1>
-    {% endif %}
+    <main>
+        <div class="profile">
+            {% if user.is_authenticated %}
+                <h2>Profile {{ user.username }}</h2>
+                <p>Email {{ user.email }}</p>
+                <p>Phone {{ user.phone }}</p>
+                <p>Joined: {{ user.date_joined }}</p>
+            {% else %}
+                <h1>User's not authenticated</h1>
+            {% endif %}
+            <form action="{% url "profile-update-page" %}">
+                <input value="update profile details" type="submit">
+            </form>
+        </div>
+    </main>
+
 {% endblock %}
