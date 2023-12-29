@@ -10,10 +10,11 @@
             {% if user.is_authenticated %}
                 <h2>Profile {{ user.username }}</h2>
                 <p>Email {{ user.email }}</p>
-                <p>Phone {{ user.phone }}</p>
+                <p>Phone {{ phone }}</p>
                 <p>Joined: {{ user.date_joined }}</p>
             {% else %}
                 <h1>User's not authenticated</h1>
+                <h2>{{ error }}</h2>
             {% endif %}
             <form action="{% url "profile-update-page" %}">
                 <input value="update profile details" type="submit">
