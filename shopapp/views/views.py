@@ -9,7 +9,7 @@ def get_all_books():
             SELECT EXISTS (
                 SELECT FROM information_schema.tables 
                 WHERE  table_schema = 'public'
-                AND    table_name   = 'books'
+                AND    table_name   = 'shopapp_books'
             );
         """)
         table_exists = cursor.fetchone()[0]
@@ -19,8 +19,8 @@ def get_all_books():
             # Query to join books with authors
             cursor.execute("""
                 SELECT b.slug, a.fullname, b.title, b.img, b.description, b.stock
-                FROM books b
-                INNER JOIN authors a ON b.author_id = a.id
+                FROM shopapp_books b
+                INNER JOIN shopapp_authors a ON b.author_id = a.id
             """)
             rows = cursor.fetchall()
 
