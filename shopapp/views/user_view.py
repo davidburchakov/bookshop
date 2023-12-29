@@ -5,9 +5,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django import forms
 from django.core.exceptions import ValidationError
-from django.db import connection
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from ..models.models import UserProfile
+
 
 class MyUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -17,60 +18,62 @@ class MyUserCreationForm(UserCreationForm):
         model = User
         fields = ("username", "email", "phone", "password1", "password2")
 
-    def clean_username(self):
-        username = self.cleaned_data['username']
-        if User.objects.filter(username=username).exists():
-            raise ValidationError("A user with that username already exists.")
-        return username
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("A user with that email already exists.")
+        return email
+
+    def clean_phone(self):
+        phone = self.cleaned_data['phone']
+        if UserProfile.objects.filter(phone=phone).exists():
+            raise ValidationError("A user with that phone number already exists.")
+        return phone
 
     def save(self, commit=True):
-        user = super().save(commit - False)
+        user = super().save(commit=False)
         user.email = self.cleaned_data["email"]
         if commit:
             user.save()
+            UserProfile.objects.create(user=user, phone=self.cleaned_data['phone'])
         return user
 
 
 class UserUpdateForm(forms.ModelForm):
+    phone = forms.CharField(required=False)
+
     class Meta:
         model = User
         fields = ("username", "email")
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        user_id = self.instance.id
+        if User.objects.filter(email=email).exclude(id=user_id).exists():
+            raise ValidationError("A user with that email already exists.")
+        return email
 
-# def register_view(request):
-#     if request.method == 'POST' and request.POST.get('form_type') == "register_form":
-#         form = MyUserCreationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             raw_password = form.cleaned_data.get('password1')
-#             user = authenticate(username=username, password=raw_password)
-#             login(request, user)
-#             return redirect('index')  # Redirect to a home page
-#     else:
-#         form = MyUserCreationForm()
-#     return render(request, 'shopapp/register.html', context={"form": form})
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+            user_profile = user.userprofile
+            user_profile.phone = self.cleaned_data['phone']
+            user_profile.save()
+        return user
 
 
 def register_view(request):
     if request.method == 'POST':
         form = MyUserCreationForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password1']  # Make sure to hash this password
-
-            # SQL to insert the new user
-            sql = """
-            INSERT INTO users (username, password, email) VALUES (%s, %s, %s);
-            """
-            try:
-                with connection.cursor() as cursor:
-                    cursor.execute(sql, [username, password, email])
-                messages.success(request, "User created successfully")
-                return redirect('index')  # Redirect to a home page
-            except Exception as e:
-                messages.error(request, str(e))
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            messages.success(request, "User created successfully")
+            return redirect('index')  # Redirect to a home page
     else:
         form = MyUserCreationForm()
     return render(request, 'shopapp/register.html', context={"form": form})
@@ -94,17 +97,37 @@ def login_view(request: HttpRequest):
     return render(request, 'shopapp/login.html')
 
 
-def profile_view(request: HttpRequest):
-    context = {
-        'user': request.user
-    }
+def profile_view(request):
+    if request.user.is_authenticated:
+
+        user_profile = get_object_or_404(UserProfile, user=request.user)
+
+        context = {
+            'user': request.user,
+            'profile': user_profile,
+            'phone': user_profile.phone if user_profile.phone else "No phone number provided",
+        }
+    else:
+        context = {
+            'error': "permissions denied"
+        }
+
     return render(request, 'user/profile.html', context=context)
 
 
-def profile_update_view_page(request: HttpRequest):
-    context = {
-        'user': request.user
-    }
+def profile_update_view_page(request):
+    if request.user.is_authenticated:
+        user_profile = get_object_or_404(UserProfile, user=request.user)
+
+        context = {
+            'user': request.user,
+            'profile': user_profile,
+            'phone': user_profile.phone if user_profile.phone else "No phone number provided"
+        }
+    else:
+        context = {
+            'error': "permissions denied"
+        }
     return render(request, "user/profile-update.html", context=context)
 
 
@@ -117,6 +140,7 @@ def profile_update_view(request: HttpRequest):
     else:
         form = UserUpdateForm(instance=request.user)
     return render(request, 'user/profile-update.html', {'form': form})
+
 
 def logout_view(request):
     logout(request)

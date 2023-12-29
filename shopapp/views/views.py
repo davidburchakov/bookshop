@@ -2,33 +2,43 @@ from django.http import HttpRequest
 from django.shortcuts import render
 from django.db import connection
 
-
 def get_all_books():
     with connection.cursor() as cursor:
-        # Updated query to join books with authors
+        # Check if the 'books' table exists
         cursor.execute("""
-            SELECT b.slug, a.fullname, b.title, b.img, b.description, b.stock
-            FROM books b
-            INNER JOIN authors a ON b.author_id = a.id
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables 
+                WHERE  table_schema = 'public'
+                AND    table_name   = 'books'
+            );
         """)
-        rows = cursor.fetchall()
+        table_exists = cursor.fetchone()[0]
 
-        # Mapping rows to a list of dictionaries
-        books = [
-            {
-                "slug": row[0],
-                "author": row[1],
-                "title": row[2],
-                "img": row[3],
-                "description": row[4],
-                "stock": row[5]
-            } for row in rows
-        ]
+        books = []
+        if table_exists:
+            # Query to join books with authors
+            cursor.execute("""
+                SELECT b.slug, a.fullname, b.title, b.img, b.description, b.stock
+                FROM books b
+                INNER JOIN authors a ON b.author_id = a.id
+            """)
+            rows = cursor.fetchall()
 
+            # Mapping rows to a list of dictionaries
+            books = [
+                {
+                    "slug": row[0],
+                    "author": row[1],
+                    "title": row[2],
+                    "img": row[3],
+                    "description": row[4],
+                    "stock": row[5]
+                } for row in rows
+            ]
         return books
 
-
 books = get_all_books()
+
 
 
 def index_view(request: HttpRequest):
@@ -36,7 +46,6 @@ def index_view(request: HttpRequest):
         "books": books
     }
     return render(request, 'shopapp/shop-index.html', context=context)
-
 
 
 def books_view(request: HttpRequest):

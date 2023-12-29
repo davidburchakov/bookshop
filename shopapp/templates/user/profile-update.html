@@ -1,16 +1,32 @@
 {% extends "base.html" %}
+{% load static %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "css/general.css" %}">
+    <link rel="stylesheet" href="{% static "css/profile.css" %}">
+{% endblock %}
+
 {% block body %}
     <main>
-        <div>
+        <div class="profile">
             <h1>update form</h1>
             <form action="{% url "profile-update" %}" method="POST">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <label for="username">Username</label>
-                <input value="{{ user.username }}" type="text" name="username">
-                <input value="Update" type="submit">
+                <label>
+                    <input value="{{ user.username }}" type="text" name="username">
+                </label>
+                <label for="email">Email</label>
+                <label>
+                    <input value="{{ user.email }}" type="email" name="email">
+                </label>
+                <label for="phone">phone</label>
+                <label>
+                    <input value="{{ phone }}" type="number" name="phone">
+                </label>
+                <input value="Update" type="submit" class="input-button">
             </form>
         </div>
     </main>
-    
+
 {% endblock %}
