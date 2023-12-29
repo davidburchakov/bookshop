@@ -145,3 +145,20 @@ def profile_update_view(request: HttpRequest):
 def logout_view(request):
     logout(request)
     return redirect('index')  # Redirects to the home page after logout
+
+
+def profile_delete(request):
+    if request.method == 'POST':
+        print("POST")
+        if request.user.is_authenticated:
+            user = request.user
+            user.delete()
+            logout(request)
+            messages.success(request, "Your account has been successfully deleted!")
+            return redirect('index')
+        else:
+            messages.error(request, "Permissions denied.")
+            return redirect('index')
+    else:
+        messages.error(request, "Invalid Request Method.")
+        return render(request, 'user/profile.html')

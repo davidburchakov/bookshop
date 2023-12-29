@@ -4,27 +4,25 @@ Book shop checklist:
 1	Home/Index
 	About/Contact page
 	FAQ
-	Terms of Service/Accept cookies
-	List all books
+1	List all books
 1	List a single book details
 	Cart page
-	User profile page
+1	User profile page
 
 --- Features:
 	
 1	User Registration
 1	User authentication
 1	User Logout
-	User account deletion
-	Password recovery
-	Update user details
-	Remove the user
+1	User account deletion
+1	Update user details
 	User Access Control - meaning some features are available only to admins
 	Administration features
 	Create a book as an admin
 	Read a book
 	Update a book as an admin
 	Remove a book as an admin
+	Remove the user as an admin
 
 	Add to card as user
 	View Корзину 
@@ -55,9 +53,15 @@ Book shop checklist:
 	Store user location, ip
 	Blacklist
 	Confirm Email
+	Password recovery	
+	Terms of Service/Accept cookies
 
 --- Database:
 	Create Triggers
 	Different Indexes
 	Transactions
 
+
+--- Style:
+	Top navbar
+	Footer
