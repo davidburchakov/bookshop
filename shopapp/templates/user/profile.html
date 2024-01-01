@@ -1,12 +1,11 @@
 {% extends "shopapp/../base.html" %}
 {% load static %}
-{% block css_files %}
-    <link rel="stylesheet" href="{% static "css/general.css" %}">
+{% block links %}
     <link rel="stylesheet" href="{% static "css/profile.css" %}">
 {% endblock %}
-{% block body %}
+{% block main %}
     <main>
-        <div class="profile">
+        <section class="profile">
             {% if user.is_authenticated %}
                 <h2>Profile {{ user.username }}</h2>
                 <p>Email {{ user.email }}</p>
@@ -19,8 +18,8 @@
             <form action="{% url "profile-update-page" %}">
                 <input type="submit" value="update profile details">
             </form>
-            <button id="delete-account-btn">Delete account</button>
-        </div>
+            <button id="delete-account-btn" class="btn-delete">Delete account</button>
+        </section>
     
             <!-- Modal -->
         <div id="deleteModal" class="modal">

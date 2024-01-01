@@ -1,11 +1,13 @@
 {% extends "shopapp/../base.html" %}
 
-{% block body %}
-    <h1>Login</h1>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <input type="text" name="username">
-        <input type="password" name="password">
-        <input type="submit">
-    </form>
+{% block main %}
+    <main>
+        <h1>Login</h1>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" name="username">
+            <input type="password" name="password">
+            <input type="submit">
+        </form>
+    </main>
 {% endblock %}

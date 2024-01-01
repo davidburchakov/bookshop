@@ -66,3 +66,6 @@ def single_book_view(request: HttpRequest, slug):
 
 def about_view(request: HttpRequest):
     return render(request, 'shopapp/about.html')
+
+def faq_view(request: HttpRequest):
+    return render(request, "shopapp/faq.html")

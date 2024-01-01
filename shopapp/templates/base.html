@@ -28,6 +28,7 @@
             </div>
             <nav>
                 <a href="/about">About</a>
+                <a href="/faq">FAQ</a>
                 {% if user.is_authenticated %}
                     Welcome, {{ user.username }} | <a href="{% url 'logout' %}">Logout</a>
                     <br>
@@ -40,18 +41,18 @@
         </header>
     {% endblock %}
 
-
-    {% block body %}
-        Base Body
-        {% block main %}
-            
-        {% endblock %}
-    {% endblock %}
-    
+    <div id="content-wrapper">
+            {% block main %}
+                
+            {% endblock %}
+    </div>
     {% block footer %}
-        <footer> {% now 'Y' as current_year %} 
-            Shop App CC0 2023 - {{ current_year }} </footer>
+    <footer id="site-footer">
+        {% now 'Y' as current_year %}
+        Shop App CC0 2023 - {{ current_year }}
+    </footer>
     {% endblock %}
+
 </body>
 </html>
 

@@ -4,24 +4,26 @@
     <link rel="stylesheet" href="{% static "css/index.css" %}">
     <link rel="stylesheet" href="{% static "css/general.css" %}">
 {% endblock %}
-{% block body %}
-    <h1>Hello shop index</h1>
-    <div id="popular-books">
-        <ul class="horizontal">
-            {% for book in books %}
-                <li>
-                    {% if book %}
-                    <article>
-                        <figure>
-                            <img class="book-cover" src="/static/img/{{ book.img }}" alt="book name">
-                             <a href="{% url "book" slug=book.slug %}">
-                                <figcaption>{{ book.author }}, {{ book.title }}</figcaption>
-                             </a>
-                        </figure>
-                    </article>
-                {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+{% block main %}
+    <main>
+        <h1>Hello shop index</h1>
+        <div id="popular-books">
+            <ul class="horizontal">
+                {% for book in books %}
+                    <li>
+                        {% if book %}
+                        <article>
+                            <figure>
+                                <img class="book-cover" src="/static/img/{{ book.img }}" alt="book name">
+                                 <a href="{% url "book" slug=book.slug %}">
+                                    <figcaption>{{ book.author }}, {{ book.title }}</figcaption>
+                                 </a>
+                            </figure>
+                        </article>
+                    {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </main>
 {% endblock %}
