@@ -18,11 +18,11 @@ class Authors(models.Model):
 
 
 class Books(models.Model):
-    slug = models.SlugField()
-    author = models.ForeignKey(Authors, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100)
-    img = models.CharField(max_length=35)
-    description = models.TextField()
+    slug = models.SlugField(default="")
+    author = models.ForeignKey(Authors, on_delete=models.CASCADE, default=1)
+    title = models.CharField(max_length=100, default="Book")
+    img = models.CharField(max_length=35, default='default.jpg')
+    description = models.TextField(default="Description is not available")
     stock = models.IntegerField()
 
     def __str__(self):
