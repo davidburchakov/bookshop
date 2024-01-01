@@ -1,17 +1,70 @@
-#popular-books li{
+/* Styling for the top navigation bar */
+#topnav {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+#topnav #logo a{
+    margin: 0;
+    padding: 0;
+}
+
+#topnav nav {
+    flex-grow: 2;
+    text-align: left;
+}
+
+#topnav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+#topnav a:hover {
+    color: #f0e68c;
+}
+
+#logo-img {
+    max-height: 70px;
+    max-width: 70px;
+    border-radius: 50%;
+}
+
+/* Existing CSS rules */
+#popular-books li {
     list-style-type: none;
 }
-.book-cover{
+
+.book-cover {
     max-width: 150px;
     max-height: 300px;
 }
-.horizontal{
+
+.horizontal {
     display: flex;
     flex-direction: row;
 }
 
-.vertical{
+.vertical {
     display: flex;
     flex-direction: column;
 }
 
+.hamburger {
+    font-size: 24px;
+    background: none;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Hide the hamburger menu on larger screens and show it on smaller screens */
+@media screen and (min-width: 768px) {
+    .hamburger {
+        /*display: none;*/
+    }
+}
