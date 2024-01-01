@@ -11,8 +11,10 @@
             My App
         {% endblock %}
     </title>
-    {% block css_files %}
-        <link rel="stylesheet" href="{% static 'css/general.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/general.css' %}">
+    {% block links %}
+{#        additional stylesheets here #}
     {% endblock %}
 
 </head>
@@ -21,18 +23,23 @@
         <header id="topnav">
             <div id="logo">
                 <a href="{% url "index" %}">
-                    <img src="../static/img/bookman.png" alt="bookman logo" style="max-height: 70px; max-width: 70px; border-radius: 50%;">
+                    <img src="../static/img/bookman.png" alt="bookman logo" id="logo-img">
                 </a>
             </div>
-            {% if user.is_authenticated %}
-                Welcome, {{ user.username }} | <a href="{% url 'logout' %}">Logout</a>
-                <br>
-                <a href="/profile">profile</a>
-            {% else %}
-                <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
-            {% endif %}
+            <nav>
+                <a href="/about">About</a>
+                {% if user.is_authenticated %}
+                    Welcome, {{ user.username }} | <a href="{% url 'logout' %}">Logout</a>
+                    <br>
+                    <a href="/profile">Profile</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
+                {% endif %}
+            </nav>
+            <button class="hamburger">&#9776;</button>
         </header>
     {% endblock %}
+
 
     {% block body %}
         Base Body

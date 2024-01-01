@@ -1,0 +1,70 @@
+/* Overall styling for the About page */
+.about {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header styling */
+.about h1 {
+    font-size: 2.5em;
+    color: #4A4A4A;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Styling for the description section */
+.store-description p {
+    text-align: justify;
+    margin-bottom: 15px;
+}
+
+/* Styling for the special features section */
+.special-features {
+    background-color: #F8F8F8;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.special-features h2 {
+    font-size: 2em;
+    color: #3A3A3A;
+    margin-bottom: 10px;
+}
+
+.special-features ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.special-features li {
+    background: url('path/to/icon.png') no-repeat left center;
+    background-size: 20px 20px;
+    padding-left: 30px;
+    margin-bottom: 10px;
+}
+
+/* Styling for Lottie Animation */
+dotlottie-player {
+    display: block;
+    margin: 20px auto;
+}
+
+/* Responsive design for smaller screens */
+@media screen and (max-width: 768px) {
+    .about {
+        padding: 10px;
+    }
+
+    .about h1 {
+        font-size: 2em;
+    }
+
+    .special-features h2 {
+        font-size: 1.8em;
+    }
+}
