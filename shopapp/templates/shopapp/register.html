@@ -4,33 +4,31 @@
     <link rel="stylesheet" href="{% static "css/general.css" %}">
     <link rel="stylesheet" href="{% static "css/register.css" %}">
 {% endblock %}
-{% block body %}
-    {% block main %}
-    	<main>
-            <div class="register-card">
-            <h1>Register</h1>
-                <form action="" method="post" class="vertical">
-                    {% csrf_token %}
-                    <input placeholder="username" type="text" name="username" required>
-                    <input placeholder="email" type="email" name="email" required>
-                    <input placeholder="phone number" type="number" name="phone">
-                    <input placeholder="password" type="password" name="password1" aria-required="true">
-                    <input placeholder="repeat password" type="password" name="password2">
-                    <input type="hidden" name="form_type" value="register_form">
-                    <input value="Submit" type="submit">
-                </form>
-            </div>
-        {% if form.errors %}
-            <div class="alert alert-danger">
-                <strong>Error!</strong> Please correct the following errors:
-                {% for field in form %}
-                    {% if field.errors %}
-                        {{ field.errors }}
-                    {% endif %}
-                {% endfor %}
-            </div>
-        {% endif %}
+{% block main %}
+    <main>
+        <div class="register-card">
+        <h1>Register</h1>
+            <form action="" method="post" class="vertical">
+                {% csrf_token %}
+                <input placeholder="username" type="text" name="username" required>
+                <input placeholder="email" type="email" name="email" required>
+                <input placeholder="phone number" type="number" name="phone">
+                <input placeholder="password" type="password" name="password1" aria-required="true">
+                <input placeholder="repeat password" type="password" name="password2">
+                <input type="hidden" name="form_type" value="register_form">
+                <input value="Submit" type="submit">
+            </form>
+        </div>
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Error!</strong> Please correct the following errors:
+            {% for field in form %}
+                {% if field.errors %}
+                    {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
 
-        </main>
-    {% endblock %}
+    </main>
 {% endblock %}

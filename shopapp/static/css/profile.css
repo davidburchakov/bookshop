@@ -3,9 +3,11 @@ main{
     justify-content: center;
 }
 .profile{
+    display: flex;
+    flex-direction: column;
     width: 50rem;
     border-style: solid;
-    text-align: center;
+    align-items: center;
     padding: 1rem;
 }
 
@@ -18,6 +20,10 @@ main{
     margin: .5rem;
 }
 
-.profile .input-button{
+.profile .input-update{
+    width: 150px;
+}
+
+.profile .btn-delete{
     width: 150px;
 }
