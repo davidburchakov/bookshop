@@ -1,44 +1,32 @@
 from django.http import HttpRequest
 from django.shortcuts import render
+from .book_view import get_all_books
 from django.db import connection
 
-def get_all_books():
+
+def get_all_faq():
     with connection.cursor() as cursor:
-        # Check if the 'books' table exists
         cursor.execute("""
-            SELECT EXISTS (
-                SELECT FROM information_schema.tables 
-                WHERE  table_schema = 'public'
-                AND    table_name   = 'shopapp_books'
+        SELECT EXISTS(
+                SELECT FROM information_schema.tables
+                WHERE table_schema='public'
+                AND   table_name='shopapp_faq'
             );
         """)
-        table_exists = cursor.fetchone()[0]
 
-        books = []
+        table_exists = cursor.fetchone()[0]
+        faq_list = []
         if table_exists:
-            # Query to join books with authors
             cursor.execute("""
-                SELECT b.slug, a.fullname, b.title, b.img, b.description, b.stock
-                FROM shopapp_books b
-                INNER JOIN shopapp_authors a ON b.author_id = a.id
+            SELECT question, answer FROM shopapp_faq; 
             """)
             rows = cursor.fetchall()
+            faq_list = [{"question": row[0], "answer": row[1]} for row in rows]
+        return faq_list
 
-            # Mapping rows to a list of dictionaries
-            books = [
-                {
-                    "slug": row[0],
-                    "author": row[1],
-                    "title": row[2],
-                    "img": row[3],
-                    "description": row[4],
-                    "stock": row[5]
-                } for row in rows
-            ]
-        return books
 
+faq = get_all_faq()
 books = get_all_books()
-
 
 
 def index_view(request: HttpRequest):
@@ -48,24 +36,12 @@ def index_view(request: HttpRequest):
     return render(request, 'shopapp/shop-index.html', context=context)
 
 
-def books_view(request: HttpRequest):
-    products = {'Dostoyevsky': 1999, 'Tolstoy': 2000, 'Kamus': 30000, 'Kafka': 1}
-    context = {
-        "products": products
-    }
-    return render(request, 'shopapp/books.html', context=context)
-
-
-def single_book_view(request: HttpRequest, slug):
-    book = [i for i in books if i["slug"] == slug][0]
-    context = {
-        "book": book
-    }
-    return render(request, "shopapp/book.html", context=context)
-
-
 def about_view(request: HttpRequest):
     return render(request, 'shopapp/about.html')
 
+
 def faq_view(request: HttpRequest):
-    return render(request, "shopapp/faq.html")
+    context = {
+        "faq": faq,
+    }
+    return render(request, "shopapp/faq.html", context=context)

@@ -50,3 +50,16 @@ INSERT INTO shopapp_books (slug, author_id, title, img, description, stock) VALU
 INSERT INTO shopapp_books (slug, author_id, title, img, description, stock) VALUES('hadji-murat', 1, 'Hadji Murat','hadji_murat.jpg', 'Very harsh russian historical book', 100);
 INSERT INTO shopapp_books (slug, author_id, title, img, description, stock) VALUES('camus-myth-sisyphus', 3, 'Le mythe de sisyphe','myth_sisyphus.jpg', 'Philosophical book by a 20th century existentionalist', 20);
 INSERT INTO shopapp_books (slug, author_id, title, img, description, stock) VALUES('kafka-metamorphosis', 4, 'Metamorphosis','metamorphosis.jpg', 'Philosophical book by a 19th century absurdist from Czech Republic', 50);
+
+INSERT INTO shopapp_faq (question, answer) VALUES('How can I proceed with the payment?', 'You can you any valid MASTERCARD or VISA card');
+
+INSERT INTO shopapp_faq (question, answer) VALUES('What shipping options are available?', 'We offer standard, expedited, and international shipping options.');
+INSERT INTO shopapp_faq (question, answer) VALUES('Can I return a book if I''m not satisfied?', 'Yes, returns are accepted within 30 days of purchase in their original condition.');
+INSERT INTO shopapp_faq (question, answer) VALUES('How do I track my order?', 'Once your order is shipped, a tracking number will be sent to your email.');
+INSERT INTO shopapp_faq (question, answer) VALUES('Is it safe to provide my credit card details on your website?', 'Yes, our website uses secure encryption to protect all your personal information.');
+INSERT INTO shopapp_faq (question, answer) VALUES('Are there any discounts for bulk purchases?', 'Yes, we offer discounts on bulk purchases. Please contact our support team for more details.');
+INSERT INTO shopapp_faq (question, answer) VALUES('Do you offer gift wrapping services?', 'Yes, we provide gift wrapping at an additional cost.');
+INSERT INTO shopapp_faq (question, answer) VALUES('How often do you update your book collection?', 'Our book collection is updated weekly with new releases and bestsellers.');
+INSERT INTO shopapp_faq (question, answer) VALUES('Can I request a book that''s not listed on your website?', 'Yes, you can request a book through our special order service.');
+INSERT INTO shopapp_faq (question, answer) VALUES('Do you have an e-book section?', 'Yes, we have a wide range of e-books available for instant download.');
+INSERT INTO shopapp_faq (question, answer) VALUES('What should I do if I receive a damaged book?', 'Please contact our customer service immediately to arrange a replacement or refund.');
