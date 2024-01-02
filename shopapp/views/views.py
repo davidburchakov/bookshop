@@ -1,8 +1,33 @@
 from django.http import HttpRequest
 from django.shortcuts import render
 from .book_view import get_all_books
+from django.db import connection
 
+
+def get_all_faq():
+    with connection.cursor() as cursor:
+        cursor.execute("""
+        SELECT EXISTS(
+                SELECT FROM information_schema.tables
+                WHERE table_schema='public'
+                AND   table_name='shopapp_faq'
+            );
+        """)
+
+        table_exists = cursor.fetchone()[0]
+        faq_list = []
+        if table_exists:
+            cursor.execute("""
+            SELECT question, answer FROM shopapp_faq; 
+            """)
+            rows = cursor.fetchall()
+            faq_list = [{"question": row[0], "answer": row[1]} for row in rows]
+        return faq_list
+
+
+faq = get_all_faq()
 books = get_all_books()
+
 
 def index_view(request: HttpRequest):
     context = {
@@ -11,9 +36,12 @@ def index_view(request: HttpRequest):
     return render(request, 'shopapp/shop-index.html', context=context)
 
 
-
 def about_view(request: HttpRequest):
     return render(request, 'shopapp/about.html')
 
+
 def faq_view(request: HttpRequest):
-    return render(request, "shopapp/faq.html")
+    context = {
+        "faq": faq,
+    }
+    return render(request, "shopapp/faq.html", context=context)

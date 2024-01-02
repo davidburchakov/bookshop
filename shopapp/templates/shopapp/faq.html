@@ -9,19 +9,16 @@
         <img src="{% static 'img/faq.gif' %}" alt="FAQ" class="faq-gif">
         <h1>FAQ</h1>
         <div class="faq">
-            <div class="faq-item">
-                <button class="faq-question">Question 1?</button>
-                <div class="faq-answer">
-                    <p>Answer to question 1.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">Question 2?</button>
-                <div class="faq-answer">
-                    <p>Answer to question 2.</p>
-                </div>
-            </div>
-            <!-- Add more FAQ items as needed -->
+            {% for q_a in faq %}
+                {% if q_a.answer and q_a.question %}
+                    <div class="faq-item">
+                        <button class="faq-question">{{ q_a.question }}</button>
+                        <div class="faq-answer">
+                            <p>{{ q_a.answer }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 
