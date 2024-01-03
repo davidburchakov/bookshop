@@ -44,13 +44,16 @@
             <div id="sidebar" class="sidebar">
                 <a href="/cart">Cart</a>
                 <div>
-{#                    items in the cart here#}
+                    {% for item in cart_books_in_cart %}
+                        <p>{{ item.book.title }} - Qty: {{ item.quantity }} - ${{ item.total_price }}</p>
+                    {% endfor %}
                 </div>
                 <div class="checkout">
-                    <div class="total">0</div>
+                    <div class="total">Total: ${{ cart_final_price }}</div>
                     <div id="close-btn">Close</div>
                 </div>
             </div>
+
 
         </header>
     {% endblock %}
@@ -72,49 +75,7 @@
 
 {% block javascript %}
     <script>
-        // Function to update the cart display
-        function updateCartDisplay(quantity, totalPrice) {
-            cartQuantity.textContent = quantity;
-            totalDiv.textContent = 'Total: $' + totalPrice.toFixed(2);
-        }
-
-        // Function to load cart data from localStorage
-        function loadCartData() {
-            return {
-                quantity: parseInt(localStorage.getItem('cartQuantity') || '0'),
-                totalPrice: parseFloat(localStorage.getItem('cartTotalPrice') || '0')
-            };
-        }
-
-        // Function to save cart data to localStorage
-        function saveCartData(quantity, totalPrice) {
-            localStorage.setItem('cartQuantity', quantity);
-            localStorage.setItem('cartTotalPrice', totalPrice);
-        }
-
-        const addToCartButton = document.getElementById('add-to-cart');
-        const cartQuantity = document.querySelector('.quantity');
-        const totalDiv = document.querySelector('.total');
-        
-        // Load cart data from localStorage
-        let cartData = loadCartData();
-        let quantity = cartData.quantity;
-        let totalPrice = cartData.totalPrice;
-
-        // Update the cart display initially
-        updateCartDisplay(quantity, totalPrice);
-
-        addToCartButton.addEventListener('click', function() {
-            const price = {{ book.price }}; // Get the price of the book
-            quantity += 1; // Increment quantity
-            totalPrice += price; // Add price to total
-
-            // Save updated cart data
-            saveCartData(quantity, totalPrice);
-
-            // Update the display
-            updateCartDisplay(quantity, totalPrice);
-        });
+ 
     </script>
 {% endblock %}
 

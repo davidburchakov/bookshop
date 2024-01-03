@@ -8,7 +8,7 @@
     <h1>Cart</h1>
     <section class="cart-div">
         <ul>
-            {% for item in books_in_cart %}
+            {% for item in cart_books_in_cart %}
             <li>
                 {{ item.book.title }} -
             <figure>
@@ -22,7 +22,7 @@
             </li>
             {% endfor %}
         </ul>
-        <div class="final-price"><h3>Total Price: {{ final_price }}</h3></div>
+        <div class="final-price"><h3>Total Price: {{ cart_final_price }}</h3></div>
         <button>Checkout</button>
     </section>
     

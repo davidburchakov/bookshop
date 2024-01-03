@@ -77,24 +77,7 @@ def add_to_cart(request):
 
 
 def cart_view(request):
-    cart = request.session.get('cart', {})
-    books_in_cart = []
-    final_price = 0.0
-    for book_id, data in cart.items():
-        book = get_object_or_404(Books, pk=book_id)
-        total_price = float(data['price']) * data['quantity']
-        final_price += total_price
-        books_in_cart.append({
-            'book': book,
-            'quantity': data['quantity'],
-            'total_price': total_price
-        })
-
-    context = {
-        'books_in_cart': books_in_cart,
-        "final_price": final_price
-    }
-    return render(request, 'shopapp/cart.html', context)
+    return render(request, 'shopapp/cart.html')
 
 
 def process_purchase(request):
