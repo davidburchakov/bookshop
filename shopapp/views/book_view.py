@@ -18,7 +18,7 @@ def get_all_books():
         if table_exists:
             # Query to join books with authors
             cursor.execute("""
-                SELECT b.slug, a.fullname, b.title, b.img, b.description, b.stock
+                SELECT b.slug, a.fullname, b.title, b.img, b.description, b.stock, b.price
                 FROM shopapp_books b
                 INNER JOIN shopapp_authors a ON b.author_id = a.id
             """)
@@ -32,7 +32,8 @@ def get_all_books():
                     "title": row[2],
                     "img": row[3],
                     "description": row[4],
-                    "stock": row[5]
+                    "stock": row[5],
+                    "price": row[6]
                 } for row in rows
             ]
         return books
@@ -42,9 +43,8 @@ books = get_all_books()
 
 
 def books_view(request: HttpRequest):
-    products = {'Dostoyevsky': 1999, 'Tolstoy': 2000, 'Kamus': 30000, 'Kafka': 1}
     context = {
-        "products": products
+        # "products": products
     }
     return render(request, 'shopapp/books.html', context=context)
 
