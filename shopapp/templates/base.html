@@ -26,6 +26,7 @@
                     <img src="../static/img/bookman.png" alt="bookman logo" id="logo-img">
                 </a>
             </div>
+
             <nav>
                 <a href="/about">About</a>
                 <a href="/faq">FAQ</a>
@@ -37,23 +38,47 @@
                     <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
                 {% endif %}
             </nav>
+
             <button class="hamburger" id="hamburger-button">
                 <img src="{% static "img/cart.png" %}" alt="cart icon">
                 <span class="quantity">0</span>
             </button>
+
             <div id="sidebar" class="sidebar">
-                <a href="/cart">Cart</a>
+                <a class="cart-link" href="/cart">Cart</a>
                 <div>
-                    {% for item in cart_books_in_cart %}
-                        <p>{{ item.book.title }} - Qty: {{ item.quantity }} - ${{ item.total_price }}</p>
-                    {% endfor %}
+                    <ul>
+                        {% for item in cart_books_in_cart %}
+                            <li>
+                                <div class="fst-pair">
+                                    <div class="div1">
+                                        <img src="../static/img/{{ item.book.img }}" alt="{{ item.book.title }}">
+                                    </div>
+                                    <div class="div4">
+                                        <button onclick="changeQuantity">+</button>
+                                        <div class="count">{{ item.quantity }}</div>
+                                        <button onclick="changeQuantity">-</button>
+                                    </div>
+                                </div>
+                                <div class="secnd-pair">
+                                    <div class="div2">
+                                        {{ item.book.title }}
+                                    </div>
+                                        
+                                    <div class="div3">
+                                        price: ${{ item.total_price }}, 2 x {{ item.book.price }}
+                                    </div>
+                                </div>
+                                
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
                 <div class="checkout">
                     <div class="total">Total: ${{ cart_final_price }}</div>
                     <div id="close-btn">Close</div>
                 </div>
             </div>
-
 
         </header>
     {% endblock %}
@@ -75,7 +100,7 @@
 
 {% block javascript %}
     <script>
- 
+
     </script>
 {% endblock %}
 

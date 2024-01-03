@@ -1,7 +1,6 @@
 from django.http import HttpRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
-
 from .book_view import get_all_books
 from django.db import connection
 from ..models.models import Books
