@@ -1,0 +1,20 @@
+.cart-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+}
+.cart-div ul{
+    border-style: solid;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+.cart-div ul li{
+    list-style-type: none;
+    border-bottom: 1px solid;
+    padding: 20px 0;
+}

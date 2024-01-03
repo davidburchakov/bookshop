@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block links %}
+    <link rel="stylesheet" href="{% static "css/cart.css" %}">
+{% endblock %}
+{% block main %}
+<main>
+    <h1>Cart</h1>
+    <section class="cart-div">
+        <ul>
+            {% for item in books_in_cart %}
+            <li>
+                {{ item.book.title }} -
+            <figure>
+                 <a href="{% url "book" slug=item.book.slug %}">
+                    <img class="book-cover" src="/static/img/{{ item.book.img }}" alt="book name">
+                    <figcaption>{{ item.book.author }}, {{ item.book.title }}</figcaption>
+                 </a>    
+            </figure>
+            Quantity: {{ item.quantity }} -
+            Total Price: ${{ item.total_price }}
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="final-price"><h3>Total Price: {{ final_price }}</h3></div>
+        <button>Checkout</button>
+    </section>
+    
+</main>
+{% endblock %}

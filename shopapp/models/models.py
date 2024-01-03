@@ -23,7 +23,9 @@ class Books(models.Model):
     title = models.CharField(max_length=100, default="Book")
     img = models.CharField(max_length=35, default='default.jpg')
     description = models.TextField(default="Description is not available")
-    stock = models.IntegerField()
+    stock = models.IntegerField(default=0)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+
 
     def __str__(self):
         return self.title
