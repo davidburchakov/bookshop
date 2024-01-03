@@ -37,7 +37,23 @@
                     <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
                 {% endif %}
             </nav>
-            <button class="hamburger">&#9776;</button>
+            <button class="hamburger" id="hamburger-button">
+                <img src="{% static "img/cart.png" %}" alt="cart icon">
+                <span class="quantity">0</span>
+            </button>
+            <div id="sidebar" class="sidebar">
+                <nav>
+                    <a href="/about">About</a>
+                    <a href="/faq">FAQ</a>
+                    <!-- Rest of your links -->
+                </nav>
+{#                <button id="close-btn" class="close-btn"></button>#}
+                <div class="checkout">
+                    <div class="total">0</div>
+                    <div id="close-btn">Close</div>
+                </div>
+            </div>
+
         </header>
     {% endblock %}
 
@@ -54,8 +70,10 @@
     {% endblock %}
 
 </body>
-</html>
+<script src="{% static "js/sidebar.js" %}"></script>
 
 {% block javascript %}
-<!-- JavaScript files go here -->
-{% endblock javascript %}
+    {#all other js goes here#}
+{% endblock %}
+
+</html>
