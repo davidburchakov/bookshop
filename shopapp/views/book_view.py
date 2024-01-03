@@ -18,7 +18,7 @@ def get_all_books():
         if table_exists:
             # Query to join books with authors
             cursor.execute("""
-                SELECT b.slug, a.fullname, b.title, b.img, b.description, b.stock, b.price
+                SELECT b.slug, a.fullname, b.title, b.img, b.description, b.stock, b.price, b.id
                 FROM shopapp_books b
                 INNER JOIN shopapp_authors a ON b.author_id = a.id
             """)
@@ -33,7 +33,8 @@ def get_all_books():
                     "img": row[3],
                     "description": row[4],
                     "stock": row[5],
-                    "price": row[6]
+                    "price": row[6],
+                    "id": row[7]
                 } for row in rows
             ]
         return books

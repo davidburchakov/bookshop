@@ -1,5 +1,5 @@
 from django.urls import path
-from shopapp.views.views import (index_view, about_view, faq_view)
+from shopapp.views.views import (index_view, about_view, faq_view, cart_view, add_to_cart)
 from shopapp.views.book_view import books_view, single_book_view
 from shopapp.views.user_view import (login_view, profile_view,
                                      register_view, logout_view,
@@ -20,5 +20,7 @@ urlpatterns = [
     path("profile-update", profile_update_view, name="profile-update"),
     path("profile-delete", profile_delete, name="profile-delete"),
     path("about", about_view, name="about"),
-    path("faq", faq_view, name="faq")
+    path("faq", faq_view, name="faq"),
+    path("cart", cart_view, name="cart"),
+    path("add-to-cart", add_to_cart, name="add-to-cart")
 ]

@@ -6,7 +6,7 @@ Book shop checklist:
 1	FAQ
 1	List all books
 1	List a single book details
-	Cart page
+1	Cart page
 1	User profile page
 
 --- Features:
@@ -24,12 +24,14 @@ Book shop checklist:
 	Remove a book as an admin
 	Remove the user as an admin
 
-	Add to card as user
-	View Корзину 
+1	Add to card as user
+1	View Cart 
 	Update amount of books to buy
 	Remove from card as a user
+	View sub-summary in a sidebar
 	Payment available
 	Captcha
+
 
 	Full-text search
 	Advanced search using filters

@@ -14,7 +14,40 @@
             <p>{{ book.description }}</p>
             <h4>Available in stock: {{ book.stock }}</h4>
             <h3>Price: ${{ book.price }}</h3>
-            <button id="add-to-cart">add to cart</button>
+            <h1>book id: {{ book.id }}</h1>
+            <button class="add-to-cart" data-book-id="{{ book.id }}">Add to Cart</button>
+
+            <script>
+                document.querySelectorAll('.add-to-cart').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const bookId = this.getAttribute('data-book-id');
+                         if (!bookId) {
+                            console.error('Book ID is not defined');
+                            return;
+                        }
+                        fetch("{% url 'add-to-cart' %}", {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                'X-CSRFToken': '{{ csrf_token }}'
+                            },
+                            body: 'book_id=' + bookId + '&quantity=1'
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                alert('Book added to cart!');
+                                // Update cart display or redirect to cart page here
+                            } else {
+                                alert('Error: ' + data.message);
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+
+                    });
+                });
+            </script>
+
         </section>
     </main>
 {% endblock %}
