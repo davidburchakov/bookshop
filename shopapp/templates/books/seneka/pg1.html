@@ -14,7 +14,7 @@
     <h1>Letters from a stoic</h1>
     <section class="book-text">
 
-    {% for letter, text in letters %}
+    {% for letter, text in letters.items %}
         <h1>{{ letter }}</h1>
         <div class="pdf-page">
             {{ text|linebreaks }}
