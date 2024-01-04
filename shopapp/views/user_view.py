@@ -8,6 +8,7 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from ..models.models import UserProfile
+from django.contrib.auth.decorators import login_required
 
 
 class MyUserCreationForm(UserCreationForm):
@@ -79,7 +80,6 @@ def register_view(request):
     return render(request, 'shopapp/register.html', context={"form": form})
 
 
-# Login View
 def login_view(request: HttpRequest):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -97,16 +97,22 @@ def login_view(request: HttpRequest):
     return render(request, 'shopapp/login.html')
 
 
+@login_required
 def profile_view(request):
     if request.user.is_authenticated:
-
-        user_profile = get_object_or_404(UserProfile, user=request.user)
-
-        context = {
-            'user': request.user,
-            'profile': user_profile,
-            'phone': user_profile.phone if user_profile.phone else "No phone number provided",
-        }
+        try:
+            user_profile = get_object_or_404(UserProfile, user=request.user)
+            context = {
+                'user': request.user,
+                'profile': user_profile,
+                'phone': user_profile.phone if user_profile.phone else "No phone number provided",
+            }
+        except:
+            context = {
+                'user': request.user,
+                'profile': None,
+                'phone': None
+            }
     else:
         context = {
             'error': "permissions denied"
