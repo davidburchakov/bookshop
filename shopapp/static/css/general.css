@@ -1,3 +1,25 @@
+/* ---------------------------- general ---------------------------- */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#content-wrapper {
+    flex: 1;
+}
+
+li {
+    list-style-type: none;
+}
+
+
 /* Styling for the top navigation bar */
 #topnav {
     background-color: #dcbab2;
@@ -44,7 +66,7 @@
     right: 0;
     background-color: #463e3c;
     overflow-x: hidden;
-    transition: 1.2s;
+    transition: width 1.2s;
     align-items: center;
 }
 
@@ -59,6 +81,64 @@
 
 .sidebar a:hover {
     color: #f1f1f1;
+}
+
+.sidebar ul{
+    width: 100%;
+    height: 100%;
+}
+.sidebar ul li{
+    display: flex;
+    flex-direction: row;
+    color: #fff;
+}
+
+.sidebar li .fst-pair{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    row-gap: 5px;
+    margin-bottom: 20px;
+}
+
+.sidebar li .secnd-pair{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    row-gap: 5px;
+    margin-bottom: 20px;
+}
+
+.sidebar li div{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar li img{
+    height: 150px;
+    transition: 0s;
+}
+
+.sidebar button{
+    width: auto;
+    background-color: #fff5;
+    border: none;
+    cursor: pointer;
+}
+.div2{
+    height: 100%;
+    width: 100%;
+}
+
+.div2 p{
+    font-size: medium;
+}
+
+.sidebar .count{
+    margin: 0 10px;
 }
 
 .sidebar .checkout{
@@ -138,26 +218,6 @@
 .vertical {
     display: flex;
     flex-direction: column;
-}
-
-
-
-
-/* CSS for the entire body */
-html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-}
-main{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
-/* Wrapper for page content */
-#content-wrapper {
-    flex: 1;
 }
 
 /* Footer styling */

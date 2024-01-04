@@ -8,7 +8,7 @@
     <h1>Cart</h1>
     <section class="cart-div">
         <ul>
-            {% for item in books_in_cart %}
+            {% for item in cart_books_in_cart %}
             <li>
                 {{ item.book.title }} -
             <figure>
@@ -17,14 +17,20 @@
                     <figcaption>{{ item.book.author }}, {{ item.book.title }}</figcaption>
                  </a>    
             </figure>
-            Quantity: {{ item.quantity }} -
-            Total Price: ${{ item.total_price }}
+            Quantity: {{ item.quantity }}
+            <button onclick="updateQuantity('{{ item.book.id }}', 1)">+</button>
+            <button onclick="updateQuantity('{{ item.book.id }}', -1)">-</button>
+            - Total Price: ${{ item.total_price }}
             </li>
             {% endfor %}
         </ul>
-        <div class="final-price"><h3>Total Price: {{ final_price }}</h3></div>
+        <div class="final-price"><h3>Total Price: {{ cart_final_price }}</h3></div>
         <button>Checkout</button>
     </section>
     
 </main>
+{% endblock %}
+
+{% block javascript %}
+    
 {% endblock %}
