@@ -15,8 +15,14 @@
             <h4>Available in stock: {{ book.stock }}</h4>
             <h3>Price: ${{ book.price }}</h3>
             <h1>book id: {{ book.id }}</h1>
+            {% if book.read == True %}
+                <form action="/">
+                    <input type="submit" value="Read online">
+                </form>
+            {% endif %}
+        
             <button class="add-to-cart" data-book-id="{{ book.id }}">Add to Cart</button>
-
+    
             <script>
                 document.querySelectorAll('.add-to-cart').forEach(button => {
                     button.addEventListener('click', function() {

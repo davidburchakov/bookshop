@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.db import connection
 
 def get_all_books():
+    books = []
     with connection.cursor() as cursor:
         # Check if the 'books' table exists
         cursor.execute("""
@@ -14,11 +15,10 @@ def get_all_books():
         """)
         table_exists = cursor.fetchone()[0]
 
-        books = []
         if table_exists:
             # Query to join books with authors
             cursor.execute("""
-                SELECT b.slug, a.fullname, b.title, b.img, b.description, b.stock, b.price, b.id
+                SELECT b.slug, a.fullname, b.title, b.img, b.description, b.stock, b.price, b.id, b.read
                 FROM shopapp_books b
                 INNER JOIN shopapp_authors a ON b.author_id = a.id
             """)
@@ -34,10 +34,11 @@ def get_all_books():
                     "description": row[4],
                     "stock": row[5],
                     "price": row[6],
-                    "id": row[7]
+                    "id": row[7],
+                    "read": row[8]
                 } for row in rows
             ]
-        return books
+    return books
 
 books = get_all_books()
 
