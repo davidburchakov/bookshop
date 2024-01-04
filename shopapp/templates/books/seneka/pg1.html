@@ -11,15 +11,15 @@
     <div class="h2-div">
         <h2>books</h2>
     </div>
-    <h1>Letters from a stoic</h1>
+    <h1>LETTERS FROM A STOIC</h1>
+    <h3><i>LUCIUS ANNAEUS SENECA</i></h3>
     <section class="book-text">
-
-    {% for letter, text in letters.items %}
-        <h1>{{ letter }}</h1>
-        <div class="pdf-page">
-            {{ text|linebreaks }}
-        </div>
-    {% endfor %}
+        {% for letter, text in letters.items %}
+            <h1>{{ letter }}</h1>
+            <div class="pdf-page">
+                <p>{{ text|linebreaks }}</p>
+            </div>
+        {% endfor %}
     </section>
 </main>
 {% endblock %}

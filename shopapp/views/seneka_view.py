@@ -17,17 +17,17 @@ def split_text_by_letter(text):
     parts = re.split(pattern, text)
     letters_dict = {}
     if parts:
-        if parts[0].strip() == '':
+        if parts[0] == '':  # Avoid stripping here
             parts.pop(0)
-        if parts[0].strip() == 'LETTERS':
+        if parts[0] == ' LETTERS  \n \n \n ':  # Avoid stripping here
             parts.pop(0)
-        # Ensure that we only iterate up to the second-to-last element to avoid IndexError
         for i in range(0, len(parts) - 1, 2):
-            heading = parts[i].strip()
-            content = parts[i+1].strip() if i + 1 < len(parts) else ""
+            heading = parts[i]  # Avoid stripping here
+            content = parts[i+1] if i + 1 < len(parts) else ""  # Avoid stripping here
             letters_dict[heading] = content
-    print(letters_dict.values())
+    print(letters_dict.keys())
     return letters_dict
+
 
 # Test the function with some text
 test_text = """
@@ -57,11 +57,8 @@ from django.conf import settings
 
 pdf_path = os.path.join(settings.BASE_DIR, 'shopapp/views/letters-from-a-stoic_lucius-annaeus-seneca.pdf')
 text = extract_text_from_pdf(pdf_path)
-pages = list(split_text_into_chunks(text, 5000))
+letters = split_text_by_letter(text)
 
 
 def pdf_view(request):
-    pdf_path = os.path.join(settings.BASE_DIR, 'shopapp/views/letters-from-a-stoic_lucius-annaeus-seneca.pdf')
-    text = extract_text_from_pdf(pdf_path)
-    letters = split_text_by_letter(text)
     return render(request, 'books/seneka/pg1.html', {'letters': letters})
