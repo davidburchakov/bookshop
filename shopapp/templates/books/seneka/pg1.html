@@ -8,15 +8,18 @@
     <div class="mini-header">
         <img src="{% static "img/dramatic_storm.png" %}" alt="">
     </div>
-    <h1>Read Seneka online</h1>
+    <div class="h2-div">
+        <h2>books</h2>
+    </div>
+    <h1>Letters from a stoic</h1>
     <section class="book-text">
-        
-    {% for page in pages %}
+
+    {% for letter, text in letters %}
+        <h1>{{ letter }}</h1>
         <div class="pdf-page">
-            {{ page|linebreaks }}
+            {{ text|linebreaks }}
         </div>
     {% endfor %}
     </section>
 </main>
 {% endblock %}
-    

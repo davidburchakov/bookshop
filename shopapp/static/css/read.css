@@ -11,11 +11,13 @@ main{
 #topnav {
     background-color: #3a3d42;
 }
+
 .book-text{
     width: 100%;
-    text-align: center;
+    text-align: left;
     display: flex;
     flex-direction: column;
+
 }
 
 .pdf-page {
@@ -45,4 +47,16 @@ background-image: linear-gradient(
 
 .mini-header img{
     width: 300px;
+}
+
+.h2-div h2{
+    margin: 10px 20px;
+}
+.h2-div{
+    width: 30vw;
+    background-color: lightslategrey;
+    color: lightsteelblue;
+    font-size: 12px;
+    text-align: left;
+    font-family: "Segoe UI", system-ui, sans-serif;
 }
