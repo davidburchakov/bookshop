@@ -126,6 +126,7 @@ li {
     width: auto;
     background-color: #fff5;
     border: none;
+    cursor: pointer;
 }
 .div2{
     height: 100%;

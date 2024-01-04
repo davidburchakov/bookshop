@@ -26,7 +26,6 @@ class Books(models.Model):
     stock = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
-
     def __str__(self):
         return self.title
 

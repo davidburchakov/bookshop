@@ -54,9 +54,9 @@
                                     <img src="../static/img/{{ item.book.img }}" alt="{{ item.book.title }}">
                                 </div>
                                 <div class="div4">
-                                    <button onclick="changeQuantity">+</button>
+                                    <button onclick="updateQuantity('{{ item.book.id }}', 1)">+</button>
                                     <div class="count">{{ item.quantity }}</div>
-                                    <button onclick="changeQuantity">-</button>
+                                    <button onclick="updateQuantity('{{ item.book.id }}', -1)">-</button>
                                 </div>
                             </div>
                             <div class="secnd-pair">
@@ -65,7 +65,7 @@
                                 </div>
                                     
                                 <div class="div3">
-                                    price: ${{ item.total_price }}, 2 x {{ item.book.price }}
+                                    price: ${{ item.total_price }}, {{ item.quantity }} x {{ item.book.price }}
                                 </div>
                             </div>
                             
@@ -95,11 +95,10 @@
 
 </body>
 <script src="{% static "js/sidebar.js" %}"></script>
+<script src="{% static "js/update_quantity.js" %}"></script>
 
 {% block javascript %}
-    <script>
-
-    </script>
+    
 {% endblock %}
 
 

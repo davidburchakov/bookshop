@@ -19,16 +19,18 @@ Book shop checklist:
 	User Access Control - meaning some features are available only to admins
 	Administration features
 	Create a book as an admin
-	Read a book
-	Update a book as an admin
+	Load the image for the book
+	Display content of free books
+1	View a single book
+	Update a book description as an admin
 	Remove a book as an admin
 	Remove the user as an admin
 
 1	Add to card as user
 1	View Cart 
-	Update amount of books to buy
-	Remove from card as a user
-	View sub-summary in a sidebar
+1	Update amount of books to buy
+1	Remove from card as a user
+1	View sub-summary in a sidebar
 	Payment available
 	Captcha
 
@@ -37,13 +39,7 @@ Book shop checklist:
 	Advanced search using filters
 	AJAX interactions
 	Feedback messages - errors, Notifications
-	Responsive Design
 
-	HTML validation
-	CSS validation
-	Input validation on client (frontend)
-	Input validation on server (backend) 
-	Contextual support
 
 --- Advanced:
 	Comments/Review section
@@ -67,3 +63,11 @@ Book shop checklist:
 --- Style:
 	Top navbar
 	Footer
+	sidebar styling
+	
+	Responsive Design
+	HTML validation
+	CSS validation
+	Input validation on client (frontend)
+	Input validation on server (backend) 
+	Contextual support
