@@ -1,5 +1,5 @@
 from django.urls import path
-from shopapp.views.views import (index_view, about_view, faq_view, test_view)
+from shopapp.views.views import (index_view, about_view, faq_view, seneka_pg1)
 from shopapp.views.book_view import books_view, single_book_view
 from shopapp.views.cart_view import cart_view, add_to_cart, update_cart
 from shopapp.views.user_view import (login_view, profile_view,
@@ -25,5 +25,5 @@ urlpatterns = [
     path("cart", cart_view, name="cart"),
     path("add-to-cart", add_to_cart, name="add-to-cart"),
     path('update-cart/', update_cart, name='update-cart'),
-    path('test', test_view, name="test")
+    path('books/seneka/pg1', seneka_pg1, name="pg1")
 ]

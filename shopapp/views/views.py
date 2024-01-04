@@ -49,5 +49,6 @@ def faq_view(request: HttpRequest):
     }
     return render(request, "shopapp/faq.html", context=context)
 
-def test_view(request: HttpRequest):
-    return render(request, 'shopapp/test.html')
+
+def seneka_pg1(request: HttpRequest):
+    return render(request, 'books/seneka/pg1.html')
