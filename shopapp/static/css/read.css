@@ -1,0 +1,48 @@
+main{
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #e8eff1;
+}
+
+#topnav {
+    background-color: #3a3d42;
+}
+.book-text{
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.pdf-page {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 60%;
+    margin-bottom: 20px;
+}
+.mini-header{
+    /*background: linear-gradient(to right, #868585, #434446, #212325);*/
+background-image: linear-gradient(
+    to right,
+    rgba(56, 79, 85, 1) 0%,
+    rgba(68, 94, 101, 0.8) 50%,
+    rgba(81, 109, 117, 0.7) 65%,
+    rgba(94, 124, 133, 0.6) 75.5%,
+    rgba(107, 139, 149, 0.6) 82.85%,
+    rgba(120, 154, 165, 0.6) 88%,
+    rgba(28, 93, 115, 0.3) 90%
+  );
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mini-header img{
+    width: 300px;
+}

@@ -1,5 +1,22 @@
 {% extends "base.html" %}
+{% load static %}
+{% block links %}
+    <link rel="stylesheet" href="{% static "css/read.css" %}">
+{% endblock %}
 {% block main %}
+<main>
+    <div class="mini-header">
+        <img src="{% static "img/dramatic_storm.png" %}" alt="">
+    </div>
     <h1>Read Seneka online</h1>
+    <section class="book-text">
+        
+    {% for page in pages %}
+        <div class="pdf-page">
+            {{ page|linebreaks }}
+        </div>
+    {% endfor %}
+    </section>
+</main>
 {% endblock %}
     

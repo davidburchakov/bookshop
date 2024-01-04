@@ -20,27 +20,20 @@ Book shop checklist:
 1	View a single book
 1	View a list of books
 	Display content of free books. Read the book
-	User Access Control - meaning some features are available only to admins
-	Administration features
-	Create a book as an admin
-	Load the image for the book
-	Update a book description as an admin
-	Remove a book as an admin
-	Remove the user as an admin
+
 
 1	Add to card as user
 1	View Cart 
 1	Update amount of books to buy
 1	Remove from card as a user
 1	View sub-summary in a sidebar
-	Payment available
+	
 	Captcha
 
-
-	Full-text search
 	Advanced search using filters
-	AJAX interactions
+	Full-text search
 	Feedback messages - errors, Notifications
+1	AJAX interactions
 
 
 --- Advanced:
@@ -50,11 +43,13 @@ Book shop checklist:
 	Chatbot that improves the user experience
 	able to add to cart via chatbot
 	Able to ask for advise from chatbot
+
 	Store user location, ip
 	Blacklist
 	Confirm Email
 	Password recovery	
 	Terms of Service/Accept cookies
+	Payment
 
 --- Database:
 	Create Triggers
@@ -73,3 +68,12 @@ Book shop checklist:
 	Input validation on client (frontend)
 	Input validation on server (backend) 
 	Contextual support
+
+--- Admin:
+	User Access Control - meaning some features are available only to admins
+	Administration features
+	Create a book as an admin
+	Load the image for the book
+	Update a book description as an admin
+	Remove a book as an admin
+	Remove the user as an admin
