@@ -17,8 +17,10 @@
                     <figcaption>{{ item.book.author }}, {{ item.book.title }}</figcaption>
                  </a>    
             </figure>
-            Quantity: {{ item.quantity }} -
-            Total Price: ${{ item.total_price }}
+            Quantity: {{ item.quantity }} 
+            <button onclick="updateQuantity('{{ item.book.id }}', 1)">+</button>
+            <button onclick="updateQuantity('{{ item.book.id }}', -1)">-</button>
+            - Total Price: ${{ item.total_price }}
             </li>
             {% endfor %}
         </ul>
@@ -27,4 +29,28 @@
     </section>
     
 </main>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+    function updateQuantity(bookId, change) {
+        fetch('/update-cart/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({book_id: bookId, change: change})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.status === 'success') {
+                window.location.reload();
+            } else {
+                alert(data.message);
+            }
+        });
+    }
+</script>
+
 {% endblock %}

@@ -89,3 +89,32 @@ def process_purchase(request):
 
     request.session['cart'] = {}
     return redirect('purchase_complete')  # Redirect to a confirmation page
+
+
+
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+@require_POST
+@csrf_exempt
+def update_cart(request):
+    try:
+        data = json.loads(request.body)
+        book_id = str(data.get('book_id'))
+        change = data.get('change', 0)
+
+        cart = request.session.get('cart', {})
+        if book_id in cart:
+            new_quantity = cart[book_id]['quantity'] + change
+            if new_quantity < 1:
+                del cart[book_id]  # Remove the item from the cart
+            else:
+                cart[book_id]['quantity'] = new_quantity  # Update the quantity
+            request.session['cart'] = cart
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Book not in cart'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)})
