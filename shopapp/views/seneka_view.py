@@ -14,6 +14,9 @@ import re
 
 def split_text_by_letter(text):
     pattern = r'(LETTER [IVXLCDM]+)'
+    # pattern = r'(LETTER\s+[IVXLCDM]+\s+[IVXLCDM]*)'
+    # pattern = r'(LETTER (?:X{0,3}(?:IX|IV|V?I{0,3})|IX|IV|V?I{0,3}))'
+    # pattern = r'(LETTER\s+(?:[IVXLCDM]+\s*)+)'
     parts = re.split(pattern, text)
     letters_dict = {}
     if parts:
@@ -24,14 +27,16 @@ def split_text_by_letter(text):
         for i in range(0, len(parts) - 1, 2):
             heading = parts[i]  # Avoid stripping here
             content = parts[i+1] if i + 1 < len(parts) else ""  # Avoid stripping here
-            letters_dict[heading] = content
+            # if heading in letters_dict:
+                # letters_dict['LETTERS VI'] = content
+            letters_dict[content] = heading
     print(letters_dict.keys())
     return letters_dict
 
 
 # Test the function with some text
 test_text = """
-    LETTER XXX
+    LETTER LXXXVIII
     Seneka bla bla bla
     LETTER XXXI
     More text from Seneka.
