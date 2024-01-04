@@ -46,34 +46,32 @@
 
             <div id="sidebar" class="sidebar">
                 <a class="cart-link" href="/cart">Cart</a>
-                <div>
-                    <ul>
-                        {% for item in cart_books_in_cart %}
-                            <li>
-                                <div class="fst-pair">
-                                    <div class="div1">
-                                        <img src="../static/img/{{ item.book.img }}" alt="{{ item.book.title }}">
-                                    </div>
-                                    <div class="div4">
-                                        <button onclick="changeQuantity">+</button>
-                                        <div class="count">{{ item.quantity }}</div>
-                                        <button onclick="changeQuantity">-</button>
-                                    </div>
+                <ul>
+                    {% for item in cart_books_in_cart %}
+                        <li>
+                            <div class="fst-pair">
+                                <div class="div1">
+                                    <img src="../static/img/{{ item.book.img }}" alt="{{ item.book.title }}">
                                 </div>
-                                <div class="secnd-pair">
-                                    <div class="div2">
-                                        {{ item.book.title }}
-                                    </div>
-                                        
-                                    <div class="div3">
-                                        price: ${{ item.total_price }}, 2 x {{ item.book.price }}
-                                    </div>
+                                <div class="div4">
+                                    <button onclick="changeQuantity">+</button>
+                                    <div class="count">{{ item.quantity }}</div>
+                                    <button onclick="changeQuantity">-</button>
                                 </div>
-                                
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                            </div>
+                            <div class="secnd-pair">
+                                <div class="div2">
+                                    <p>{{ item.book.title }}</p>
+                                </div>
+                                    
+                                <div class="div3">
+                                    price: ${{ item.total_price }}, 2 x {{ item.book.price }}
+                                </div>
+                            </div>
+                            
+                        </li>
+                    {% endfor %}
+                </ul>
                 <div class="checkout">
                     <div class="total">Total: ${{ cart_final_price }}</div>
                     <div id="close-btn">Close</div>
