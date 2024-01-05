@@ -20,15 +20,13 @@ def split_text_by_letter(text):
     parts = re.split(pattern, text)
     letters_dict = {}
     if parts:
-        if parts[0] == '':  # Avoid stripping here
+        if parts[0] == '':
             parts.pop(0)
-        if parts[0] == ' LETTERS  \n \n \n ':  # Avoid stripping here
+        if parts[0] == ' LETTERS  \n \n \n ':
             parts.pop(0)
         for i in range(0, len(parts) - 1, 2):
-            heading = parts[i]  # Avoid stripping here
-            content = parts[i+1] if i + 1 < len(parts) else ""  # Avoid stripping here
-            # if heading in letters_dict:
-                # letters_dict['LETTERS VI'] = content
+            heading = parts[i]
+            content = parts[i+1] if i + 1 < len(parts) else ""
             letters_dict[content] = heading
     print(letters_dict.keys())
     return letters_dict
@@ -67,3 +65,13 @@ letters = split_text_by_letter(text)
 
 def pdf_view(request):
     return render(request, 'books/seneka/pg1.html', {'letters': letters})
+
+
+def letter_view(request, letter_id):
+
+    if letter_id in letters:
+        content = letters[letter_id]
+    else:
+        content = "Letter not found"
+
+    return render(request, 'books/seneka/letter.html', {'letter': letter_id, 'text': content})

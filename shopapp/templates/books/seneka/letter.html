@@ -1,0 +1,10 @@
+{% extends 'books/seneka/letter_template.html' %}
+
+{% block letter %}
+    <section class="book-text">
+        <h1>{{ letter }}</h1>
+        <div class="pdf-page">
+            <p>{{ text|linebreaks }}</p>
+        </div>
+    </section>
+{% endblock %}

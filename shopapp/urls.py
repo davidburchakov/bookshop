@@ -2,7 +2,7 @@ from django.urls import path
 from shopapp.views.views import (index_view, about_view, faq_view, seneka_pg1)
 from shopapp.views.book_view import books_view, single_book_view
 from shopapp.views.cart_view import cart_view, add_to_cart, update_cart
-from shopapp.views.seneka_view import pdf_view
+from shopapp.views.seneka_view import pdf_view, letter_view
 from shopapp.views.user_view import (login_view, profile_view,
                                      register_view, logout_view,
                                      profile_update_view_page, profile_update_view,
@@ -26,5 +26,6 @@ urlpatterns = [
     path("cart", cart_view, name="cart"),
     path("add-to-cart", add_to_cart, name="add-to-cart"),
     path('update-cart/', update_cart, name='update-cart'),
-    path('books/seneka/pg1', pdf_view, name="pg1")
+    path('books/seneka/pg1', pdf_view, name="pg1"),
+    path('books/seneka/letter/<str:letter_id>/', letter_view, name='letter_view'),
 ]

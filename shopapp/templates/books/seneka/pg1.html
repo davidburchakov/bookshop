@@ -1,18 +1,6 @@
-{% extends "base.html" %}
-{% load static %}
-{% block links %}
-    <link rel="stylesheet" href="{% static "css/read.css" %}">
-{% endblock %}
-{% block main %}
-<main>
-    <div class="mini-header">
-        <img src="{% static "img/dramatic_storm.png" %}" alt="">
-    </div>
-    <div class="h2-div">
-        <h2>books</h2>
-    </div>
-    <h1>LETTERS FROM A STOIC</h1>
-    <h3><i>LUCIUS ANNAEUS SENECA</i></h3>
+{% extends 'books/seneka/letter_template.html' %}
+
+{% block letter %}
     <section class="book-text">
         {% for text, letter in letters.items %}
             <h1>{{ letter }}</h1>
@@ -21,5 +9,4 @@
             </div>
         {% endfor %}
     </section>
-</main>
 {% endblock %}
