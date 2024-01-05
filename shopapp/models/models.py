@@ -21,6 +21,14 @@ class Authors(models.Model):
         return self.fullname
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=25)
+
+    def __str__(self):
+        return self.name
+
+
+
 class Books(models.Model):
     slug = models.SlugField(default="")
     author = models.ForeignKey(Authors, on_delete=models.CASCADE, default=1)
@@ -32,6 +40,7 @@ class Books(models.Model):
     read = models.BooleanField(default=False)
     language = models.CharField(max_length=20, default="English")
     original_language = models.CharField(max_length=20, default="English")
+    categories = models.ManyToManyField(Category, blank=True, through="BooksCategories")
 
     def __str__(self):
         return self.title
@@ -40,6 +49,15 @@ class Books(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super(Books, self).save(*args, **kwargs)
+
+
+class BooksCategories(models.Model):
+    book = models.ForeignKey(Books, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.book.title} - {self.category.name}"
+
 
 
 class Faq(models.Model):

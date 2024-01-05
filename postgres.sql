@@ -38,6 +38,15 @@ CREATE TABLE books(
 	FOREIGN KEY (author_id) REFERENCES authors(id)
 );
 
+INSERT INTO shopapp_category (id, name) VALUES (1, 'Fantasy');
+INSERT INTO shopapp_category (id, name) VALUES (2, 'Philosophy');
+INSERT INTO shopapp_category (id, name) VALUES (3, 'Classics');
+INSERT INTO shopapp_category (id, name) VALUES (4, 'Novel');
+INSERT INTO shopapp_category (id, name) VALUES (5, 'Absurdism');
+INSERT INTO shopapp_category (id, name) VALUES (6, 'Historical Fiction');
+INSERT INTO shopapp_category (id, name) VALUES (7, 'Existentialism');
+
+
 
 INSERT INTO shopapp_authors (id, fullname, country, date_of_birth, date_of_death) VALUES(1, 'Lev Tolstoy', 'Russia', '1828-09-09', '1910-11-20');
 INSERT INTO shopapp_authors (id, fullname, country, date_of_birth, date_of_death) VALUES(2, 'Fyodor Dostoevsky', 'Russia', '1821-11-11', '1881-02-09');
@@ -47,7 +56,7 @@ INSERT INTO shopapp_authors (id, fullname, country, date_of_birth, date_of_death
 INSERT INTO shopapp_authors (id, fullname, country, date_of_birth, date_of_death) VALUES(5, 'Lucius Annaeus Seneca', 'Rome', '4 BC', 'AD 65');
 INSERT INTO shopapp_authors (id, fullname, country, date_of_birth, date_of_death) VALUES(6, 'Haruki Murakami', 'Japan', '1949-01-12', '');
 INSERT INTO shopapp_authors (id, fullname, country, date_of_birth, date_of_death) VALUES(7, 'Andrzej Sapkowski', 'Poland', '1948-06-21', '');
-INSERT INTO shopapp_authors (id, fullname, country, date_of_birth) VALUES(8, 'J.K. Rowling', 'United Kingdom', '1965-07-31', '');
+INSERT INTO shopapp_authors (id, fullname, country, date_of_birth, date_of_death) VALUES(8, 'J.K. Rowling', 'United Kingdom', '1965-07-31', '');
 
 
 
@@ -73,6 +82,12 @@ INSERT INTO shopapp_books (slug, author_id, title, img, description, stock, pric
 INSERT INTO shopapp_books (slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES('harry-potter-and-the-order-of-the-phoenix', 8, 'Harry Potter and the Order of the Phoenix','harry-potter-order-phoenix.jpg', 'Harry Potter and the Order of the Phoenix is the fifth installment in the Harry Potter series by J.K. Rowling. Harry faces the challenges of the authoritarian regime of the new Hogwarts High Inquisitor and learns more about the dark past of Lord Voldemort.', 270, 65, false, 'English', 'English');
 INSERT INTO shopapp_books (slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES('harry-potter-and-the-half-blood-prince', 8, 'Harry Potter and the Half-Blood Prince','harry-potter-half-blood-prince.webp', 'Harry Potter and the Half-Blood Prince, the sixth book in the Harry Potter series by J.K. Rowling, delves into the history of Lord Voldemort''s dark past and Harry''s preparations for the final battle against him.', 240, 69.99, false, 'English', 'English');
 INSERT INTO shopapp_books (slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES('harry-potter-and-the-deathly-hallows', 8, 'Harry Potter and the Deathly Hallows','harry-potter-deathly-hallows.jpg', 'Harry Potter and the Deathly Hallows, the seventh and final book in the Harry Potter series by J.K. Rowling, follows Harry, Ron, and Hermione as they leave Hogwarts behind and set out to finish the quest to defeat Lord Voldemort once and for all.', 210, 59.99, false, 'English', 'English');
+
+
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 2);
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 3);
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 4);
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 7);
 
 
 INSERT INTO shopapp_faq (question, answer) VALUES('How can I proceed with the payment?', 'You can you any valid MASTERCARD or VISA card');
