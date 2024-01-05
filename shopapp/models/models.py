@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.text import slugify
 
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=15, blank=True)
@@ -12,6 +13,9 @@ class UserProfile(models.Model):
 
 class Authors(models.Model):
     fullname = models.CharField(max_length=25)
+    country = models.CharField(max_length=15, blank=True)
+    date_of_birth = models.CharField(default="", max_length=10)
+    date_of_death = models.CharField(default="", max_length=10, blank=True)
 
     def __str__(self):
         return self.fullname

@@ -27,7 +27,6 @@ def split_text_by_letter(text):
             heading = parts[i]
             content = parts[i + 1] if i + 1 < len(parts) else ""
             letters_dict[content] = heading
-    print(letters_dict.keys())
     return letters_dict
 
 
