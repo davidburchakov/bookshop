@@ -90,6 +90,7 @@ INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 4);
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 7);
 
 
+
 INSERT INTO shopapp_faq (question, answer) VALUES('How can I proceed with the payment?', 'You can you any valid MASTERCARD or VISA card');
 
 INSERT INTO shopapp_faq (question, answer) VALUES('What shipping options are available?', 'We offer standard, expedited, and international shipping options.');

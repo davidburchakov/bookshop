@@ -28,7 +28,6 @@ class Category(models.Model):
         return self.name
 
 
-
 class Books(models.Model):
     slug = models.SlugField(default="")
     author = models.ForeignKey(Authors, on_delete=models.CASCADE, default=1)
