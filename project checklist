@@ -19,8 +19,9 @@ Book shop checklist:
 1	Update user details
 1	View a single book
 1	View a list of books
+1   Populate with books
 1	Display content of free books. Read the book
-
+	View popular books
 
 1	Add to card as user
 1	View Cart 
@@ -30,6 +31,7 @@ Book shop checklist:
 	
 	Captcha
 
+	Search with tags
 	Advanced search using filters
 	Full-text search
 	Feedback messages - errors, Notifications
