@@ -63,6 +63,42 @@ def get_all_categories(book_id):
 books = get_all_books()
 
 
+def get_philosophy_books():
+    philosophy_books = []
+    with connection.cursor() as cursor:
+        # Query to join books with categories and filter by 'Philosophy' category
+        cursor.execute("""
+            SELECT DISTINCT b.slug, a.fullname, b.title, b.img, b.description, b.stock, b.price, b.id, b.read, b.language, b.original_language
+            FROM shopapp_books b
+            INNER JOIN shopapp_authors a ON b.author_id = a.id
+            INNER JOIN shopapp_bookscategories bc ON b.id = bc.book_id
+            INNER JOIN shopapp_category c ON bc.category_id = c.id
+            WHERE c.name = %s
+        """, ['Philosophy'])  # Filter by 'Philosophy' category
+
+        rows = cursor.fetchall()
+
+        # Mapping rows to a list of dictionaries
+        philosophy_books = [
+            {
+                "slug": row[0],
+                "author": row[1],
+                "title": row[2],
+                "img": row[3],
+                "description": row[4],
+                "stock": row[5],
+                "price": row[6],
+                "id": row[7],
+                "read": row[8],
+                "language": row[9],
+                "original_language": row[10]
+            } for row in rows
+        ]
+    return philosophy_books
+
+
+filtered_books = get_philosophy_books()
+
 def books_view(request: HttpRequest):
     context = {
         # "products": products
@@ -73,8 +109,6 @@ def books_view(request: HttpRequest):
 def single_book_view(request: HttpRequest, slug):
     book = [i for i in books if i["slug"] == slug][0]
     categories = get_all_categories(book['id'])
-    print("Hello")
-    print(book['id'])
     context = {
         "book": book,
         "categories": categories['categories']
