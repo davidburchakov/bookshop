@@ -22,8 +22,8 @@ li {
 
 /* Styling for the top navigation bar */
 #topnav {
-    background-color: #dcbab2;
-    color: white;
+    background-color: #e8eff1;
+    color: black;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -41,13 +41,13 @@ li {
 }
 
 #topnav a {
-    color: white;
+    color: #2a2a2a;
     text-decoration: none;
     margin-left: 20px;
 }
 
 #topnav a:hover {
-    color: #f0e68c;
+    color: #8cbef0;
 }
 
 #logo-img {

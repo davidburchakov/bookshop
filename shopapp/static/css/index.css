@@ -1,0 +1,8 @@
+#popular-books a{
+    color: #3a3d42;
+    text-decoration: none;
+}
+
+#popular-books a:hover{
+    color: lightslategrey;
+}
