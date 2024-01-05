@@ -2,9 +2,23 @@
 
 {% block letter %}
     <section class="book-text">
-        <h1>{{ letter }}</h1>
-        <div class="pdf-page">
-            <p>{{ text|linebreaks }}</p>
-        </div>
+        {% if heading %}
+            <h1>{{ heading }}</h1>
+            <div class="pdf-page">
+                <p>{{ text|linebreaks }}</p>
+            </div>
+            {% if letter != '1' %}
+                <form action="/books/seneka/letter/{{ previous }}">
+                    <input type="submit" value="Previous page">
+                </form>
+            {% endif %}
+            {% if letter != length %}
+                <form action="/books/seneka/letter/{{ next }}">
+                    <input type="submit" value="Next page">
+                </form>
+            {% endif %}
+        {% else %}
+            <h3>{{ text }}</h3>
+        {% endif %}
     </section>
 {% endblock %}

@@ -1,6 +1,8 @@
 import re
 import PyPDF2
 from django.shortcuts import render
+import os
+from django.conf import settings
 
 def extract_text_from_pdf(pdf_path):
     with open(pdf_path, 'rb') as file:
@@ -55,8 +57,6 @@ def split_text_into_chunks(text, max_words=1000):
         yield ' '.join(words[i:i + max_words])
 
 
-import os
-from django.conf import settings
 
 pdf_path = os.path.join(settings.BASE_DIR, 'shopapp/views/letters-from-a-stoic_lucius-annaeus-seneca.pdf')
 text = extract_text_from_pdf(pdf_path)
@@ -68,10 +68,28 @@ def pdf_view(request):
 
 
 def letter_view(request, letter_id):
+    length = len(letters)
+    heading = ""
+    previous_id = 1
+    next_id = length
 
-    if letter_id in letters:
-        content = letters[letter_id]
-    else:
+    try:
+        int_letter_id = int(letter_id)
+        if int_letter_id in range(1, length):
+            content, heading = list(letters.items())[int_letter_id-1]
+            previous_id = int_letter_id - 1 if int_letter_id > 1 else 1
+            next_id = int_letter_id + 1 if int_letter_id < length else length
+        else:
+            content = "Letter not found"
+    except Exception as e:
         content = "Letter not found"
+    context = {
+        'letter': letter_id,
+        'text': content,
+        'heading': heading,
+        "previous": previous_id,
+        "next": next_id,
+        "length": str(length-1)
+    }
 
-    return render(request, 'books/seneka/letter.html', {'letter': letter_id, 'text': content})
+    return render(request, 'books/seneka/letter.html', context=context)
