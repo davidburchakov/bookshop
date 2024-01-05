@@ -10,10 +10,12 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
+class Country(models.Model):
+    name = models.CharField(max_length=25)
 
 class Authors(models.Model):
     fullname = models.CharField(max_length=25)
-    country = models.CharField(max_length=15, blank=True)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
     date_of_birth = models.CharField(default="", max_length=10)
     date_of_death = models.CharField(default="", max_length=10, blank=True)
 

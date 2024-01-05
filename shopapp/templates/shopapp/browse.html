@@ -13,6 +13,17 @@
                     <label for="free">Read online for free</label>
                     <input type="checkbox" name="free" onchange="this.form.submit()" {% if request.GET.free == 'on' %}checked{% endif %}>
                 </li>
+                <label for="country">Country</label>
+                <select name="country" id="country" onchange="this.form.submit()">
+                    <option value="none" selected="selected">Select a Country</option>
+                    <option value="russia">Russia</option>
+                    <option value="poland">Poland</option>
+                    <option value="united kingdom">United Kingdom</option>
+                    <option value="rome">Ancient Rome</option>
+                    <option value="czech republic">Czech Republic</option>
+                    <option value="japan">Japan</option>
+                    <option value="france">France</option>
+              </select>
             </ul>
         </form>
     </nav>
@@ -37,5 +48,6 @@
                 {% endfor %}
             </ul>
         </div>
+
 </main>
 {% endblock %}

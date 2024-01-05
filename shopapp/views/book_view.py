@@ -16,11 +16,11 @@ def get_all_books():
         table_exists = cursor.fetchone()[0]
 
         if table_exists:
-            # Query to join books with authors
             cursor.execute("""
-                SELECT b.slug, a.fullname, b.title, b.img, b.description, b.stock, b.price, b.id, b.read, b.language, b.original_language
+                SELECT b.slug, a.fullname, b.title, b.img, b.description, b.stock, b.price, b.id, b.read, b.language, b.original_language, a.country_id, c.name
                 FROM shopapp_books b
                 INNER JOIN shopapp_authors a ON b.author_id = a.id
+                INNER JOIN shopapp_country c ON a.country_id = c.id
             """)
             rows = cursor.fetchall()
 
@@ -37,7 +37,9 @@ def get_all_books():
                     "id": row[7],
                     "read": row[8],
                     "language": row[9],
-                    "original_language": row[10]
+                    "original_language": row[10],
+                    "country_id": row[11],
+                    "country_name": row[12]
                 } for row in rows
             ]
     return books
@@ -47,57 +49,34 @@ def get_all_categories(book_id):
     categories = {"categories": []}
     with connection.cursor() as cursor:
         cursor.execute("""
-            SELECT c.name
-            FROM shopapp_bookscategories b
-            INNER JOIN shopapp_books a on a.id = b.book_id
-            INNER JOIN shopapp_category c ON b.category_id = c.id
-            WHERE a.id = %s
-        """, [book_id])
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables
+                WHERE table_schema = 'bookshop'
+                AND table_name = 'shopapp_category'
+                );
+        """)
 
-        rows = cursor.fetchall()
-        for row in rows:
-            categories['categories'].append(row[0])
-        # categories = [{"categories": rows}]
+        table_exists = cursor.fetchone()[0]
+
+        if table_exists:
+
+            cursor.execute("""
+                SELECT c.name
+                FROM shopapp_bookscategories b
+                INNER JOIN shopapp_books a on a.id = b.book_id
+                INNER JOIN shopapp_category c ON b.category_id = c.id
+                WHERE a.id = %s
+            """, [book_id])
+
+            rows = cursor.fetchall()
+            for row in rows:
+                categories['categories'].append(row[0])
+            # categories = [{"categories": rows}]
     return categories
 
 books = get_all_books()
 
 
-def get_philosophy_books():
-    philosophy_books = []
-    with connection.cursor() as cursor:
-        # Query to join books with categories and filter by 'Philosophy' category
-        cursor.execute("""
-            SELECT DISTINCT b.slug, a.fullname, b.title, b.img, b.description, b.stock, b.price, b.id, b.read, b.language, b.original_language
-            FROM shopapp_books b
-            INNER JOIN shopapp_authors a ON b.author_id = a.id
-            INNER JOIN shopapp_bookscategories bc ON b.id = bc.book_id
-            INNER JOIN shopapp_category c ON bc.category_id = c.id
-            WHERE c.name = %s
-        """, ['Philosophy'])  # Filter by 'Philosophy' category
-
-        rows = cursor.fetchall()
-
-        # Mapping rows to a list of dictionaries
-        philosophy_books = [
-            {
-                "slug": row[0],
-                "author": row[1],
-                "title": row[2],
-                "img": row[3],
-                "description": row[4],
-                "stock": row[5],
-                "price": row[6],
-                "id": row[7],
-                "read": row[8],
-                "language": row[9],
-                "original_language": row[10]
-            } for row in rows
-        ]
-    return philosophy_books
-
-
-filtered_books = get_philosophy_books()
 
 def books_view(request: HttpRequest):
     context = {
@@ -117,8 +96,16 @@ def single_book_view(request: HttpRequest, slug):
 
 
 def browse_view(request: HttpRequest):
+    country_filter = request.GET.get('country', 'none')
     free_read_filter = request.GET.get('free', 'off') == 'on'
-    filtered_books = [book for book in books if book['read']] if free_read_filter else books
+
+    if free_read_filter:
+        filtered_books = [book for book in books if book['read']]
+    else:
+        filtered_books = books
+
+    if country_filter != 'none':
+        filtered_books = [book for book in filtered_books if book['country_name'].lower() == country_filter]
 
     context = {
         "books": filtered_books
