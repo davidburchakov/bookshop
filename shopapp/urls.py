@@ -26,6 +26,6 @@ urlpatterns = [
     path("cart", cart_view, name="cart"),
     path("add-to-cart", add_to_cart, name="add-to-cart"),
     path('update-cart/', update_cart, name='update-cart'),
-    path('books/seneka/pg1', pdf_view, name="pg1"),
-    path('books/seneka/letter/<str:letter_id>/', letter_view, name='letter_view'),
+    path('books/seneka/seneka-read', pdf_view, name="seneka-read"),
+    path('books/seneka/letter/<str:letter_id>/', letter_view, name='letter'),
 ]

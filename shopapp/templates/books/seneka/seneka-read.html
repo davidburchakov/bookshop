@@ -1,6 +1,10 @@
 {% extends 'books/seneka/letter_template.html' %}
 
 {% block letter %}
+
+    <form action="letter/1">
+        <input type="submit" value="read letters">
+    </form>
     <section class="book-text">
         {% for text, letter in letters.items %}
             <h1>{{ letter }}</h1>

@@ -8,7 +8,7 @@ Book shop checklist:
 1	List a single book details
 1	Cart page
 1	User profile page
-	Read Book 
+1	Read Book 
 
 --- Features:
 	
@@ -19,7 +19,7 @@ Book shop checklist:
 1	Update user details
 1	View a single book
 1	View a list of books
-	Display content of free books. Read the book
+1	Display content of free books. Read the book
 
 
 1	Add to card as user
@@ -58,6 +58,8 @@ Book shop checklist:
 
 
 --- Style:
+	Style the free book card
+	Style the pages
 	Top navbar
 	Footer
 	sidebar styling

@@ -64,7 +64,7 @@ letters = split_text_by_letter(text)
 
 
 def pdf_view(request):
-    return render(request, 'books/seneka/pg1.html', {'letters': letters})
+    return render(request, 'books/seneka/seneka-read.html', {'letters': letters})
 
 
 def letter_view(request, letter_id):
