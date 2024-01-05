@@ -38,7 +38,9 @@
                     <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
                 {% endif %}
             </nav>
-
+            <nav>
+                <a href="/browse">Browse</a>
+            </nav>
             <button class="hamburger" id="hamburger-button">
                 <img src="{% static "img/cart.png" %}" alt="cart icon">
                 <span class="quantity">{{ total_quantity }}</span>

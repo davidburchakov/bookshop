@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% block links %}
+    <link rel="stylesheet" href="{% static "css/index.css" %}">
+{% endblock %}
+{% block main %}
+<main>
+    <h1>Browse</h1>
+    <nav class="filter">
+        <form method="get" action="{% url 'browse' %}">
+            <ul>
+                <li>
+                    <label for="free">Read online for free</label>
+                    <input type="checkbox" name="free" onchange="this.form.submit()" {% if request.GET.free == 'on' %}checked{% endif %}>
+                </li>
+            </ul>
+        </form>
+    </nav>
+
+
+
+        <div id="popular-books">
+            <ul class="books-ul">
+                {% for book in books %}
+                    <li>
+                        {% if book %}
+                        <article>
+                            <figure>
+                                <img class="book-cover" src="/static/img/{{ book.img }}" alt="book name">
+                                 <a href="{% url "book" slug=book.slug %}">
+                                    <figcaption>{{ book.author }}, {{ book.title }}</figcaption>
+                                 </a>
+                            </figure>
+                        </article>
+                    {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+</main>
+{% endblock %}

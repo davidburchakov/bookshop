@@ -115,3 +115,12 @@ def single_book_view(request: HttpRequest, slug):
     }
     return render(request, "shopapp/book.html", context=context)
 
+
+def browse_view(request: HttpRequest):
+    free_read_filter = request.GET.get('free', 'off') == 'on'
+    filtered_books = [book for book in books if book['read']] if free_read_filter else books
+
+    context = {
+        "books": filtered_books
+    }
+    return render(request, 'shopapp/browse.html', context=context)

@@ -87,6 +87,10 @@ INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 2);
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 3);
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 4);
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 7);
+
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (2, 3); -- Classics
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (2, 6); -- Historical Fiction
+
 -- For 'Le mythe de sisyphe' by Albert Camus
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (3, 2); -- Philosophy
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (3, 7); -- Existentialism
