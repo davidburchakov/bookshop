@@ -6,3 +6,31 @@
 #popular-books a:hover{
     color: lightslategrey;
 }
+
+
+.books-ul{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+li{
+    margin: 5px;
+}
+
+/*article{*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+
+/*figure{*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
