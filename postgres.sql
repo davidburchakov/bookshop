@@ -46,10 +46,12 @@ INSERT INTO shopapp_authors (fullname) VALUES('Lev Tolstoy');
 INSERT INTO shopapp_authors (fullname) VALUES('Fyodor Dostoevsky');
 INSERT INTO shopapp_authors (fullname) VALUES('Albert Camus');
 INSERT INTO shopapp_authors (fullname) VALUES('Franz Kafka');
-INSERT INTO shopapp_books (slug, author_id, title, img, description, stock) VALUES('crime-and-punishment', 2, 'Crime and Punishment','crime_punishment.jpg', 'Very hard existentioal book', 200);
-INSERT INTO shopapp_books (slug, author_id, title, img, description, stock) VALUES('hadji-murat', 1, 'Hadji Murat','hadji_murat.jpg', 'Very harsh russian historical book', 100);
-INSERT INTO shopapp_books (slug, author_id, title, img, description, stock) VALUES('camus-myth-sisyphus', 3, 'Le mythe de sisyphe','myth_sisyphus.jpg', 'Philosophical book by a 20th century existentionalist', 20);
-INSERT INTO shopapp_books (slug, author_id, title, img, description, stock) VALUES('kafka-metamorphosis', 4, 'Metamorphosis','metamorphosis.jpg', 'Philosophical book by a 19th century absurdist from Czech Republic', 50);
+INSERT INTO shopapp_authors (fullname) VALUES('Lucius Annaeus Seneca');
+INSERT INTO shopapp_books (slug, author_id, title, img, description, stock, price, read) VALUES('crime-and-punishment', 2, 'Crime and Punishment','crime_punishment.jpg', 'Very hard existentioal book', 200, 10, false);
+INSERT INTO shopapp_books (slug, author_id, title, img, description, stock, price, read) VALUES('hadji-murat', 1, 'Hadji Murat','hadji_murat.jpg', 'Very harsh russian historical book', 100, 20, false);
+INSERT INTO shopapp_books (slug, author_id, title, img, description, stock, price, read) VALUES('camus-myth-sisyphus', 3, 'Le mythe de sisyphe','myth_sisyphus.jpg', 'Philosophical book by a 20th century existentionalist', 20, 15, false);
+INSERT INTO shopapp_books (slug, author_id, title, img, description, stock, price, read) VALUES('kafka-metamorphosis', 4, 'Metamorphosis','metamorphosis.jpg', 'Philosophical book by a 19th century absurdist from Czech Republic', 50, 30, false);
+INSERT INTO shopapp_books (slug, author_id, title, img, description, stock, price, read) VALUES('seneka-letters', 5, 'Letters from a Stoic','Seneca-Letters-from-a-Stoic.jpg', 'Lucius Annaeus Seneca (often known simply as Seneca or Seneca the Younger); ca. 4 BC – 65 AD) was a Roman Stoic philosopher, statesman, and dramatist of the Silver Age of Latin literature. He was tutor and later advisor to emperor Nero, who later forced him to commit suicide for alleged complicity in the Pisonian conspiracy to have him assassinated.', 50, 35, true);
 
 INSERT INTO shopapp_faq (question, answer) VALUES('How can I proceed with the payment?', 'You can you any valid MASTERCARD or VISA card');
 

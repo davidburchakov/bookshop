@@ -30,9 +30,12 @@ books = get_all_books()
 
 
 def index_view(request: HttpRequest):
-    context = {
-        "books": books
-    }
+    if not books:
+        context = {"error": "No books found"}
+    else:
+        context = {
+            "books": books
+        }
     return render(request, 'shopapp/shop-index.html', context=context)
 
 
@@ -45,3 +48,7 @@ def faq_view(request: HttpRequest):
         "faq": faq,
     }
     return render(request, "shopapp/faq.html", context=context)
+
+
+def seneka_pg1(request: HttpRequest):
+    return render(request, 'books/seneka/seneka-read.html')

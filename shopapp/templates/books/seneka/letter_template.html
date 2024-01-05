@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block links %}
+    <link rel="stylesheet" href="{% static "css/read.css" %}">
+{% endblock %}
+{% block main %}
+<main>
+    <div class="mini-header">
+        <img src="{% static "img/dramatic_storm.png" %}" alt="">
+    </div>
+    <div class="h2-div">
+        <h2>books</h2>
+    </div>
+    <h1>LETTERS FROM A STOIC</h1>
+    <h3><i>LUCIUS ANNAEUS SENECA</i></h3>
+    {% block letter %}
+
+    {% endblock %}
+</main>
+{% endblock %}
