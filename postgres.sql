@@ -46,17 +46,23 @@ INSERT INTO shopapp_category (id, name) VALUES (5, 'Absurdism');
 INSERT INTO shopapp_category (id, name) VALUES (6, 'Historical Fiction');
 INSERT INTO shopapp_category (id, name) VALUES (7, 'Existentialism');
 
+INSERT INTO shopapp_country(id, name) VALUES (1, 'Russia');
+INSERT INTO shopapp_country(id, name) VALUES (2, 'France');
+INSERT INTO shopapp_country(id, name) VALUES (3, 'Czech Republic');
+INSERT INTO shopapp_country(id, name) VALUES (4, 'Rome');
+INSERT INTO shopapp_country(id, name) VALUES (5, 'Japan');
+INSERT INTO shopapp_country(id, name) VALUES (6, 'Poland');
+INSERT INTO shopapp_country(id, name) VALUES (7, 'United Kingdom');
 
-
-INSERT INTO shopapp_authors (id, fullname, country, date_of_birth, date_of_death) VALUES(1, 'Lev Tolstoy', 'Russia', '1828-09-09', '1910-11-20');
-INSERT INTO shopapp_authors (id, fullname, country, date_of_birth, date_of_death) VALUES(2, 'Fyodor Dostoevsky', 'Russia', '1821-11-11', '1881-02-09');
-INSERT INTO shopapp_authors (id, fullname, country, date_of_birth, date_of_death) VALUES(3, 'Albert Camus', 'France', '1913-11-07', '1960-01-04');
-INSERT INTO shopapp_authors (id, fullname, country, date_of_birth, date_of_death) VALUES(4, 'Franz Kafka', 'Czech Republic', '1883-07-03', '1924-06-03');
+INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(1, 'Lev Tolstoy', 1, '1828-09-09', '1910-11-20');
+INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(2, 'Fyodor Dostoevsky', 1, '1821-11-11', '1881-02-09');
+INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(3, 'Albert Camus', 2, '1913-11-07', '1960-01-04');
+INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(4, 'Franz Kafka', 3, '1883-07-03', '1924-06-03');
 -- Seneca was born in Corduba in Hispania, and raised in Rome, where he was trained in rhetoric and philosophy.
-INSERT INTO shopapp_authors (id, fullname, country, date_of_birth, date_of_death) VALUES(5, 'Lucius Annaeus Seneca', 'Rome', '4 BC', 'AD 65');
-INSERT INTO shopapp_authors (id, fullname, country, date_of_birth, date_of_death) VALUES(6, 'Haruki Murakami', 'Japan', '1949-01-12', '');
-INSERT INTO shopapp_authors (id, fullname, country, date_of_birth, date_of_death) VALUES(7, 'Andrzej Sapkowski', 'Poland', '1948-06-21', '');
-INSERT INTO shopapp_authors (id, fullname, country, date_of_birth, date_of_death) VALUES(8, 'J.K. Rowling', 'United Kingdom', '1965-07-31', '');
+INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(5, 'Lucius Annaeus Seneca', 4, '4 BC', 'AD 65');
+INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(6, 'Haruki Murakami', 5, '1949-01-12', '');
+INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(7, 'Andrzej Sapkowski', 6, '1948-06-21', '');
+INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(8, 'J.K. Rowling', 7, '1965-07-31', '');
 
 
 

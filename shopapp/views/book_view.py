@@ -98,7 +98,7 @@ def single_book_view(request: HttpRequest, slug):
 def browse_view(request: HttpRequest):
     country_filter = request.GET.get('country', 'none')
     free_read_filter = request.GET.get('free', 'off') == 'on'
-
+    available_language_filter = request.GET.get('available_language', 'none')
     if free_read_filter:
         filtered_books = [book for book in books if book['read']]
     else:
@@ -106,6 +106,9 @@ def browse_view(request: HttpRequest):
 
     if country_filter != 'none':
         filtered_books = [book for book in filtered_books if book['country_name'].lower() == country_filter]
+
+    if available_language_filter != 'none':
+        filtered_books = [book for book in filtered_books if book['language'].lower() == available_language_filter]
 
     context = {
         "books": filtered_books
