@@ -51,7 +51,7 @@ def get_all_categories(book_id):
         cursor.execute("""
             SELECT EXISTS (
                 SELECT FROM information_schema.tables
-                WHERE table_schema = 'bookshop'
+                WHERE table_schema = 'public'
                 AND table_name = 'shopapp_category'
                 );
         """)
@@ -59,7 +59,6 @@ def get_all_categories(book_id):
         table_exists = cursor.fetchone()[0]
 
         if table_exists:
-
             cursor.execute("""
                 SELECT c.name
                 FROM shopapp_bookscategories b
@@ -72,6 +71,7 @@ def get_all_categories(book_id):
             for row in rows:
                 categories['categories'].append(row[0])
             # categories = [{"categories": rows}]
+    print(categories)
     return categories
 
 books = get_all_books()
