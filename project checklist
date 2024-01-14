@@ -33,6 +33,15 @@ Book shop checklist:
 
 	Search with tags
 	Advanced search using filters
+		by
+1		country
+1		language
+1		read online
+1		category
+		price
+		available in stock
+
+
 	Full-text search
 	Feedback messages - errors, Notifications
 1	AJAX interactions

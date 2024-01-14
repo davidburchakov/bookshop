@@ -26,13 +26,21 @@
                 </select>
 
                 <select name="available_language" id="available_language" onchange="this.form.submit()">
-                    <option value="none">Select Language</option>
+                    <option value="none" {% if request.GET.available_language == 'noen' %} selected="selected" {% endif %}>Select Language</option>
                     <option value="english" {% if request.GET.available_language == 'english' %} selected="selected" {% endif %}>English</option>
                     <option value="russian" {% if request.GET.available_language == 'russian' %} selected="selected" {% endif %}>Russian</option>
                     <option value="polish" {% if request.GET.available_language == 'polish' %} selected="selected" {% endif %}>Polish</option>
                     <option value="french" {% if request.GET.available_language == 'french' %} selected="selected" {% endif %}>French</option>
                 </select>
-                
+
+                <select name="category" id="category" onchange="this.form.submit()">
+                    <option value="none" {% if request.GET.category == 'none' %}selected="selected" {% endif %}>Select category</option>
+                    <option value="classics" {% if request.GET.category == 'classics' %} selected="selected" {% endif %}>Classics</option>
+                    <option value="fantasy" {% if request.GET.category == 'fantasy' %} selected="selected" {% endif %}>Fantasy</option>
+                    <option value="philosophy" {% if request.GET.category == 'philosopy' %} selected="selected" {% endif %}>Philosophy</option>
+                    <option value="novel" {% if request.GET.category == 'novel' %} selected="selected" {% endif %}>Novel</option>
+                </select>
+            
             </ul>
         </form>
     </nav>

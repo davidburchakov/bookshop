@@ -70,8 +70,6 @@ def get_all_categories(book_id):
             rows = cursor.fetchall()
             for row in rows:
                 categories['categories'].append(row[0])
-            # categories = [{"categories": rows}]
-    print(categories)
     return categories
 
 books = get_all_books()
@@ -99,6 +97,8 @@ def browse_view(request: HttpRequest):
     country_filter = request.GET.get('country', 'none')
     free_read_filter = request.GET.get('free', 'off') == 'on'
     available_language_filter = request.GET.get('available_language', 'none')
+    category_filter = request.GET.get('category', 'none')
+
     if free_read_filter:
         filtered_books = [book for book in books if book['read']]
     else:
@@ -109,6 +109,14 @@ def browse_view(request: HttpRequest):
 
     if available_language_filter != 'none':
         filtered_books = [book for book in filtered_books if book['language'].lower() == available_language_filter]
+
+    if category_filter != 'none':
+        # categories = get_all_categories(book['id'])
+
+        filtered_books = [book for book in filtered_books if category_filter.lower() in [b.lower() for b in get_all_categories(book['id'])['categories']]]
+        # for book in filtered_books:
+        #     category_per_book = get_all_categories(book['id'])['categories']
+        #     print(category_per_book)
 
     context = {
         "books": filtered_books
