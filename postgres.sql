@@ -53,6 +53,7 @@ INSERT INTO shopapp_country(id, name) VALUES (4, 'Rome');
 INSERT INTO shopapp_country(id, name) VALUES (5, 'Japan');
 INSERT INTO shopapp_country(id, name) VALUES (6, 'Poland');
 INSERT INTO shopapp_country(id, name) VALUES (7, 'United Kingdom');
+INSERT INTO shopapp_country(id, name) VALUES (8, 'Germany');
 
 INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(1, 'Lev Tolstoy', 1, '1828-09-09', '1910-11-20');
 INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(2, 'Fyodor Dostoevsky', 1, '1821-11-11', '1881-02-09');
@@ -63,6 +64,7 @@ INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_de
 INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(6, 'Haruki Murakami', 5, '1949-01-12', '');
 INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(7, 'Andrzej Sapkowski', 6, '1948-06-21', '');
 INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(8, 'J.K. Rowling', 7, '1965-07-31', '');
+INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(9, 'Erich Maria Remarque', 8, '1898-06-22', '1970-09-25');
 
 
 
@@ -88,6 +90,7 @@ INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, 
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(18, 'harry-potter-and-the-half-blood-prince', 8, 'Harry Potter and the Half-Blood Prince','harry-potter-half-blood-prince.webp', 'Harry Potter and the Half-Blood Prince, the sixth book in the Harry Potter series by J.K. Rowling, delves into the history of Lord Voldemort''s dark past and Harry''s preparations for the final battle against him.', 240, 69.99, false, 'English', 'English');
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(19, 'harry-potter-and-the-deathly-hallows', 8, 'Harry Potter and the Deathly Hallows','harry-potter-deathly-hallows.jpg', 'Harry Potter and the Deathly Hallows, the seventh and final book in the Harry Potter series by J.K. Rowling, follows Harry, Ron, and Hermione as they leave Hogwarts behind and set out to finish the quest to defeat Lord Voldemort once and for all.', 210, 59.99, false, 'English', 'English');
 
+INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(21, 'all-quiet', 9, 'All Quiet on the Western Front','all_quiet.jpg', 'The book describes the German soldiers'' extreme physical and mental trauma during the war as well as the detachment from civilian life felt by many upon returning home from the war.', 0, 75, false, 'German', 'German');
 
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 2);
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 3);
@@ -125,6 +128,11 @@ INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (16, 1); -- Fa
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (17, 1); -- Fantasy
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (18, 1); -- Fantasy
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (19, 1); -- Fantasy
+
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (20, 2);
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (20, 4);
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (20, 6);
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (20, 7);
 
 
 
