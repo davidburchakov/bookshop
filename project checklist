@@ -39,7 +39,7 @@ Book shop checklist:
 1		read online
 1		category
 		price
-		available in stock
+1		available in stock
 
 
 	Full-text search

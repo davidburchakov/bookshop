@@ -42,8 +42,11 @@
                     <option value="none" {% if request.GET.category == 'none' %}selected="selected" {% endif %}>Select category</option>
                     <option value="classics" {% if request.GET.category == 'classics' %} selected="selected" {% endif %}>Classics</option>
                     <option value="fantasy" {% if request.GET.category == 'fantasy' %} selected="selected" {% endif %}>Fantasy</option>
-                    <option value="philosophy" {% if request.GET.category == 'philosopy' %} selected="selected" {% endif %}>Philosophy</option>
+                    <option value="philosophy" {% if request.GET.category == 'philosophy' %} selected="selected" {% endif %}>Philosophy</option>
                     <option value="novel" {% if request.GET.category == 'novel' %} selected="selected" {% endif %}>Novel</option>
+                    <option value="existentialism" {% if request.GET.category == 'existentialism' %} selected="selected" {% endif %}>Existentialism</option>
+                    <option value="absurdism" {% if request.GET.category == 'absurdism' %} selected="selected" {% endif %}>Absurdism</option>
+                    <option value="historical fiction" {% if request.GET.category == 'historical fiction' %} selected="selected" {% endif %}>Historical Fiction</option>
                 </select>
 
             </ul>
