@@ -138,7 +138,8 @@ def browse_view(request: HttpRequest):
     # Ensure min_price is not greater than max_price
     if min_price > max_price:
         min_price, max_price = 10, 200
-
+    print("min price:", min_price)
+    print("max price:", max_price)
     filtered_books = [book for book in filtered_books if min_price <= book['price'] <= max_price]
 
     context = {

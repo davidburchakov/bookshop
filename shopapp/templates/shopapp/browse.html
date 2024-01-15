@@ -58,12 +58,12 @@
                     <div class="price-content">
                         <div>
                           <label for="min_price">Min</label>
-                          <p id="min-value"></p>
+                          <p id="min-value">123</p>
                         </div>
     
                         <div>
                           <label for="max_price">Max</label>
-                          <p id="max-value"></p>
+                          <p id="max-value">123</p>
                         </div>
                     </div>
     
@@ -77,7 +77,8 @@
                           class="min-price"
                           min="10"
                           max="200"
-                          value="{{ request.GET.min_price|default_if_none:'50' }}"
+                          value="{{ request.GET.min_price|default:'0' }}"
+{#                            value="50"#}
                           aria-valuemin="10"
                         aria-valuemax="200"
                         aria-valuenow="{{ request.GET.min_price|default_if_none:'50' }}"
@@ -90,7 +91,7 @@
                           class="max-price"
                           min="10"
                           max="200"
-                          value="{{ request.GET.max_price|default_if_none:'100' }}"
+                          value="{{ request.GET.max_price|default:'100' }}"
                         aria-valuemin="10"
                         aria-valuemax="200"
                         aria-valuenow="{{ request.GET.max_price|default_if_none:'100' }}"
