@@ -28,8 +28,6 @@ Book shop checklist:
 1	Update amount of books to buy
 1	Remove from card as a user
 1	View sub-summary in a sidebar
-	
-	Captcha
 
 	Search with tags
 	Advanced search using filters
@@ -41,8 +39,7 @@ Book shop checklist:
 		price
 1		available in stock
 
-
-	Full-text search
+	Full-text search by description
 	Feedback messages - errors, Notifications
 1	AJAX interactions
 
@@ -60,6 +57,7 @@ Book shop checklist:
 	Confirm Email
 	Password recovery	
 	Terms of Service/Accept cookies
+	Captcha
 	Payment
 
 --- Database:

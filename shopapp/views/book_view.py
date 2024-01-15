@@ -115,12 +115,16 @@ def browse_view(request: HttpRequest):
         filtered_books = [book for book in filtered_books if book['language'].lower() == available_language_filter]
 
     if category_filter != 'none':
-        # categories = get_all_categories(book['id'])
-
         filtered_books = [book for book in filtered_books if category_filter.lower() in [b.lower() for b in get_all_categories(book['id'])['categories']]]
-        # for book in filtered_books:
-        #     category_per_book = get_all_categories(book['id'])['categories']
-        #     print(category_per_book)
+
+    # Retrieve min and max price from request
+    min_price = int(request.GET.get('min_price', 10))  # Default value set to 10
+    max_price = int(request.GET.get('max_price', 200))  # Default value set to 500
+
+    print("min price: ", min_price)
+    print("max price: ", max_price)
+    # Filter books based on the price range
+    filtered_books = [book for book in filtered_books if min_price <= book['price'] <= max_price]
 
     context = {
         "books": filtered_books
