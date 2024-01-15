@@ -89,6 +89,7 @@ def books_view(request: HttpRequest):
 def single_book_view(request: HttpRequest, slug):
     book = [i for i in books if i["slug"] == slug][0]
     categories = get_all_categories(book['id'])
+    categories['categories'] = list(map(lambda x: x.lower(), categories['categories']))
     context = {
         "book": book,
         "categories": categories['categories']
