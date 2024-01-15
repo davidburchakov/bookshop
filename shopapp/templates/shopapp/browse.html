@@ -74,8 +74,10 @@
                       class="min-price"
                       min="10"
                       max="200"
-                      step="10"
                       value="{{ request.GET.min_price|default_if_none:'50' }}"
+                      aria-valuemin="10"
+                    aria-valuemax="200"
+                    aria-valuenow="{{ request.GET.min_price|default_if_none:'50' }}"
                     />
 
                     <input
@@ -85,8 +87,10 @@
                       class="max-price"
                       min="10"
                       max="200"
-                      step="10"
                       value="{{ request.GET.max_price|default_if_none:'100' }}"
+                    aria-valuemin="10"
+                    aria-valuemax="200"
+                    aria-valuenow="{{ request.GET.max_price|default_if_none:'100' }}"
                     />
 
                  </div>
