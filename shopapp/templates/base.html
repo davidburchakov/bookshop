@@ -38,6 +38,13 @@
                     <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
                 {% endif %}
             </nav>
+        
+            <form action="{% url 'search_books' %}" method="get" id="search-form">
+                <label for="search-query" class="visually-hidden">Search books by title or description</label>
+                <input type="text" name="search-query" id="search-query" placeholder="Search books by title or description">
+                <button type="submit">Search</button>
+            </form>
+        
             <nav>
                 <a href="/browse">Browse</a>
             </nav>

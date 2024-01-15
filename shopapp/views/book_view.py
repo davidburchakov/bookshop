@@ -1,6 +1,8 @@
 from django.http import HttpRequest
 from django.shortcuts import render
 from django.db import connection
+from django.db.models import Q
+from ..models.models import Books
 
 
 def get_all_books():
@@ -143,3 +145,15 @@ def browse_view(request: HttpRequest):
         "books": filtered_books
     }
     return render(request, 'shopapp/browse.html', context=context)
+
+
+def search_books(request):
+    query = request.GET.get('search-query', '')
+
+    # Perform full-text search in title and description fields
+    books = Books.objects.filter(
+        Q(title__icontains=query) | Q(description__icontains=query)
+    )
+
+    context = {'books': books}
+    return render(request, 'shopapp/browse.html', context)
