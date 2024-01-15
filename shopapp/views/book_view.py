@@ -100,19 +100,17 @@ def browse_view(request: HttpRequest):
     free_read_filter = request.GET.get('free', 'off') == 'on'
     available_stock_filter = request.GET.get('available_stock', 'off') == 'on'
 
-    print("free")
-    print(free_read_filter)
-    print("available")
-    print(available_stock_filter)
-
     country_filter = request.GET.get('country', 'none')
     available_language_filter = request.GET.get('available_language', 'none')
     category_filter = request.GET.get('category', 'none')
 
+    filtered_books = books
+    query = request.GET.get('search_query', '')
+    if query:
+        filtered_books = search_books_by_query(books, query)
+
     if free_read_filter:
-        filtered_books = [book for book in books if book['read']]
-    else:
-        filtered_books = books
+        filtered_books = [book for book in filtered_books if book['read']]
 
     if available_stock_filter:
         filtered_books = [book for book in filtered_books if int(book['stock']) > 0]
@@ -154,13 +152,12 @@ def browse_view(request: HttpRequest):
     return render(request, 'shopapp/browse.html', context=context)
 
 
-def search_books(request):
-    query = request.GET.get('search-query', '')
+def search_books_by_query(all_books, query):
+    query = query.lower()
+    filtered_books = []
 
-    # Perform full-text search in title and description fields
-    books = Books.objects.filter(
-        Q(title__icontains=query) | Q(description__icontains=query)
-    )
+    for book in all_books:
+        if query in book['title'].lower() or query in book['description'].lower():
+            filtered_books.append(book)
 
-    context = {'books': books}
-    return render(request, 'shopapp/browse.html', context)
+    return filtered_books
