@@ -102,7 +102,7 @@ def browse_view(request: HttpRequest):
     available_stock_filter = request.GET.get('available_stock', 'off') == 'on'
 
     country_filter = request.GET.get('country', 'none')
-    available_language_filter = request.GET.get('available_language', 'none')
+    available_language_filter = request.GET.get('language', 'none')
     category_filter = request.GET.get('category', 'none')
 
     filtered_books = books

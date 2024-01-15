@@ -29,7 +29,10 @@ Book shop checklist:
 1	Remove from card as a user
 1	View sub-summary in a sidebar
 
-	Search with tags
+	Search with tags by
+1		category
+1		language
+
 1	Advanced search using filters by
 1		country
 1		language
