@@ -2,6 +2,7 @@ from django.http import HttpRequest
 from django.shortcuts import render
 from django.db import connection
 
+
 def get_all_books():
     books = []
     with connection.cursor() as cursor:
@@ -45,6 +46,9 @@ def get_all_books():
     return books
 
 
+books = get_all_books()
+
+
 def get_all_categories(book_id):
     categories = {"categories": []}
     with connection.cursor() as cursor:
@@ -71,9 +75,6 @@ def get_all_categories(book_id):
             for row in rows:
                 categories['categories'].append(row[0])
     return categories
-
-books = get_all_books()
-
 
 
 def books_view(request: HttpRequest):
@@ -115,15 +116,27 @@ def browse_view(request: HttpRequest):
         filtered_books = [book for book in filtered_books if book['language'].lower() == available_language_filter]
 
     if category_filter != 'none':
-        filtered_books = [book for book in filtered_books if category_filter.lower() in [b.lower() for b in get_all_categories(book['id'])['categories']]]
+        filtered_books = [book for book in filtered_books if
+                          category_filter.lower() in [b.lower() for b in get_all_categories(book['id'])['categories']]]
 
-    # Retrieve min and max price from request
-    min_price = int(request.GET.get('min_price', 10))  # Default value set to 10
-    max_price = int(request.GET.get('max_price', 200))  # Default value set to 500
+    try:
+        min_price = int(request.GET.get('min_price', '10'))
+        if min_price < 0:
+            min_price = 10
+    except ValueError:
+        min_price = 10
 
-    print("min price: ", min_price)
-    print("max price: ", max_price)
-    # Filter books based on the price range
+    try:
+        max_price = int(request.GET.get('max_price', '200'))
+        if max_price < 0:
+            max_price = 200
+    except ValueError:
+        max_price = 200
+
+    # Ensure min_price is not greater than max_price
+    if min_price > max_price:
+        min_price, max_price = 10, 200
+
     filtered_books = [book for book in filtered_books if min_price <= book['price'] <= max_price]
 
     context = {
