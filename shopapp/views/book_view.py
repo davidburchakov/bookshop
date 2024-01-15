@@ -97,9 +97,15 @@ def single_book_view(request: HttpRequest, slug):
 
 
 def browse_view(request: HttpRequest):
-    country_filter = request.GET.get('country', 'none')
     free_read_filter = request.GET.get('free', 'off') == 'on'
     available_stock_filter = request.GET.get('available_stock', 'off') == 'on'
+
+    print("free")
+    print(free_read_filter)
+    print("available")
+    print(available_stock_filter)
+
+    country_filter = request.GET.get('country', 'none')
     available_language_filter = request.GET.get('available_language', 'none')
     category_filter = request.GET.get('category', 'none')
 
@@ -109,7 +115,7 @@ def browse_view(request: HttpRequest):
         filtered_books = books
 
     if available_stock_filter:
-        filtered_books = [book for book in books if int(book['stock']) > 0]
+        filtered_books = [book for book in filtered_books if int(book['stock']) > 0]
 
     if country_filter != 'none':
         filtered_books = [book for book in filtered_books if book['country_name'].lower() == country_filter]

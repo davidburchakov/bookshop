@@ -14,7 +14,7 @@
                 <legend>Filters</legend>
                 <label for="free">Read online for free</label>
                 <input type="checkbox" name="free" id="free" onchange="this.form.submit()" {% if request.GET.free == 'on' %}checked{% endif %}>
-                <label for="available_language">Available in stock</label>
+                <label for="available_stock">Available in stock</label>
                 <input type="checkbox" name="available_stock" id="available_stock" onchange="this.form.submit()" {% if request.GET.available_stock == 'on' %}checked{% endif %}>
 
                 <label for="country">Country</label>
@@ -58,12 +58,12 @@
                     <div class="price-content">
                         <div>
                           <label for="min_price">Min</label>
-                          <p id="min-value">123</p>
+                          <p id="min-value"></p>
                         </div>
     
                         <div>
                           <label for="max_price">Max</label>
-                          <p id="max-value">123</p>
+                          <p id="max-value"></p>
                         </div>
                     </div>
     
@@ -78,7 +78,6 @@
                           min="10"
                           max="200"
                           value="{{ request.GET.min_price|default:'0' }}"
-{#                            value="50"#}
                           aria-valuemin="10"
                         aria-valuemax="200"
                         aria-valuenow="{{ request.GET.min_price|default_if_none:'50' }}"
