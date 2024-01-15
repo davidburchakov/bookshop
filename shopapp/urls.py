@@ -28,5 +28,5 @@ urlpatterns = [
     path('update-cart/', update_cart, name='update-cart'),
     path('books/seneka/seneka-read', pdf_view, name="seneka-read"),
     path('books/seneka/letter/<str:letter_id>/', letter_view, name='letter'),
-    path("browse", browse_view, name="browse")
+    path("browse", browse_view, name="browse"),
 ]

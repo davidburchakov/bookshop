@@ -3,13 +3,14 @@ let maxValue = document.getElementById("max-value");
 let minPriceInput = document.getElementById("min_price");
 let maxPriceInput = document.getElementById("max_price");
 
-const rangeFill = document.querySelector(".range-fill");
+let defaultMin = 0;
+let defaultMax = 200;
+minValue.innerHTML = "$" + defaultMin;
+maxValue.innerHTML = "$" + defaultMax;
 
 function validateRange() {
     let minPrice = parseInt(inputElements[0].value);
     let maxPrice = parseInt(inputElements[1].value);
-    console.log("minPrice:")
-    console.log(minPrice)
     if (minPrice > maxPrice) {
         let tempValue = maxPrice;
         maxPrice = minPrice;
@@ -31,4 +32,3 @@ inputElements.forEach((element) => {
 });
 
 validateRange();
-

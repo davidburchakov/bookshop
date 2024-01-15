@@ -1,6 +1,8 @@
 from django.http import HttpRequest
 from django.shortcuts import render
 from django.db import connection
+from django.db.models import Q
+from ..models.models import Books
 
 
 def get_all_books():
@@ -95,19 +97,23 @@ def single_book_view(request: HttpRequest, slug):
 
 
 def browse_view(request: HttpRequest):
-    country_filter = request.GET.get('country', 'none')
     free_read_filter = request.GET.get('free', 'off') == 'on'
     available_stock_filter = request.GET.get('available_stock', 'off') == 'on'
+
+    country_filter = request.GET.get('country', 'none')
     available_language_filter = request.GET.get('available_language', 'none')
     category_filter = request.GET.get('category', 'none')
 
+    filtered_books = books
+    query = request.GET.get('search_query', '')
+    if query:
+        filtered_books = search_books_by_query(books, query)
+
     if free_read_filter:
-        filtered_books = [book for book in books if book['read']]
-    else:
-        filtered_books = books
+        filtered_books = [book for book in filtered_books if book['read']]
 
     if available_stock_filter:
-        filtered_books = [book for book in books if int(book['stock']) > 0]
+        filtered_books = [book for book in filtered_books if int(book['stock']) > 0]
 
     if country_filter != 'none':
         filtered_books = [book for book in filtered_books if book['country_name'].lower() == country_filter]
@@ -136,10 +142,22 @@ def browse_view(request: HttpRequest):
     # Ensure min_price is not greater than max_price
     if min_price > max_price:
         min_price, max_price = 10, 200
-
+    print("min price:", min_price)
+    print("max price:", max_price)
     filtered_books = [book for book in filtered_books if min_price <= book['price'] <= max_price]
 
     context = {
         "books": filtered_books
     }
     return render(request, 'shopapp/browse.html', context=context)
+
+
+def search_books_by_query(all_books, query):
+    query = query.lower()
+    filtered_books = []
+
+    for book in all_books:
+        if query in book['title'].lower() or query in book['description'].lower():
+            filtered_books.append(book)
+
+    return filtered_books

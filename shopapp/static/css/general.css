@@ -56,6 +56,11 @@ li {
     border-radius: 50%;
 }
 
+label[for="search-query"]
+{
+    display:none;
+}
+
 /* ---------------------------- sidebar ---------------------------- */
 .sidebar {
     height: 100%;

@@ -38,7 +38,7 @@ Book shop checklist:
 1		price
 1		available in stock
 
-	Full-text search by description
+1	Full-text search by description
 	Feedback messages - errors, Notifications
 1	AJAX interactions
 
