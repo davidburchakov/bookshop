@@ -7,18 +7,14 @@
 {% block main %}
 <main>
     <h1>Browse</h1>
-    <nav class="filter">
+    <section class="filter">
         <form method="get" action="{% url 'browse' %}">
-            <ul>
-                <li>
+            <fieldset>
+                <legend>Filters</legend>
                     <label for="free">Read online for free</label>
-                    <input type="checkbox" name="free" onchange="this.form.submit()" {% if request.GET.free == 'on' %}checked{% endif %}>
-                
+                    <input type="checkbox" name="free" id="free" onchange="this.form.submit()" {% if request.GET.free == 'on' %}checked{% endif %}>
                     <label for="available_language">Available in stock</label>
-                    <input type="checkbox" name="available_stock" onchange="this.form.submit()" {% if request.GET.available_stock == 'on' %}checked{% endif %}>
-                </li>
-
-            </ul>
+                    <input type="checkbox" name="available_stock" id="available_stock" onchange="this.form.submit()" {% if request.GET.available_stock == 'on' %}checked{% endif %}>
 
             <label for="country">Country</label>
             <select name="country" id="country" onchange="this.form.submit()">
@@ -58,50 +54,50 @@
 
                 <div class="price-content">
                     <div>
-                      <label>Min</label>
+                      <label for="min_price">Min</label>
                       <p id="min-value"></p>
                     </div>
-    
+
                     <div>
-                      <label>Max</label>
+                      <label for="max_price">Max</label>
                       <p id="max-value"></p>
                     </div>
                 </div>
-    
+
                 <div class="range-slider">
                     <div class="range-fill"></div>
 
                     <input
                       type="range"
                       name="min_price"
+                      id="min_price"
                       class="min-price"
                       min="10"
                       max="200"
                       step="10"
                       value="{{ request.GET.min_price|default_if_none:'50' }}"
                     />
-                        
+
                     <input
                       type="range"
                       name="max_price"
+                      id="max_price"
                       class="max-price"
                       min="10"
                       max="200"
                       step="10"
                       value="{{ request.GET.max_price|default_if_none:'100' }}"
                     />
-                
+
                  </div>
-                 
-                <button type="submit" class="submit-button">Apply Filters</button>
+
+                <button type="submit" class="submit-button">Apply Price Range</button>
             </div>
-
-
-
+</fieldset>
         </form>
 
 
-    </nav>
+    </section>
 
 
 
