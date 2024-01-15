@@ -1,0 +1,15 @@
+.filter fieldset{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.filter select{
+    max-width: 200px;
+    margin: 10px;
+}
+
+.filter label{
+    padding: 10px;
+}

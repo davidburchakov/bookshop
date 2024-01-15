@@ -19,19 +19,26 @@ Book shop checklist:
 1	Update user details
 1	View a single book
 1	View a list of books
+1   Populate with books
 1	Display content of free books. Read the book
-
+	View popular books
 
 1	Add to card as user
 1	View Cart 
 1	Update amount of books to buy
 1	Remove from card as a user
 1	View sub-summary in a sidebar
-	
-	Captcha
 
-	Advanced search using filters
-	Full-text search
+	Search with tags
+1	Advanced search using filters by
+1		country
+1		language
+1		read online
+1		category
+1		price
+1		available in stock
+
+	Full-text search by description
 	Feedback messages - errors, Notifications
 1	AJAX interactions
 
@@ -49,6 +56,7 @@ Book shop checklist:
 	Confirm Email
 	Password recovery	
 	Terms of Service/Accept cookies
+	Captcha
 	Payment
 
 --- Database:
