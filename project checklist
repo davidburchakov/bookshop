@@ -30,13 +30,12 @@ Book shop checklist:
 1	View sub-summary in a sidebar
 
 	Search with tags
-	Advanced search using filters
-		by
+1	Advanced search using filters by
 1		country
 1		language
 1		read online
 1		category
-		price
+1		price
 1		available in stock
 
 	Full-text search by description

@@ -2,6 +2,7 @@
 {% load static %}
 {% block links %}
     <link rel="stylesheet" href="{% static "css/index.css" %}">
+    <link rel="stylesheet" href="{% static "css/filter.css" %}">
 {#    <link rel="stylesheet" href="{% static "css/price.css" %}">#}
 {% endblock %}
 {% block main %}
@@ -11,93 +12,95 @@
         <form method="get" action="{% url 'browse' %}">
             <fieldset>
                 <legend>Filters</legend>
-                    <label for="free">Read online for free</label>
-                    <input type="checkbox" name="free" id="free" onchange="this.form.submit()" {% if request.GET.free == 'on' %}checked{% endif %}>
-                    <label for="available_language">Available in stock</label>
-                    <input type="checkbox" name="available_stock" id="available_stock" onchange="this.form.submit()" {% if request.GET.available_stock == 'on' %}checked{% endif %}>
+                <label for="free">Read online for free</label>
+                <input type="checkbox" name="free" id="free" onchange="this.form.submit()" {% if request.GET.free == 'on' %}checked{% endif %}>
+                <label for="available_language">Available in stock</label>
+                <input type="checkbox" name="available_stock" id="available_stock" onchange="this.form.submit()" {% if request.GET.available_stock == 'on' %}checked{% endif %}>
 
-            <label for="country">Country</label>
-            <select name="country" id="country" onchange="this.form.submit()">
-                <option value="none" {% if requset.GET.country == 'none' %} selected="selected" {% endif %} >Select a Country</option>
-                <option value="poland" {% if request.GET.country == 'poland' %} selected="selected" {% endif %}>Poland</option>
-                <option value="united kingdom" {% if request.GET.country == 'united kingdom' %} selected="selected" {% endif %}>United Kingdom</option>
-                <option value="russia" {% if request.GET.country == 'russia' %} selected="selected" {% endif %}>Russia</option>
-                <option value="rome" {% if request.GET.country == 'rome' %} selected="selected" {% endif %}>Ancient Rome</option>
-                <option value="czech republic" {% if request.GET.country == 'czech republic' %} selected="selected" {% endif %}>Czech Republic</option>
-                <option value="japan" {% if request.GET.country == 'japan' %} selected="selected" {% endif %}>Japan</option>
-                <option value="france" {% if request.GET.country == 'france' %} selected="selected" {% endif %}>France</option>
-                <option value="germany" {% if request.GET.country == 'germany' %} selected="selected" {% endif %}>Germany</option>
-            </select>
+                <label for="country">Country</label>
+                <select name="country" id="country" onchange="this.form.submit()">
+                    <option value="none" {% if requset.GET.country == 'none' %} selected="selected" {% endif %} >Select a Country</option>
+                    <option value="poland" {% if request.GET.country == 'poland' %} selected="selected" {% endif %}>Poland</option>
+                    <option value="united kingdom" {% if request.GET.country == 'united kingdom' %} selected="selected" {% endif %}>United Kingdom</option>
+                    <option value="russia" {% if request.GET.country == 'russia' %} selected="selected" {% endif %}>Russia</option>
+                    <option value="rome" {% if request.GET.country == 'rome' %} selected="selected" {% endif %}>Ancient Rome</option>
+                    <option value="czech republic" {% if request.GET.country == 'czech republic' %} selected="selected" {% endif %}>Czech Republic</option>
+                    <option value="japan" {% if request.GET.country == 'japan' %} selected="selected" {% endif %}>Japan</option>
+                    <option value="france" {% if request.GET.country == 'france' %} selected="selected" {% endif %}>France</option>
+                    <option value="germany" {% if request.GET.country == 'germany' %} selected="selected" {% endif %}>Germany</option>
+                </select>
 
-            <select name="available_language" id="available_language" onchange="this.form.submit()">
-                <option value="none" {% if request.GET.available_language == 'none' %} selected="selected" {% endif %}>Select Language</option>
-                <option value="english" {% if request.GET.available_language == 'english' %} selected="selected" {% endif %}>English</option>
-                <option value="russian" {% if request.GET.available_language == 'russian' %} selected="selected" {% endif %}>Russian</option>
-                <option value="polish" {% if request.GET.available_language == 'polish' %} selected="selected" {% endif %}>Polish</option>
-                <option value="french" {% if request.GET.available_language == 'french' %} selected="selected" {% endif %}>French</option>
-                <option value="german" {% if request.GET.available_language == 'german' %} selected="selected" {% endif %}>German</option>
-            </select>
+                <label for="available_language">Language</label>
+                <select name="available_language" id="available_language" onchange="this.form.submit()">
+                    <option value="none" {% if request.GET.available_language == 'none' %} selected="selected" {% endif %}>Select Language</option>
+                    <option value="english" {% if request.GET.available_language == 'english' %} selected="selected" {% endif %}>English</option>
+                    <option value="russian" {% if request.GET.available_language == 'russian' %} selected="selected" {% endif %}>Russian</option>
+                    <option value="polish" {% if request.GET.available_language == 'polish' %} selected="selected" {% endif %}>Polish</option>
+                    <option value="french" {% if request.GET.available_language == 'french' %} selected="selected" {% endif %}>French</option>
+                    <option value="german" {% if request.GET.available_language == 'german' %} selected="selected" {% endif %}>German</option>
+                </select>
 
-            <select name="category" id="category" onchange="this.form.submit()">
-                <option value="none" {% if request.GET.category == 'none' %}selected="selected" {% endif %}>Select category</option>
-                <option value="classics" {% if request.GET.category == 'classics' %} selected="selected" {% endif %}>Classics</option>
-                <option value="fantasy" {% if request.GET.category == 'fantasy' %} selected="selected" {% endif %}>Fantasy</option>
-                <option value="philosophy" {% if request.GET.category == 'philosophy' %} selected="selected" {% endif %}>Philosophy</option>
-                <option value="novel" {% if request.GET.category == 'novel' %} selected="selected" {% endif %}>Novel</option>
-                <option value="existentialism" {% if request.GET.category == 'existentialism' %} selected="selected" {% endif %}>Existentialism</option>
-                <option value="absurdism" {% if request.GET.category == 'absurdism' %} selected="selected" {% endif %}>Absurdism</option>
-                <option value="historical fiction" {% if request.GET.category == 'historical fiction' %} selected="selected" {% endif %}>Historical Fiction</option>
-            </select>
-
-             <div class="card">
-                <h4>Price Range</h4>
-
-                <div class="price-content">
-                    <div>
-                      <label for="min_price">Min</label>
-                      <p id="min-value"></p>
+                <label for="category">Category</label>
+                <select name="category" id="category" onchange="this.form.submit()">
+                    <option value="none" {% if request.GET.category == 'none' %}selected="selected" {% endif %}>Select category</option>
+                    <option value="classics" {% if request.GET.category == 'classics' %} selected="selected" {% endif %}>Classics</option>
+                    <option value="fantasy" {% if request.GET.category == 'fantasy' %} selected="selected" {% endif %}>Fantasy</option>
+                    <option value="philosophy" {% if request.GET.category == 'philosophy' %} selected="selected" {% endif %}>Philosophy</option>
+                    <option value="novel" {% if request.GET.category == 'novel' %} selected="selected" {% endif %}>Novel</option>
+                    <option value="existentialism" {% if request.GET.category == 'existentialism' %} selected="selected" {% endif %}>Existentialism</option>
+                    <option value="absurdism" {% if request.GET.category == 'absurdism' %} selected="selected" {% endif %}>Absurdism</option>
+                    <option value="historical fiction" {% if request.GET.category == 'historical fiction' %} selected="selected" {% endif %}>Historical Fiction</option>
+                </select>
+    
+                 <div class="card">
+                    <h4>Price Range</h4>
+    
+                    <div class="price-content">
+                        <div>
+                          <label for="min_price">Min</label>
+                          <p id="min-value"></p>
+                        </div>
+    
+                        <div>
+                          <label for="max_price">Max</label>
+                          <p id="max-value"></p>
+                        </div>
                     </div>
-
-                    <div>
-                      <label for="max_price">Max</label>
-                      <p id="max-value"></p>
-                    </div>
+    
+                    <div class="range-slider">
+                        <div class="range-fill"></div>
+    
+                        <input
+                          type="range"
+                          name="min_price"
+                          id="min_price"
+                          class="min-price"
+                          min="10"
+                          max="200"
+                          value="{{ request.GET.min_price|default_if_none:'50' }}"
+                          aria-valuemin="10"
+                        aria-valuemax="200"
+                        aria-valuenow="{{ request.GET.min_price|default_if_none:'50' }}"
+                        />
+    
+                        <input
+                          type="range"
+                          name="max_price"
+                          id="max_price"
+                          class="max-price"
+                          min="10"
+                          max="200"
+                          value="{{ request.GET.max_price|default_if_none:'100' }}"
+                        aria-valuemin="10"
+                        aria-valuemax="200"
+                        aria-valuenow="{{ request.GET.max_price|default_if_none:'100' }}"
+                        />
+    
+                     </div>
+    
+                    <button type="submit" class="submit-button">Apply Price Range</button>
                 </div>
-
-                <div class="range-slider">
-                    <div class="range-fill"></div>
-
-                    <input
-                      type="range"
-                      name="min_price"
-                      id="min_price"
-                      class="min-price"
-                      min="10"
-                      max="200"
-                      value="{{ request.GET.min_price|default_if_none:'50' }}"
-                      aria-valuemin="10"
-                    aria-valuemax="200"
-                    aria-valuenow="{{ request.GET.min_price|default_if_none:'50' }}"
-                    />
-
-                    <input
-                      type="range"
-                      name="max_price"
-                      id="max_price"
-                      class="max-price"
-                      min="10"
-                      max="200"
-                      value="{{ request.GET.max_price|default_if_none:'100' }}"
-                    aria-valuemin="10"
-                    aria-valuemax="200"
-                    aria-valuenow="{{ request.GET.max_price|default_if_none:'100' }}"
-                    />
-
-                 </div>
-
-                <button type="submit" class="submit-button">Apply Price Range</button>
-            </div>
-</fieldset>
+            </fieldset>
         </form>
 
 
