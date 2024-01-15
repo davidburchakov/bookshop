@@ -25,7 +25,7 @@
 
                 <label for="country">Country</label>
                 <select name="country" id="country" onchange="this.form.submit()">
-                    <option value="none" {% if requset.GET.country == 'none' %} selected="selected" {% endif %} >Select a Country</option>
+                    <option value="none" {% if request.GET.country == 'none' %} selected="selected" {% endif %} >Select a Country</option>
                     <option value="poland" {% if request.GET.country == 'poland' %} selected="selected" {% endif %}>Poland</option>
                     <option value="united kingdom" {% if request.GET.country == 'united kingdom' %} selected="selected" {% endif %}>United Kingdom</option>
                     <option value="russia" {% if request.GET.country == 'russia' %} selected="selected" {% endif %}>Russia</option>

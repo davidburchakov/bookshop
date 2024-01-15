@@ -19,7 +19,9 @@
             <h4>Original Language: {{ book.original_language }}</h4>
             <h3>Categories:</h3>
             {% for category in categories %}
-                <p><b>{{ category }}</b></p>
+                <a href="{% url 'browse' %}?category={{ category }}" class="category-tag">
+                    <b>{{ category }}</b>
+                </a>
             {% endfor %}
             {% if book.read == True %}
                 <form action="../books/seneka/seneka-read">
