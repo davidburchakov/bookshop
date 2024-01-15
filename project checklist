@@ -29,7 +29,10 @@ Book shop checklist:
 1	Remove from card as a user
 1	View sub-summary in a sidebar
 
-	Search with tags
+	Search with tags by
+1		category
+1		language
+
 1	Advanced search using filters by
 1		country
 1		language
@@ -38,9 +41,11 @@ Book shop checklist:
 1		price
 1		available in stock
 
+
 1	Full-text search by description
-	Feedback messages - errors, Notifications
+	Full-text search from top navbar
 1	AJAX interactions
+	Feedback messages - errors, Notifications
 
 
 --- Advanced:

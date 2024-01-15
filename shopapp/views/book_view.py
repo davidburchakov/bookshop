@@ -89,6 +89,7 @@ def books_view(request: HttpRequest):
 def single_book_view(request: HttpRequest, slug):
     book = [i for i in books if i["slug"] == slug][0]
     categories = get_all_categories(book['id'])
+    categories['categories'] = list(map(lambda x: x.lower(), categories['categories']))
     context = {
         "book": book,
         "categories": categories['categories']
@@ -101,7 +102,7 @@ def browse_view(request: HttpRequest):
     available_stock_filter = request.GET.get('available_stock', 'off') == 'on'
 
     country_filter = request.GET.get('country', 'none')
-    available_language_filter = request.GET.get('available_language', 'none')
+    available_language_filter = request.GET.get('language', 'none')
     category_filter = request.GET.get('category', 'none')
 
     filtered_books = books
@@ -142,8 +143,7 @@ def browse_view(request: HttpRequest):
     # Ensure min_price is not greater than max_price
     if min_price > max_price:
         min_price, max_price = 10, 200
-    print("min price:", min_price)
-    print("max price:", max_price)
+
     filtered_books = [book for book in filtered_books if min_price <= book['price'] <= max_price]
 
     context = {

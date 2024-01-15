@@ -15,11 +15,16 @@
             <h4>Available in stock: {{ book.stock }}</h4>
             <h3>Price: ${{ book.price }}</h3>
             <h1>book id: {{ book.id }}</h1>
-            <h4>Language: {{ book.language }}</h4>
+            <h4>Language:
+                <a href="{% url 'browse' %}?language={{ book.language|lower }}"><b>{{ book.language }}</b></a>
+            </h4>
+        
             <h4>Original Language: {{ book.original_language }}</h4>
             <h3>Categories:</h3>
             {% for category in categories %}
-                <p><b>{{ category }}</b></p>
+                <a href="{% url 'browse' %}?category={{ category }}" class="category-tag">
+                    <b>{{ category|lower|capfirst }}</b>
+                </a>
             {% endfor %}
             {% if book.read == True %}
                 <form action="../books/seneka/seneka-read">

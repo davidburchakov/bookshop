@@ -3,3 +3,12 @@
     flex-direction: column;
     text-align: center;
 }
+
+#single-book a{
+    text-decoration: none;
+    color: black;
+}
+
+#single-book a:hover{
+    color: #8cbef0;
+}

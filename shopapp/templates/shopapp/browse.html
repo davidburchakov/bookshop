@@ -25,7 +25,7 @@
 
                 <label for="country">Country</label>
                 <select name="country" id="country" onchange="this.form.submit()">
-                    <option value="none" {% if requset.GET.country == 'none' %} selected="selected" {% endif %} >Select a Country</option>
+                    <option value="none" {% if request.GET.country == 'none' %} selected="selected" {% endif %} >Select a Country</option>
                     <option value="poland" {% if request.GET.country == 'poland' %} selected="selected" {% endif %}>Poland</option>
                     <option value="united kingdom" {% if request.GET.country == 'united kingdom' %} selected="selected" {% endif %}>United Kingdom</option>
                     <option value="russia" {% if request.GET.country == 'russia' %} selected="selected" {% endif %}>Russia</option>
@@ -36,14 +36,14 @@
                     <option value="germany" {% if request.GET.country == 'germany' %} selected="selected" {% endif %}>Germany</option>
                 </select>
 
-                <label for="available_language">Language</label>
-                <select name="available_language" id="available_language" onchange="this.form.submit()">
-                    <option value="none" {% if request.GET.available_language == 'none' %} selected="selected" {% endif %}>Select Language</option>
-                    <option value="english" {% if request.GET.available_language == 'english' %} selected="selected" {% endif %}>English</option>
-                    <option value="russian" {% if request.GET.available_language == 'russian' %} selected="selected" {% endif %}>Russian</option>
-                    <option value="polish" {% if request.GET.available_language == 'polish' %} selected="selected" {% endif %}>Polish</option>
-                    <option value="french" {% if request.GET.available_language == 'french' %} selected="selected" {% endif %}>French</option>
-                    <option value="german" {% if request.GET.available_language == 'german' %} selected="selected" {% endif %}>German</option>
+                <label for="language">Language</label>
+                <select name="language" id="language" onchange="this.form.submit()">
+                    <option value="none" {% if request.GET.language == 'none' %} selected="selected" {% endif %}>Select Language</option>
+                    <option value="english" {% if request.GET.language == 'english' %} selected="selected" {% endif %}>English</option>
+                    <option value="russian" {% if request.GET.language == 'russian' %} selected="selected" {% endif %}>Russian</option>
+                    <option value="polish" {% if request.GET.language == 'polish' %} selected="selected" {% endif %}>Polish</option>
+                    <option value="french" {% if request.GET.language == 'french' %} selected="selected" {% endif %}>French</option>
+                    <option value="german" {% if request.GET.language == 'german' %} selected="selected" {% endif %}>German</option>
                 </select>
 
                 <label for="category">Category</label>
