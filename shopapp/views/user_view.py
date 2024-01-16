@@ -158,9 +158,14 @@ def profile_update_view(request: HttpRequest):
         form = UserUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
+            messages.success(request, "Profile updated successfully!")
+            return redirect('profile')
+        else:
+            messages.error(request, "The form is not valid!")
             return redirect('profile')
     else:
         form = UserUpdateForm(instance=request.user)
+        messages.error(request, "Error occurred while updating the profile")
     return render(request, 'user/profile-update.html', {'form': form})
 
 
