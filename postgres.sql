@@ -67,7 +67,7 @@ INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_de
 INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(9, 'Erich Maria Remarque', 8, '1898-06-22', '1970-09-25');
 
 
-INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(1, 'all_quiet', 9, 'All Quiet on the Western Front','all_quiet.jpg', 'The book describes the German soldiers'' extreme physical and mental trauma during the war as well as the detachment from civilian life felt by many upon returning home from the war.', 0, 75, false, 'German', 'German');
+INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(1, 'all-quiet', 9, 'All Quiet on the Western Front','all-quiet.jpg', 'The book describes the German soldiers'' extreme physical and mental trauma during the war as well as the detachment from civilian life felt by many upon returning home from the war.', 0, 75, false, 'German', 'German');
 
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(3, 'camus-myth-sisyphus', 3, 'Le mythe de sisyphe','myth_sisyphus.jpg', 'Philosophical book by a 20th century existentionalist', 20, 15, false, 'English', 'French');
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(4, 'kafka-metamorphosis', 4, 'Metamorphosis','metamorphosis.jpg', 'Philosophical book by a 19th century absurdist from Czech Republic', 50, 30, false, 'English', 'Czech');
