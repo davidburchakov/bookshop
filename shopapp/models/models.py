@@ -74,3 +74,13 @@ class UserActivity(models.Model):
     browser = models.CharField(max_length=20)
     os = models.CharField(max_length=20)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Review(models.Model):
+    book = models.ForeignKey(Books, on_delete=models.CASCADE)  # Assuming your book model is named 'Books'
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Review by {self.user.username} on {self.book.title}"
