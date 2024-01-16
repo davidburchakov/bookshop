@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from ..models.models import Books
 
+
 def cart_context_processor(request):
     cart = request.session.get('cart', {})
     books_in_cart = []

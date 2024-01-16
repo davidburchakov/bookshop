@@ -1,8 +1,6 @@
 from django.http import HttpRequest
 from django.shortcuts import render
 from django.db import connection
-from django.db.models import Q
-from ..models.models import Books
 
 
 def get_all_books():
