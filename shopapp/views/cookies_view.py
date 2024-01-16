@@ -18,17 +18,31 @@ def set_cookie_consent(request):
         response.set_cookie('cookie_consent', 'accepted')
 
         ip_address = get_client_ip(request)
-        browser_info = request.META.get('HTTP_USER_AGENT', '')
+        user_agent = request.META.get('HTTP_USER_AGENT', '')
+        browser = ""
+        os = ""
 
-        # For location, you can either leave it blank or use an external service.
-        # Without an external service, you can only capture the IP address.
-        location = "Not available without external service"
+        location = "Unknown"  # Without an external service, you can only capture the IP address.
+
+        print("browser_info")
+        print(type(user_agent))
+
+        if "windows" in user_agent.lower():
+            os = "Windows"
+        elif "linux" in user_agent.lower():
+            os = "Linux"
+
+        if "chrome" in user_agent.lower():
+            browser = "Chrome"
+        elif "firefox" in user_agent.lower():
+            browser = "Firefox"
 
         # Save the information
-        UserActivity.objects.create(ip_address=ip_address, location=location, browser_info=browser_info)
+        UserActivity.objects.create(ip_address=ip_address, location=location, user_agent=user_agent, browser=browser,
+                                    os=os)
         print("ip address:", ip_address)
         print("location:", location)
-        print("browser_info:", browser_info)
+        print("browser_info:", user_agent)
 
     elif consent == 'rejected':
         response.set_cookie('cookie_consent', 'rejected')

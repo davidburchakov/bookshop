@@ -70,6 +70,7 @@ class Faq(models.Model):
 class UserActivity(models.Model):
     ip_address = models.GenericIPAddressField()
     location = models.CharField(max_length=50)
-    browser_info = models.TextField()
-
+    user_agent = models.TextField()
+    browser = models.CharField(max_length=20)
+    os = models.CharField(max_length=20)
     created_at = models.DateTimeField(auto_now_add=True)
