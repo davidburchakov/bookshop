@@ -1,15 +1,75 @@
-.filter fieldset{
+/*---------------------------------------- Filter Section Styling ----------------------------------------*/
+
+.filter {
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter fieldset {
+    border: none;
     display: flex;
     flex-direction: column;
-    text-align: center;
     align-items: center;
 }
 
-.filter select{
-    max-width: 200px;
-    margin: 10px;
+.filter legend {
+    font-size: 1.2em;
+    margin-bottom: 15px;
 }
 
-.filter label{
-    padding: 10px;
+.filter label {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.filter input[type="text"], .filter select {
+    padding: 8px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 200px;
+}
+
+.filter input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.filter .range-slider {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.filter input[type="range"] {
+    width: 100%;
+}
+
+.filter .price-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.filter .price-content p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.filter .submit-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.filter .submit-button:hover {
+    background-color: #0056b3;
 }

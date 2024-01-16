@@ -1,6 +1,8 @@
 from django.http import HttpRequest
 from django.shortcuts import render
 from django.db import connection
+from django.http import JsonResponse
+from ..models.models import Review, Books
 
 
 def get_all_books():
@@ -88,9 +90,12 @@ def single_book_view(request: HttpRequest, slug):
     book = [i for i in books if i["slug"] == slug][0]
     categories = get_all_categories(book['id'])
     categories['categories'] = list(map(lambda x: x.lower(), categories['categories']))
+    reviews = Review.objects.filter(book_id=4)
+
     context = {
         "book": book,
-        "categories": categories['categories']
+        "categories": categories['categories'],
+        "reviews": reviews
     }
     return render(request, "shopapp/book.html", context=context)
 
@@ -159,3 +164,18 @@ def search_books_by_query(all_books, query):
             filtered_books.append(book)
 
     return filtered_books
+
+
+def post_review(request, book_id):
+    if request.method == 'POST' and request.user.is_authenticated:
+        text = request.POST.get('text')
+        try:
+            book = Books.objects.get(id=book_id)
+            review = Review.objects.create(book=book, user=request.user, text=text)
+            print("REVIEW CREATED")
+            return JsonResponse({'status': 'success', 'review': review.text})
+        except Books.DoesNotExist:
+            print("BOOK NOT FOUND. REVIEW")
+            return JsonResponse({'status': 'error', 'message': 'Book not found'})
+    print("REVIEW INVALID REQUEST")
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'})

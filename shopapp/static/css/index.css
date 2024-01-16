@@ -1,22 +1,46 @@
-#popular-books a{
+/*---------------------------------------- Popular Books Section Styling ----------------------------------------*/
+
+#popular-books {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+#popular-books a {
     color: #3a3d42;
     text-decoration: none;
 }
 
-#popular-books a:hover{
+#popular-books a:hover {
     color: lightslategrey;
 }
 
-
-.books-ul{
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+.books-ul {
+    list-style-type: none;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 15px;
+    padding: 0;
 }
 
-li{
-    margin: 5px;
+.books-ul li {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+}
+
+.book-cover {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+figcaption {
+    font-size: 0.9em;
+    color: #555;
 }
