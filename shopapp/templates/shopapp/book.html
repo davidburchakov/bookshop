@@ -54,11 +54,17 @@
                         .then(data => {
                             if (data.status === 'success') {
                                 alert('Book added to cart!');
-                                // Update cart display or redirect to cart page here
+                        
+                                // Update the total quantity displayed
+                                const quantityDisplay = document.querySelector('.quantity');
+                                if (quantityDisplay) {
+                                    quantityDisplay.textContent = data.total_quantity;
+                                }
                             } else {
                                 alert('Error: ' + data.message);
                             }
                         })
+
                         .catch(error => console.error('Error:', error));
 
                     });

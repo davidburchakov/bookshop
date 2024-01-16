@@ -23,8 +23,9 @@ def add_to_cart(request):
                 cart[book_id] = {'quantity': quantity, 'price': str(book.price)}
 
             request.session['cart'] = cart
+            total_quantity = sum(item['quantity'] for item in cart.values())
+            return JsonResponse({'status': 'success', 'total_quantity': total_quantity})
 
-            return JsonResponse({'status': 'success'})
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)})
 
