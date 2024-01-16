@@ -85,7 +85,15 @@
                     <div id="close-btn">Close</div>
                 </div>
             </div>
-
+            <div class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{{ message.tags }}">
+                        <b>{{ message }}</b>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            </div>
         </header>
     {% endblock %}
     

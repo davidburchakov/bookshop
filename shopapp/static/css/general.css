@@ -19,8 +19,21 @@ li {
     list-style-type: none;
 }
 
+.messages {
+    z-index: 2;
+    position: absolute;
+    right: 50vw;
+}
 
-/* Styling for the top navigation bar */
+.messages .success{
+    color: green;
+}
+
+.messages .error{
+    color: red;
+}
+
+/* ----------------------------  top navigation bar ---------------------------- */
 #topnav {
     background-color: #e8eff1;
     color: black;

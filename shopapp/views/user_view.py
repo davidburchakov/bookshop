@@ -2,14 +2,14 @@ from django.contrib.auth.models import User
 
 from django.http import HttpRequest
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django import forms
 from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
 from ..models.models import UserProfile
 from django.contrib.auth.decorators import login_required
 from shopapp.views.cookies_view import get_user_agent
+from django.contrib import messages
 
 
 class MyUserCreationForm(UserCreationForm):
@@ -74,8 +74,10 @@ def register_view(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            messages.success(request, "User created successfully")
-            return redirect('index')  # Redirect to a home page
+            messages.success(request, "User created successfully!")
+            return redirect('index')
+        else:
+            messages.error(request, "Form is not valid. User was not created.")
     else:
         form = MyUserCreationForm()
     return render(request, 'shopapp/register.html', context={"form": form})
@@ -90,18 +92,18 @@ def login_view(request: HttpRequest):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('index')  # Redirect to a home page
+                messages.success(request, "Logged in successfully!")
+                return redirect('index')
             else:
                 form.add_error(None, "Invalid username or password")
-    else:
-        form = AuthenticationForm()
+        else:
+            messages.error(request, "Could not log in")
     return render(request, 'shopapp/login.html')
 
 
 @login_required
 def profile_view(request):
     if request.user.is_authenticated:
-
         try:
             user_profile = get_object_or_404(UserProfile, user=request.user)
             context = {
@@ -158,20 +160,25 @@ def profile_update_view(request: HttpRequest):
         form = UserUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
+            messages.success(request, "Profile updated successfully!")
+            return redirect('profile')
+        else:
+            messages.error(request, "The form is not valid!")
             return redirect('profile')
     else:
         form = UserUpdateForm(instance=request.user)
+        messages.error(request, "Error occurred while updating the profile")
     return render(request, 'user/profile-update.html', {'form': form})
 
 
 def logout_view(request):
     logout(request)
-    return redirect('index')  # Redirects to the home page after logout
+    messages.success(request, "Logged out successfully!")
+    return redirect('index')
 
 
 def profile_delete(request):
     if request.method == 'POST':
-        print("POST")
         if request.user.is_authenticated:
             user = request.user
             user.delete()
@@ -184,3 +191,40 @@ def profile_delete(request):
     else:
         messages.error(request, "Invalid Request Method.")
         return render(request, 'user/profile.html')
+
+
+def password_change_view_page(request: HttpRequest):
+    if request.user.is_authenticated:
+        return render(request, "user/password_change.html")
+    else:
+        messages.error(request, "Permissions denied.")
+        return redirect('index')
+
+
+def password_change_view(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            current_password = request.POST.get('current_password')
+            new_password = request.POST.get('new_password')
+            new_password_repeat = request.POST.get('new_password_repeat')
+
+            user = authenticate(username=request.user.username, password=current_password)
+            if user is not None and new_password == new_password_repeat:
+                user.set_password(new_password)
+                user.save()
+                update_session_auth_hash(request, user)  # Important!
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('profile')  # Redirect to a success page
+            else:
+                messages.error(request, 'Please correct the error below.')
+        else:
+            messages.error(request, 'You are not authenticated.')
+            return redirect('login')
+    else:
+        if request.user.is_authenticated:
+            return render(request, "user/password_change.html")
+        else:
+            messages.error(request, 'You are not authenticated.')
+            return redirect('login')
+
+    return render(request, "user/password_change.html")
