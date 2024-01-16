@@ -44,3 +44,20 @@ figcaption {
     font-size: 0.9em;
     color: #555;
 }
+
+article{
+    position: relative;
+}
+
+.free-badge {
+    display: inline-block;
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    position: absolute;
+    top: 10px;
+    left: 100px;
+    z-index: 1;
+}
