@@ -6,9 +6,18 @@
 {% endblock %}
 {% block main %}
     <main>
+        <div class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{{ message.tags }}">
+                        <b>{{ message }}</b>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
         <div class="register-card">
         <h1>Register</h1>
-            <form action="" method="post" class="vertical">
+            <form action="{% url "register" %}" method="post" class="vertical">
                 {% csrf_token %}
                 <input placeholder="username" type="text" name="username" required>
                 <input placeholder="email" type="email" name="email" required>

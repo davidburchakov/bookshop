@@ -6,6 +6,16 @@
 {% endblock %}
 {% block main %}
     <main>
+        <div class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{{ message.tags }}">
+                        <b>{{ message }}</b>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
         <h1>Hello shop index</h1>
         <div id="popular-books">
             <ul class="books-ul">

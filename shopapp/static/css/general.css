@@ -19,8 +19,15 @@ li {
     list-style-type: none;
 }
 
+.messages .success{
+    color: green;
+}
 
-/* Styling for the top navigation bar */
+.messages .error{
+    color: red;
+}
+
+/* ----------------------------  top navigation bar ---------------------------- */
 #topnav {
     background-color: #e8eff1;
     color: black;

@@ -28,11 +28,3 @@ main{
 .profile .btn-delete{
     width: 150px;
 }
-
-.success{
-    color: green;
-}
-
-.error{
-    color: red;
-}

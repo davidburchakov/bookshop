@@ -17,7 +17,7 @@ Book shop checklist:
 1	User Logout
 1	User account deletion
 1	Update user details
-0	Change password
+1	Change password
 1	View a single book
 1	View a list of books
 1   Populate with books

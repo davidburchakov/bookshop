@@ -74,8 +74,10 @@ def register_view(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            messages.success(request, "User created successfully")
-            return redirect('index')  # Redirect to a home page
+            messages.success(request, "User created successfully!")
+            return redirect('index')
+        else:
+            messages.error(request, "Form is not valid. User was not created.")
     else:
         form = MyUserCreationForm()
     return render(request, 'shopapp/register.html', context={"form": form})
@@ -90,18 +92,18 @@ def login_view(request: HttpRequest):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('index')  # Redirect to a home page
+                messages.success(request, "Logged in successfully!")
+                return redirect('index')
             else:
                 form.add_error(None, "Invalid username or password")
     else:
-        form = AuthenticationForm()
+        messages.error(request, "Could not log in")
     return render(request, 'shopapp/login.html')
 
 
 @login_required
 def profile_view(request):
     if request.user.is_authenticated:
-
         try:
             user_profile = get_object_or_404(UserProfile, user=request.user)
             context = {
@@ -171,7 +173,8 @@ def profile_update_view(request: HttpRequest):
 
 def logout_view(request):
     logout(request)
-    return redirect('index')  # Redirects to the home page after logout
+    messages.success(request, "Logged out successfully!")
+    return redirect('index')
 
 
 def profile_delete(request):
@@ -192,7 +195,6 @@ def profile_delete(request):
 
 def password_change_view_page(request: HttpRequest):
     if request.user.is_authenticated:
-        print("PASSWORD CHANGE VIEW")
         return render(request, "user/password_change.html")
     else:
         messages.error(request, "Permissions denied.")
@@ -217,7 +219,7 @@ def password_change_view(request):
                 messages.error(request, 'Please correct the error below.')
         else:
             messages.error(request, 'You are not authenticated.')
-            return redirect('login')  # Redirect to login page
+            return redirect('login')
     else:
         if request.user.is_authenticated:
             return render(request, "user/password_change.html")
