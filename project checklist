@@ -56,11 +56,13 @@ Book shop checklist:
 	able to add to cart via chatbot
 	Able to ask for advise from chatbot
 
-	Store user location, ip
 	Blacklist
 	Confirm Email
 	Password recovery	
-	Terms of Service/Accept cookies
+1	Cookie notice
+	Do not use non-essential cookies if not allowed
+	Store user location, ip, only if cookies allowed
+
 	Captcha
 	Payment
 
@@ -76,6 +78,7 @@ Book shop checklist:
 	Top navbar
 	Footer
 	sidebar styling
+	cookie style
 	
 	Responsive Design
 	HTML validation
