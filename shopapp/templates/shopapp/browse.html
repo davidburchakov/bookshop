@@ -121,6 +121,9 @@
                                 {% if book.read %}
                                     <span class="free-badge">Read online</span>
                                 {% endif %}
+                                {% if book.stock < 1 %}
+                                    <span class="stock-badge">Out of Stock</span>
+                                {% endif %}
                                 <figure>
                                     <img class="book-cover" src="/static/img/{{ book.img }}" alt="book name">
                                     <a href="{% url 'book' slug=book.slug %}">

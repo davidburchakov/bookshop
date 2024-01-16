@@ -61,3 +61,16 @@ article{
     left: 100px;
     z-index: 1;
 }
+
+.stock-badge {
+    display: inline-block;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    position: absolute;
+    top: 10px;
+    left: 100px;
+    z-index: 1;
+}
