@@ -15,6 +15,12 @@
                 <h1>User's not authenticated</h1>
                 <h2>{{ error }}</h2>
             {% endif %}
+            {% if user_activities %}
+                <p>IP: {{ user_activities.1 }}</p>
+                <p>Browser: {{ user_activities.2 }}</p>
+                <p>Operating System: {{ user_activities.3 }}</p>
+                <p>Location: {{ user_activities.4 }}</p>
+            {% endif %}
             <form action="{% url "profile-update-page" %}">
                 <input type="submit" value="update profile details">
             </form>

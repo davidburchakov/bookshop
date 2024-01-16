@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from ..models.models import UserProfile
 from django.contrib.auth.decorators import login_required
-
+from shopapp.views.cookies_view import get_user_agent
 
 
 class MyUserCreationForm(UserCreationForm):
@@ -101,6 +101,7 @@ def login_view(request: HttpRequest):
 @login_required
 def profile_view(request):
     if request.user.is_authenticated:
+
         try:
             user_profile = get_object_or_404(UserProfile, user=request.user)
             context = {
@@ -108,12 +109,26 @@ def profile_view(request):
                 'profile': user_profile,
                 'phone': user_profile.phone if user_profile.phone else "No phone number provided",
             }
+
+            # Check for cookie consent
+            if 'cookie_consent' in request.COOKIES:
+                cookie_consent = request.COOKIES['cookie_consent']
+
+                if cookie_consent == 'accepted':
+                    user_agent, ip_address, browser, os, location = get_user_agent(request)
+                    context['user_activities'] = [user_agent, ip_address, browser, os, location]
+                else:
+                    context['user_activities'] = None
+            else:
+                context['user_activities'] = None
         except:
             context = {
                 'user': request.user,
                 'profile': None,
                 'phone': None
             }
+        # code here
+        # if cookies accepted, pass info from UserActivity table through context
     else:
         context = {
             'error': "permissions denied"
