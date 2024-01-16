@@ -67,19 +67,21 @@ INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_de
 INSERT INTO shopapp_authors (id, fullname, country_id, date_of_birth, date_of_death) VALUES(9, 'Erich Maria Remarque', 8, '1898-06-22', '1970-09-25');
 
 
+INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(1, 'all_quiet', 9, 'All Quiet on the Western Front','all_quiet.jpg', 'The book describes the German soldiers'' extreme physical and mental trauma during the war as well as the detachment from civilian life felt by many upon returning home from the war.', 0, 75, false, 'German', 'German');
 
-INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(1, 'crime-and-punishment', 2, 'Crime and Punishment','crime_punishment.jpg', 'Very hard existentioal book', 200, 10, false, 'English', 'Russian');
-INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(2, 'hadji-murat', 1, 'Hadji Murat','hadji_murat.jpg', 'Very harsh russian historical book', 100, 20, false, 'Russian', 'Russian');
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(3, 'camus-myth-sisyphus', 3, 'Le mythe de sisyphe','myth_sisyphus.jpg', 'Philosophical book by a 20th century existentionalist', 20, 15, false, 'English', 'French');
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(4, 'kafka-metamorphosis', 4, 'Metamorphosis','metamorphosis.jpg', 'Philosophical book by a 19th century absurdist from Czech Republic', 50, 30, false, 'English', 'Czech');
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(5, 'murakami-wood', 6, 'Norwegian Wood','norwegian_wood.jpg', 'A magnificent blending of the music, the mood, and the ethos that was the sixties with the story of one college student''s romantic coming of age, Norwegian Wood brilliantly recaptures a young man''s first, hopeless, and heroic love.', 12, 50, false, 'English', 'Japanese');
-INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(6, 'seneka-letters', 5, 'Letters from a Stoic','Seneca-Letters-from-a-Stoic.jpg', 'Lucius Annaeus Seneca (often known simply as Seneca or Seneca the Younger); ca. 4 BC – 65 AD) was a Roman Stoic philosopher, statesman, and dramatist of the Silver Age of Latin literature. He was tutor and later advisor to emperor Nero, who later forced him to commit suicide for alleged complicity in the Pisonian conspiracy to have him assassinated.', 50, 35, true, 'English', 'Greek');
+INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(2, 'seneka-letters', 5, 'Letters from a Stoic','Seneca-Letters-from-a-Stoic.jpg', 'Lucius Annaeus Seneca (often known simply as Seneca or Seneca the Younger); ca. 4 BC – 65 AD) was a Roman Stoic philosopher, statesman, and dramatist of the Silver Age of Latin literature. He was tutor and later advisor to emperor Nero, who later forced him to commit suicide for alleged complicity in the Pisonian conspiracy to have him assassinated.', 50, 35, true, 'English', 'Greek');
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(7, 'krew-elfow', 7, 'Krew Elfow','krew_elfow.jpg', 'Geralt, the witcher of Rivia, is back - and this time he holds the fate of the whole land in his hands ... For more than a hundred years, humans, dwarves, gnomes and elves lived together in relative peace. But times have changed, the uneasy peace is over and now the races once again fight each other - and themselves: dwarves are killing their kinsmen, and elves are murdering humans and elves, at least those elves who are friendly to humans ... Into this tumultuous time is born a child for whom the witchers of the world have been waiting. Ciri, the granddaughter of Queen Calanthe, the Lioness of Cintra, has strange powers and a stranger destiny, for prophecy names her the Flame, one with the power to change the world - for good, or for evil ...', 120, 70, false, 'Polish', 'Polish');
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(8, 'chrzest-ognia', 7, 'Chrzest Ognia','chrzest_ognia.jpg', 'Baptism of Fire is the third novel in the Witcher Saga written by Polish fantasy writer Andrzej Sapkowski, first published in 1996 in Polish and in English in 2014. It is a sequel to the second Witcher novel Time of Contempt and is followed by The Tower of the Swallow.', 100, 65, false, 'Polish', 'Polish');
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(9, 'czas-pogardy', 7, 'Czas Pogardy','czas-pogardy.jpg', 'Time of Contempt is the second novel in the Witcher Saga written by Polish fantasy writer Andrzej Sapkowski, first published 1995 in Polish, and 2013 in English. It is a sequel to the first Witcher novel Blood of Elves and is followed by Baptism of Fire.', 130, 75, false, 'Polish', 'Polish');
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(10, 'miecz-przeznaczenia', 7, 'Miecz Przeznaczenia','miecz-przeznaczenia.webp', 'Sword of Destiny is the second published short story collection in Polish fantasy writer Andrzej Sapkowski''s The Witcher series. Although published in 1992, it is officially considered the second entry in the series, behind The Last Wish, which was published the following year.', 170, 60, false, 'Polish', 'Polish');
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(11, 'pani-jeziora', 7, 'Pani Jeziora','pani_jeziora.jpg', 'The Lady of the Lake is the fifth and final novel in the Witcher Saga written by Polish fantasy writer Andrzej Sapkowski, first published in Poland in 1999. It is a sequel to the fourth Witcher novel, The Tower of Swallows.', 150, 55, false, 'Polish', 'Polish');
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(12, 'wieza-jaskolki', 7, 'Wieza Jaskolki','wieza-jaskolki.jpg', 'The Tower of the Swallow, published as The Tower of Swallows in the United States is the fourth novel in the Witcher Saga written by Polish fantasy writer Andrzej Sapkowski, first published in Poland in 1997.', 170, 80, false, 'Polish', 'Polish');
+
+INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(6, 'hadji-murat', 1, 'Hadji Murat','hadji_murat.jpg', 'Very harsh russian historical book', 100, 20, false, 'Russian', 'Russian');
+INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(20, 'crime-and-punishment', 2, 'Crime and Punishment','crime_punishment.jpg', 'Very hard existentioal book', 200, 10, false, 'English', 'Russian');
 -- INSERT INTO shopapp_books (slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES('krew-elfow', 7, 'Krew Elfow','krew_elfow.jpg', '', 120, 70, false, 'Polish', 'Polish');
 
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(13, 'harry-potter-and-the-philosophers-stone', 8, 'Harry Potter and the Philosopher''s Stone','harry-potter-philosophers-stone.jpg', 'Harry Potter and the Philosopher''s Stone is the first novel in the Harry Potter series written by British author J.K. Rowling. The story follows Harry Potter, a young wizard who discovers his magical heritage as he makes close friends and a few enemies in his first year at the Hogwarts School of Witchcraft and Wizardry.', 200, 45, false, 'English', 'English');
@@ -90,15 +92,13 @@ INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, 
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(18, 'harry-potter-and-the-half-blood-prince', 8, 'Harry Potter and the Half-Blood Prince','harry-potter-half-blood-prince.webp', 'Harry Potter and the Half-Blood Prince, the sixth book in the Harry Potter series by J.K. Rowling, delves into the history of Lord Voldemort''s dark past and Harry''s preparations for the final battle against him.', 240, 69.99, false, 'English', 'English');
 INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(19, 'harry-potter-and-the-deathly-hallows', 8, 'Harry Potter and the Deathly Hallows','harry-potter-deathly-hallows.jpg', 'Harry Potter and the Deathly Hallows, the seventh and final book in the Harry Potter series by J.K. Rowling, follows Harry, Ron, and Hermione as they leave Hogwarts behind and set out to finish the quest to defeat Lord Voldemort once and for all.', 210, 59.99, false, 'English', 'English');
 
-INSERT INTO shopapp_books (id, slug, author_id, title, img, description, stock, price, read, language, original_language) VALUES(21, 'all-quiet', 9, 'All Quiet on the Western Front','all_quiet.jpg', 'The book describes the German soldiers'' extreme physical and mental trauma during the war as well as the detachment from civilian life felt by many upon returning home from the war.', 0, 75, false, 'German', 'German');
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (20, 2);
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (20, 3);
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (20, 4);
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (20, 7);
 
-INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 2);
-INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 3);
-INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 4);
-INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 7);
-
-INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (2, 3); -- Classics
-INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (2, 6); -- Historical Fiction
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (6, 3); -- Classics
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (6, 6); -- Historical Fiction
 
 -- For 'Le mythe de sisyphe' by Albert Camus
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (3, 2); -- Philosophy
@@ -112,7 +112,7 @@ INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (4, 5); -- Abs
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (5, 4); -- Novel
 
 -- For 'Letters from a Stoic' by Lucius Annaeus Seneca
-INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (6, 2); -- Philosophy
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (2, 2); -- Philosophy
 
 -- For books by Andrzej Sapkowski (assuming they are all 'Fantasy')
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (7, 1); -- Fantasy
@@ -129,10 +129,10 @@ INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (17, 1); -- Fa
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (18, 1); -- Fantasy
 INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (19, 1); -- Fantasy
 
-INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (20, 2);
-INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (20, 4);
-INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (20, 6);
-INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (20, 7);
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 2);
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 4);
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 6);
+INSERT INTO shopapp_bookscategories (book_id, category_id) VALUES (1, 7);
 
 
 

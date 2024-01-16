@@ -17,11 +17,12 @@ Book shop checklist:
 1	User Logout
 1	User account deletion
 1	Update user details
+0	Change password
 1	View a single book
 1	View a list of books
 1   Populate with books
 1	Display content of free books. Read the book
-	View popular books
+0	View popular books
 
 1	Add to card as user
 1	View Cart 
@@ -29,7 +30,7 @@ Book shop checklist:
 1	Remove from card as a user
 1	View sub-summary in a sidebar
 
-	Search with tags by
+1	Search with tags by
 1		category
 1		language
 
@@ -43,9 +44,9 @@ Book shop checklist:
 
 
 1	Full-text search by description
-	Full-text search from top navbar
+0	Full-text search from top navbar
 1	AJAX interactions
-	Feedback messages - errors, Notifications
+0	Feedback messages - errors, Notifications
 
 
 --- Advanced:
@@ -56,12 +57,11 @@ Book shop checklist:
 	able to add to cart via chatbot
 	Able to ask for advise from chatbot
 
-	Blacklist
 	Confirm Email
 	Password recovery	
 1	Cookie notice
-	Do not use non-essential cookies if not allowed
-	Store user location, ip, only if cookies allowed
+1	Do not use non-essential cookies if not allowed
+1	Store user location, ip, only if cookies allowed
 
 	Captcha
 	Payment
