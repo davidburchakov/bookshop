@@ -13,6 +13,7 @@
     </title>
 
     <link rel="stylesheet" href="{% static 'css/general.css' %}">
+    <link rel="stylesheet" href="{% static "css/cookies.css" %}">
     {% block links %}
 {#        additional stylesheets here #}
     {% endblock %}
@@ -87,13 +88,27 @@
 
         </header>
     {% endblock %}
-
+    
     <div id="content-wrapper">
             {% block main %}
                 
             {% endblock %}
     </div>
     {% block footer %}
+        
+        <div id="cookieConsentModal" class="cookie-consent-modal">
+            <div class="cookie-content">
+                <p>Why we use cookies and other tracking technologies?
+                    Our site enables script (e.g. cookies) that is able to read, store, and write information on your browser and in your device. 
+                    The information processed by this script includes data relating to you which may include personal identifiers (e.g. IP address and session details) 
+                    and browsing activity. We use this information for various purposes - e.g. to deliver content, maintain security, enable user choice, improve our sites, 
+                    and for marketing purposes. You can reject all non-essential processing by choosing to accept only necessary cookies.
+                    <a href="">Cookie Notice</a></p>
+                <button id="acceptCookieBtn" class="cookie-btn">Accept</button>
+                <button id="rejectCookieBtn" class="cookie-btn">Accept only essential</button>
+            </div>
+        </div>
+
     <footer id="site-footer">
         {% now 'Y' as current_year %}
         Shop App CC0 2023 - {{ current_year }}
@@ -103,6 +118,7 @@
 </body>
 <script src="{% static "js/sidebar.js" %}"></script>
 <script src="{% static "js/update_quantity.js" %}"></script>
+<script src="{% static "js/cookies.js" %}"></script>
 
 {% block javascript %}
     

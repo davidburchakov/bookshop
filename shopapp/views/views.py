@@ -52,3 +52,5 @@ def faq_view(request: HttpRequest):
 
 def seneka_pg1(request: HttpRequest):
     return render(request, 'books/seneka/seneka-read.html')
+
+

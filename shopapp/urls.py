@@ -6,7 +6,7 @@ from shopapp.views.seneka_view import pdf_view, letter_view
 from shopapp.views.user_view import (login_view, profile_view,
                                      register_view, logout_view,
                                      profile_update_view_page, profile_update_view,
-                                     profile_delete)
+                                     profile_delete, set_cookie_consent)
 
 
 urlpatterns = [
@@ -29,4 +29,5 @@ urlpatterns = [
     path('books/seneka/seneka-read', pdf_view, name="seneka-read"),
     path('books/seneka/letter/<str:letter_id>/', letter_view, name='letter'),
     path("browse", browse_view, name="browse"),
+    path('set-cookie-consent/', set_cookie_consent, name='set_cookie_consent'),
 ]
