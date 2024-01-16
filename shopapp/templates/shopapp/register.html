@@ -6,15 +6,6 @@
 {% endblock %}
 {% block main %}
     <main>
-        <div class="messages">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="{{ message.tags }}">
-                        <b>{{ message }}</b>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
         <div class="register-card">
         <h1>Register</h1>
             <form action="{% url "register" %}" method="post" class="vertical">

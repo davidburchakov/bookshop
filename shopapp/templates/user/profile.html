@@ -5,15 +5,6 @@
 {% endblock %}
 {% block main %}
     <main>
-        {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <div class="{{ message.tags }}">
-                        <b>{{ message }}</b>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
         <section class="profile">
             {% if user.is_authenticated %}
                 <h2>Profile {{ user.username }}</h2>

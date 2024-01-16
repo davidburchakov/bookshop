@@ -19,6 +19,12 @@ li {
     list-style-type: none;
 }
 
+.messages {
+    z-index: 2;
+    position: absolute;
+    right: 50vw;
+}
+
 .messages .success{
     color: green;
 }

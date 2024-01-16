@@ -46,7 +46,7 @@ Book shop checklist:
 1	Full-text search by description
 0	Full-text search from top navbar
 1	AJAX interactions
-0	Feedback messages - errors, Notifications
+1	Feedback messages - errors, Notifications
 
 
 --- Advanced:

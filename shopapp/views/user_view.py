@@ -96,8 +96,8 @@ def login_view(request: HttpRequest):
                 return redirect('index')
             else:
                 form.add_error(None, "Invalid username or password")
-    else:
-        messages.error(request, "Could not log in")
+        else:
+            messages.error(request, "Could not log in")
     return render(request, 'shopapp/login.html')
 
 
