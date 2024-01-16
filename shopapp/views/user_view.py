@@ -2,14 +2,14 @@ from django.contrib.auth.models import User
 
 from django.http import HttpRequest
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django import forms
 from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
 from ..models.models import UserProfile
 from django.contrib.auth.decorators import login_required
 from shopapp.views.cookies_view import get_user_agent
+from django.contrib import messages
 
 
 class MyUserCreationForm(UserCreationForm):
@@ -171,7 +171,6 @@ def logout_view(request):
 
 def profile_delete(request):
     if request.method == 'POST':
-        print("POST")
         if request.user.is_authenticated:
             user = request.user
             user.delete()
@@ -184,3 +183,41 @@ def profile_delete(request):
     else:
         messages.error(request, "Invalid Request Method.")
         return render(request, 'user/profile.html')
+
+
+def password_change_view_page(request: HttpRequest):
+    if request.user.is_authenticated:
+        print("PASSWORD CHANGE VIEW")
+        return render(request, "user/password_change.html")
+    else:
+        messages.error(request, "Permissions denied.")
+        return redirect('index')
+
+
+def password_change_view(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            current_password = request.POST.get('current_password')
+            new_password = request.POST.get('new_password')
+            new_password_repeat = request.POST.get('new_password_repeat')
+
+            user = authenticate(username=request.user.username, password=current_password)
+            if user is not None and new_password == new_password_repeat:
+                user.set_password(new_password)
+                user.save()
+                update_session_auth_hash(request, user)  # Important!
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('profile')  # Redirect to a success page
+            else:
+                messages.error(request, 'Please correct the error below.')
+        else:
+            messages.error(request, 'You are not authenticated.')
+            return redirect('login')  # Redirect to login page
+    else:
+        if request.user.is_authenticated:
+            return render(request, "user/password_change.html")
+        else:
+            messages.error(request, 'You are not authenticated.')
+            return redirect('login')
+
+    return render(request, "user/password_change.html")
