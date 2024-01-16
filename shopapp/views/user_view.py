@@ -9,10 +9,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from ..models.models import UserProfile
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
-import json
+
 
 
 class MyUserCreationForm(UserCreationForm):
@@ -172,20 +169,3 @@ def profile_delete(request):
     else:
         messages.error(request, "Invalid Request Method.")
         return render(request, 'user/profile.html')
-
-
-@csrf_exempt
-@require_POST
-def set_cookie_consent(request):
-    data = json.loads(request.body)
-    consent = data.get('consent')
-
-    response = JsonResponse({'status': 'success'})
-
-    # Set a cookie based on user's choice
-    if consent == 'accepted':
-        response.set_cookie('cookie_consent', 'accepted')
-    elif consent == 'rejected':
-        response.set_cookie('cookie_consent', 'rejected')
-
-    return response

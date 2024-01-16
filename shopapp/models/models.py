@@ -10,8 +10,10 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
+
 class Country(models.Model):
     name = models.CharField(max_length=25)
+
 
 class Authors(models.Model):
     fullname = models.CharField(max_length=25)
@@ -60,7 +62,14 @@ class BooksCategories(models.Model):
         return f"{self.book.title} - {self.category.name}"
 
 
-
 class Faq(models.Model):
     question = models.TextField()
     answer = models.TextField()
+
+
+class UserActivity(models.Model):
+    ip_address = models.GenericIPAddressField()
+    location = models.CharField(max_length=50)
+    browser_info = models.TextField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
