@@ -22,16 +22,25 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 if (data.status === 'success') {
-                    alert('Book added to cart!');
+                    displayMessage('Book added to cart!', 'success');
                     const quantityDisplay = document.querySelector('.quantity');
                     if (quantityDisplay) {
                         quantityDisplay.textContent = data.total_quantity;
                     }
                 } else {
-                    alert('Error: ' + data.message);
+                    displayMessage('Error: ' + data.message, 'error');
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                displayMessage('Error: ' + error.message, 'error');
+            });
         });
     }
 });
+
+function displayMessage(message, type) {
+    const messageContainer = document.getElementById('message-container');
+    messageContainer.innerText = message;
+    messageContainer.className = type; // You can use this to apply different styles for success/error messages
+}

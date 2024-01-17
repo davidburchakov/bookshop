@@ -103,6 +103,17 @@ figcaption {
     background-color: #ddd;
 }
 
+#message-container.success {
+    color: green;
+    /* other styling for success messages */
+}
+
+#message-container.error {
+    color: red;
+    /* other styling for error messages */
+}
+
+
 
 /*---------------------------------------- Review Section Styling ----------------------------------------*/
 

@@ -31,6 +31,7 @@
                     <input type="submit" value="Read online">
                 </form>
             {% endif %}
+        
             {% if book.stock > 0 %}
                 <form class="add-to-cart-form" action="{% url 'add-to-cart' %}" method="post">
                     {% csrf_token %}
@@ -46,6 +47,7 @@
                     <span class="tooltiptext">Book out of stock</span>
                 </div>
             {% endif %}
+        <div id="message-container"></div>
 
         </section>
 
