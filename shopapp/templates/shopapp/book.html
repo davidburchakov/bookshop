@@ -58,10 +58,10 @@
                 <p><b>You must be logged in to rate this book.</b></p>
             {% endif %}
             <div id="average-score">
-                <h3>Average Score: <span id="average-score-value">Loading...</span></h3>
+                <h3>Average Score: <span id="average-score-value">{{ average_score }}</span></h3>
             </div>
         </section>
-    
+
         <section id="reviews">
             <h2>Reviews</h2>
             <div id="review-list">
@@ -86,7 +86,7 @@
                 <p><b>You must be logged in to post a review.</b></p>
             {% endif %}
         </section>
-    
+
 
     </main>
     
@@ -130,5 +130,5 @@
 
 {% block javascript %}
     <script src="{% static "/js/review.js" %}"></script>
-    <script src="{% static "/js/price.js" %}"></script>
+    <script src="{% static "/js/score.js" %}"></script>
 {% endblock %}
