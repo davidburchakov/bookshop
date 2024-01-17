@@ -31,8 +31,14 @@
                     <input type="submit" value="Read online">
                 </form>
             {% endif %}
+
             {% if book.stock > 0 %}
-                <button class="add-to-cart" data-book-id="{{ book.id }}">Add to Cart</button>
+                <form class="add-to-cart-form" action="{% url 'add-to-cart' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="book_id" value="{{ book.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="submit" value="Add to Cart">
+                </form>
             {% else %}
                 <div class="tooltip">
                     <button class="not-available" data-book-id="{{ book.id }}" disabled>
@@ -40,10 +46,51 @@
                     </button>
                     <span class="tooltiptext">Book out of stock</span>
                 </div>
-                
             {% endif %}
+        <div id="message-container"></div>
 
         </section>
+
+        <section id="score-section">
+    {% if user.is_authenticated %}
+        <h3>Rate this Book:</h3>
+        <form id="score-form" action="{% url 'submit-score' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="book_id" value="{{ book.id }}">
+
+            <div class="star-rating">
+                {% for star in range_5 %}
+                <input id="star-{{ star }}" type="radio" name="score" value="{{ star }}" required/>
+                <label for="star-{{ star }}" title="{{ star }} stars">&#9733;</label>
+                {% endfor %}
+            </div>
+        </form>
+{#        <h3>Form 2</h3>#}
+{#        <form id="score-form" action="{% url 'submit-score' %}" method="POST">#}
+{#            {% csrf_token %}#}
+{#            <input type="hidden" name="book_id2" value="{{ book.id }}">#}
+{##}
+{#            <div class="star-rating">#}
+{#                <h1>HERE</h1>#}
+{#                {% for star in range_5 %}#}
+{#                <input id="star-{{ star }}" type="radio" name="score" value="{{ star }}" required/>#}
+{#                <label for="star-{{ star }}" title="{{ star }} stars">#}
+{#                    &#9733;#}
+{#                    <button type="submit" class="star-submit" style="display:none;"></button>#}
+{#                </label>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#        </form>#}
+
+
+    {% else %}
+        <p><b>You must be logged in to rate this book.</b></p>
+    {% endif %}
+    <div id="average-score">
+        <h3>Average Score: <span id="average-score-value">{{ average_score }}</span></h3>
+    </div>
+</section>
+
 
         <section id="reviews">
             <h2>Reviews</h2>
@@ -70,45 +117,16 @@
             {% endif %}
         </section>
 
+
     </main>
+    
+            <script>
+            </script>
 {% endblock %}
 
-            <script>
-                document.querySelectorAll('.add-to-cart').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const bookId = this.getAttribute('data-book-id');
-                         if (!bookId) {
-                            console.error('Book ID is not defined');
-                            return;
-                        }
-                        fetch("{% url 'add-to-cart' %}", {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                                'X-CSRFToken': '{{ csrf_token }}'
-                            },
-                            body: 'book_id=' + bookId + '&quantity=1'
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'success') {
-                                alert('Book added to cart!');
-
-                                // Update the total quantity displayed
-                                const quantityDisplay = document.querySelector('.quantity');
-                                if (quantityDisplay) {
-                                    quantityDisplay.textContent = data.total_quantity;
-                                }
-                            } else {
-                                alert('Error: ' + data.message);
-                            }
-                        })
-
-                        .catch(error => console.error('Error:', error));
-
-                    });
-                });
-            </script>
 {% block javascript %}
+
+    <script src="{% static "/js/add-to-cart.js" %}"></script>
     <script src="{% static "/js/review.js" %}"></script>
+    <script src="{% static "/js/score.js" %}"></script>
 {% endblock %}

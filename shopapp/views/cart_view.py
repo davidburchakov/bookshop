@@ -6,7 +6,7 @@ import json
 
 
 def add_to_cart(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated:
         book_id = request.POST.get('book_id')
         if not book_id.isdigit():
             return JsonResponse({'status': 'error', 'message': 'Invalid book ID'})

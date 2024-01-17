@@ -104,6 +104,33 @@ figcaption {
 }
 
 
+/*---------------------------------------- Feedback message ----------------------------------------*/
+#message-container {
+    position: fixed;
+    top: 10px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    background-color: #f0f0f0; /* Light gray background */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: none; /* Hidden by default */
+}
+
+#message-container.success {
+    color: green;
+    border-color: green;
+}
+
+#message-container.error {
+    color: red;
+    border-color: red;
+}
+
+
+
 /*---------------------------------------- Review Section Styling ----------------------------------------*/
 
 #reviews {
@@ -173,4 +200,39 @@ figcaption {
 .logged-out-message {
     color: #d9534f;
     font-weight: bold;
+}
+
+/*---------------------------------------- Score ----------------------------------------*/
+
+#score-section {
+    margin-top: 20px;
+}
+
+#average-score {
+    margin-top: 10px;
+}
+
+.star-rating {
+    direction: rtl; /* Reverse the order of the radio buttons */
+    font-size: 30px; /* Adjust the size of stars */
+    line-height: 1;
+}
+
+.star-rating input[type="radio"] {
+    display: none; /* Hide the radio buttons */
+}
+
+.star-rating label {
+    color: #ccc; /* Color of unselected stars */
+    cursor: pointer;
+}
+
+.star-rating input[type="radio"]:checked ~ label {
+    color: gold; /* Color of selected stars */
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input[type="radio"]:focus + label {
+    color: orange; /* Color of hover or focus stars */
 }

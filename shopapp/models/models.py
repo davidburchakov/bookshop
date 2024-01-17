@@ -84,3 +84,12 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Review by {self.user.username} on {self.book.title}"
+
+
+class Score(models.Model):
+    book = models.ForeignKey(Books, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    score = models.IntegerField()
+
+    class Meta:
+        unique_together = ('book', 'user')

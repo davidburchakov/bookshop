@@ -22,7 +22,7 @@ Book shop checklist:
 1	View a list of books
 1   Populate with books
 1	Display content of free books. Read the book
-0	View popular books
+0	View popular books, depending on how many views (how often the page is opened)
 
 1	Add to card as user
 1	View Cart 

@@ -2,7 +2,8 @@ from django.http import HttpRequest
 from django.shortcuts import render
 from django.db import connection
 from django.http import JsonResponse
-from ..models.models import Review, Books
+from ..models.models import Review, Books, Score
+from django.db.models import Avg
 
 
 def get_all_books():
@@ -91,11 +92,14 @@ def single_book_view(request: HttpRequest, slug):
     categories = get_all_categories(book['id'])
     categories['categories'] = list(map(lambda x: x.lower(), categories['categories']))
     reviews = Review.objects.filter(book_id=book['id'])
+    average_score = Score.objects.filter(book_id=book['id']).aggregate(Avg('score'))['score__avg'] or "Not yet rated"
 
     context = {
         "book": book,
         "categories": categories['categories'],
-        "reviews": reviews
+        "reviews": reviews,
+        "average_score": average_score,
+        "range_5": reversed(range(1, 6))
     }
     return render(request, "shopapp/book.html", context=context)
 
@@ -179,3 +183,34 @@ def post_review(request, book_id):
             return JsonResponse({'status': 'error', 'message': 'Book not found'})
     print("REVIEW INVALID REQUEST")
     return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+
+
+def submit_score(request):
+    if request.method == 'POST' and request.user.is_authenticated:
+        book_id = request.POST.get('book_id')
+        score = request.POST.get('score')
+        book = Books.objects.get(id=book_id)
+
+        try:
+            # Check if the user has already submitted a score for this book
+            existing_score = Score.objects.filter(book=book, user=request.user).first()
+
+            if existing_score:
+                # Option 1: Update the existing score
+                existing_score.score = score
+                existing_score.save()
+                # Option 2: Return an error message (uncomment the following two lines)
+                # return JsonResponse({'status': 'error', 'message': 'You have already rated this book'})
+
+            else:
+                Score.objects.create(book=book, user=request.user, score=score)
+
+            average_score = Score.objects.filter(book=book).aggregate(Avg('score'))['score__avg']
+
+            return JsonResponse({'status': 'success', 'average_score': average_score})
+
+        except Books.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Book not found'})
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request or not authenticated'})
+
