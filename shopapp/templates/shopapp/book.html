@@ -64,9 +64,25 @@
                 <label for="star-{{ star }}" title="{{ star }} stars">&#9733;</label>
                 {% endfor %}
             </div>
-
-            <input type="submit" value="Submit Score">
         </form>
+{#        <h3>Form 2</h3>#}
+{#        <form id="score-form" action="{% url 'submit-score' %}" method="POST">#}
+{#            {% csrf_token %}#}
+{#            <input type="hidden" name="book_id2" value="{{ book.id }}">#}
+{##}
+{#            <div class="star-rating">#}
+{#                <h1>HERE</h1>#}
+{#                {% for star in range_5 %}#}
+{#                <input id="star-{{ star }}" type="radio" name="score" value="{{ star }}" required/>#}
+{#                <label for="star-{{ star }}" title="{{ star }} stars">#}
+{#                    &#9733;#}
+{#                    <button type="submit" class="star-submit" style="display:none;"></button>#}
+{#                </label>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#        </form>#}
+
+
     {% else %}
         <p><b>You must be logged in to rate this book.</b></p>
     {% endif %}
