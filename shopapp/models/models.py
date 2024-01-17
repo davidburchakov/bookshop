@@ -93,3 +93,15 @@ class Score(models.Model):
 
     class Meta:
         unique_together = ('book', 'user')
+
+
+class Rule(models.Model):
+    input = models.TextField()
+    output = models.TextField()
+
+    def __str__(self):
+        return self.input
+
+    class Meta:
+        managed: False
+        db_table = 'rules'

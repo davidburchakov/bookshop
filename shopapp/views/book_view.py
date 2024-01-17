@@ -4,7 +4,7 @@ from django.db import connection
 from django.http import JsonResponse
 from ..models.models import Review, Books, Score
 from django.db.models import Avg
-
+from django.core.exceptions import ValidationError
 
 def get_all_books():
     books = []
@@ -185,32 +185,43 @@ def post_review(request, book_id):
     return JsonResponse({'status': 'error', 'message': 'Invalid request'})
 
 
+
 def submit_score(request):
     if request.method == 'POST' and request.user.is_authenticated:
-        book_id = request.POST.get('book_id')
-        score = request.POST.get('score')
-        book = Books.objects.get(id=book_id)
-
         try:
+            book_id = request.POST.get('book_id')
+            score = request.POST.get('score')
+
+            # Validate that book_id is an integer
+            book_id = int(book_id)
+
+            # Validate that score is an integer and within the expected range
+            score = int(score)
+            if score < 1 or score > 5:
+                raise ValidationError("Score must be between 1 and 5")
+
+            # Check if the book exists
+            book = Books.objects.get(id=book_id)
+
             # Check if the user has already submitted a score for this book
             existing_score = Score.objects.filter(book=book, user=request.user).first()
 
             if existing_score:
-                # Option 1: Update the existing score
                 existing_score.score = score
                 existing_score.save()
-                # Option 2: Return an error message (uncomment the following two lines)
-                # return JsonResponse({'status': 'error', 'message': 'You have already rated this book'})
-
             else:
                 Score.objects.create(book=book, user=request.user, score=score)
 
+            # Calculate and return the average score
             average_score = Score.objects.filter(book=book).aggregate(Avg('score'))['score__avg']
-
             return JsonResponse({'status': 'success', 'average_score': average_score})
 
         except Books.DoesNotExist:
             return JsonResponse({'status': 'error', 'message': 'Book not found'})
+        except ValueError:
+            return JsonResponse({'status': 'error', 'message': 'Invalid data'})
+        except ValidationError as e:
+            return JsonResponse({'status': 'error', 'message': str(e)})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request or not authenticated'})
 
