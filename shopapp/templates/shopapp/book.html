@@ -32,7 +32,12 @@
                 </form>
             {% endif %}
             {% if book.stock > 0 %}
-                <button class="add-to-cart" data-book-id="{{ book.id }}">Add to Cart</button>
+                <form class="add-to-cart-form" action="{% url 'add-to-cart' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="book_id" value="{{ book.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="submit" value="Add to Cart">
+                </form>
             {% else %}
                 <div class="tooltip">
                     <button class="not-available" data-book-id="{{ book.id }}" disabled>
@@ -40,7 +45,6 @@
                     </button>
                     <span class="tooltiptext">Book out of stock</span>
                 </div>
-                
             {% endif %}
 
         </section>
@@ -51,7 +55,9 @@
                 <form id="score-form" action="{% url 'submit-score' %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="book_id" value="{{ book.id }}">
-                    <input type="number" name="score" min="1" max="5" required>
+                    <label>
+                        <input type="number" name="score" min="1" max="5" required>
+                    </label>
                     <input type="submit" value="Submit Score">
                 </form>
             {% else %}
@@ -91,44 +97,12 @@
     </main>
     
             <script>
-                document.querySelectorAll('.add-to-cart').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const bookId = this.getAttribute('data-book-id');
-                         if (!bookId) {
-                            console.error('Book ID is not defined');
-                            return;
-                        }
-                        fetch("{% url 'add-to-cart' %}", {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                                'X-CSRFToken': '{{ csrf_token }}'
-                            },
-                            body: 'book_id=' + bookId + '&quantity=1'
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'success') {
-                                alert('Book added to cart!');
-
-                                // Update the total quantity displayed
-                                const quantityDisplay = document.querySelector('.quantity');
-                                if (quantityDisplay) {
-                                    quantityDisplay.textContent = data.total_quantity;
-                                }
-                            } else {
-                                alert('Error: ' + data.message);
-                            }
-                        })
-
-                        .catch(error => console.error('Error:', error));
-
-                    });
-                });
             </script>
 {% endblock %}
 
 {% block javascript %}
+    
+    <script src="{% static "/js/add-to-cart.js" %}"></script>
     <script src="{% static "/js/review.js" %}"></script>
     <script src="{% static "/js/score.js" %}"></script>
 {% endblock %}
