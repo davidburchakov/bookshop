@@ -117,19 +117,26 @@
                 {% for book in books %}
                     <li>
                         {% if book %}
-                        <article>
-                            <figure>
-                                <img class="book-cover" src="/static/img/{{ book.img }}" alt="book name">
-                                 <a href="{% url "book" slug=book.slug %}">
-                                    <figcaption>{{ book.author }}, {{ book.title }}</figcaption>
-                                 </a>
-                            </figure>
-                        </article>
-                    {% endif %}
+                            <article>
+                                {% if book.read %}
+                                    <span class="free-badge">Read online</span>
+                                {% endif %}
+                                {% if book.stock < 1 %}
+                                    <span class="stock-badge">Out of Stock</span>
+                                {% endif %}
+                                <figure>
+                                    <img class="book-cover" src="/static/img/{{ book.img }}" alt="book name">
+                                    <a href="{% url 'book' slug=book.slug %}">
+                                        <figcaption>{{ book.author }}, {{ book.title }}</figcaption>
+                                    </a>
+                                </figure>
+                            </article>
+                        {% endif %}
                     </li>
                 {% endfor %}
             </ul>
         </div>
+
 
 </main>
 {% endblock %}

@@ -50,7 +50,7 @@ Book shop checklist:
 
 
 --- Advanced:
-	Comments/Review section
+1	Comments/Review section
 	Score/likes
 	Chatbot with semantic analysis, that improves the user experience
 		able to add to cart via chatbot
@@ -74,8 +74,8 @@ Book shop checklist:
 
 
 --- Style:
-	Style the free book card
-	Style the pages
+1	General page styling
+1	Style the free book and out of stock badge
 	Top navbar
 	Footer
 	sidebar styling

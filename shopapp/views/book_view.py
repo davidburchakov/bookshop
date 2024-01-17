@@ -90,7 +90,7 @@ def single_book_view(request: HttpRequest, slug):
     book = [i for i in books if i["slug"] == slug][0]
     categories = get_all_categories(book['id'])
     categories['categories'] = list(map(lambda x: x.lower(), categories['categories']))
-    reviews = Review.objects.filter(book_id=4)
+    reviews = Review.objects.filter(book_id=book['id'])
 
     context = {
         "book": book,
