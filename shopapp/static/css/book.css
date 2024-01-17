@@ -174,3 +174,13 @@ figcaption {
     color: #d9534f;
     font-weight: bold;
 }
+
+/*---------------------------------------- Score ----------------------------------------*/
+
+#score-section {
+    margin-top: 20px;
+}
+
+#average-score {
+    margin-top: 10px;
+}

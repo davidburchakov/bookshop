@@ -2,7 +2,7 @@ from django.http import HttpRequest
 from django.shortcuts import render
 from django.db import connection
 from django.http import JsonResponse
-from ..models.models import Review, Books
+from ..models.models import Review, Books, Score
 
 
 def get_all_books():
@@ -179,3 +179,26 @@ def post_review(request, book_id):
             return JsonResponse({'status': 'error', 'message': 'Book not found'})
     print("REVIEW INVALID REQUEST")
     return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+
+
+from django.db.models import Avg
+
+def submit_score(request):
+    if request.method == 'POST' and request.user.is_authenticated:
+        book_id = request.POST.get('book_id')
+        print("BOOK")
+        print(book_id)
+        score = request.POST.get('score')
+
+        try:
+            book = Books.objects.get(id=book_id)
+            # Assuming you have a model for Scores
+            Score.objects.create(book=book, user=request.user, score=score)
+
+            # Calculate average score
+            average_score = Score.objects.filter(book=book).aggregate(Avg('score'))['score__avg']
+            return JsonResponse({'status': 'success', 'average_score': average_score})
+        except Books.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Book not found'})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request or not authenticated'})
+

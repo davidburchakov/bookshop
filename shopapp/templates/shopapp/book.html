@@ -45,6 +45,23 @@
 
         </section>
 
+        <section id="score-section">
+            {% if user.is_authenticated %}
+                <h3>Rate this Book:</h3>
+                <form id="score-form" action="{% url 'submit-score' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="book_id" value="{{ book.id }}">
+                    <input type="number" name="score" min="1" max="5" required>
+                    <input type="submit" value="Submit Score">
+                </form>
+            {% else %}
+                <p><b>You must be logged in to rate this book.</b></p>
+            {% endif %}
+            <div id="average-score">
+                <h3>Average Score: <span id="average-score-value">Loading...</span></h3>
+            </div>
+        </section>
+    
         <section id="reviews">
             <h2>Reviews</h2>
             <div id="review-list">
@@ -69,10 +86,10 @@
                 <p><b>You must be logged in to post a review.</b></p>
             {% endif %}
         </section>
+    
 
     </main>
-{% endblock %}
-
+    
             <script>
                 document.querySelectorAll('.add-to-cart').forEach(button => {
                     button.addEventListener('click', function() {
@@ -109,6 +126,9 @@
                     });
                 });
             </script>
+{% endblock %}
+
 {% block javascript %}
     <script src="{% static "/js/review.js" %}"></script>
+    <script src="{% static "/js/price.js" %}"></script>
 {% endblock %}

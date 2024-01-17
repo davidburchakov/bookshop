@@ -1,7 +1,7 @@
 from django.urls import path
 from shopapp.views.cookies_view import set_cookie_consent
 from shopapp.views.views import (index_view, about_view, faq_view)
-from shopapp.views.book_view import books_view, single_book_view, browse_view, post_review
+from shopapp.views.book_view import books_view, single_book_view, browse_view, post_review, submit_score
 from shopapp.views.cart_view import cart_view, add_to_cart, update_cart
 from shopapp.views.seneka_view import pdf_view, letter_view
 from shopapp.views.user_view import (login_view, profile_view,
@@ -33,5 +33,7 @@ urlpatterns = [
     path('set-cookie-consent/', set_cookie_consent, name='set_cookie_consent'),
     path('password-change-page', password_change_view_page, name='password-change-page'),
     path("password-change", password_change_view, name='password-change'),
-    path('post-review/<int:book_id>/', post_review, name='post_review')
+    path('post-review/<int:book_id>/', post_review, name='post_review'),
+    path("submit-score", submit_score, name='submit-score')
+
 ]
