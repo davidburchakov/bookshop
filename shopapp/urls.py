@@ -1,8 +1,7 @@
 from django.urls import path
 
-from shopapp.templates.chatbot import chatbot
 from shopapp.views.cookies_view import set_cookie_consent
-from shopapp.views.views import chatbot_response
+from shopapp.views.chatbot_view import chatbot_response
 from shopapp.views.views import (index_view, about_view, faq_view)
 from shopapp.views.book_view import books_view, single_book_view, browse_view, post_review, submit_score
 from shopapp.views.cart_view import cart_view, add_to_cart, update_cart

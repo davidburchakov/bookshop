@@ -2,10 +2,7 @@ from django.http import HttpRequest
 from django.shortcuts import render
 from .book_view import get_all_books
 from django.db import connection
-from django.http import JsonResponse
-from ..templates.chatbot.chatbot import find_closest_match
-from django.views.decorators.csrf import csrf_exempt
-import json
+
 
 def get_all_faq():
     with connection.cursor() as cursor:
@@ -57,12 +54,3 @@ def seneka_pg1(request: HttpRequest):
     return render(request, 'books/seneka/seneka-read.html')
 
 
-@csrf_exempt
-def chatbot_response(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        user_message = data['message']
-        bot_reply = find_closest_match(user_message)
-        return JsonResponse({'reply': bot_reply})
-
-    return JsonResponse({'reply': 'Invalid request'}, status=400)
