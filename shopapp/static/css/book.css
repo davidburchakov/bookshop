@@ -211,3 +211,28 @@ figcaption {
 #average-score {
     margin-top: 10px;
 }
+
+.star-rating {
+    direction: rtl; /* Reverse the order of the radio buttons */
+    font-size: 30px; /* Adjust the size of stars */
+    line-height: 1;
+}
+
+.star-rating input[type="radio"] {
+    display: none; /* Hide the radio buttons */
+}
+
+.star-rating label {
+    color: #ccc; /* Color of unselected stars */
+    cursor: pointer;
+}
+
+.star-rating input[type="radio"]:checked ~ label {
+    color: gold; /* Color of selected stars */
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input[type="radio"]:focus + label {
+    color: orange; /* Color of hover or focus stars */
+}

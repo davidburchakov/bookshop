@@ -98,7 +98,8 @@ def single_book_view(request: HttpRequest, slug):
         "book": book,
         "categories": categories['categories'],
         "reviews": reviews,
-        "average_score": average_score
+        "average_score": average_score,
+        "range_5": reversed(range(1, 6))
     }
     return render(request, "shopapp/book.html", context=context)
 
@@ -191,7 +192,6 @@ def submit_score(request):
         book = Books.objects.get(id=book_id)
 
         try:
-
             # Check if the user has already submitted a score for this book
             existing_score = Score.objects.filter(book=book, user=request.user).first()
 
@@ -203,7 +203,6 @@ def submit_score(request):
                 # return JsonResponse({'status': 'error', 'message': 'You have already rated this book'})
 
             else:
-                # Create a new score entry
                 Score.objects.create(book=book, user=request.user, score=score)
 
             average_score = Score.objects.filter(book=book).aggregate(Avg('score'))['score__avg']

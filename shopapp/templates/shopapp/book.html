@@ -31,7 +31,7 @@
                     <input type="submit" value="Read online">
                 </form>
             {% endif %}
-        
+
             {% if book.stock > 0 %}
                 <form class="add-to-cart-form" action="{% url 'add-to-cart' %}" method="post">
                     {% csrf_token %}
@@ -52,23 +52,29 @@
         </section>
 
         <section id="score-section">
-            {% if user.is_authenticated %}
-                <h3>Rate this Book:</h3>
-                <form id="score-form" action="{% url 'submit-score' %}" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="book_id" value="{{ book.id }}">
-                    <label>
-                        <input type="number" name="score" min="1" max="5" required>
-                    </label>
-                    <input type="submit" value="Submit Score">
-                </form>
-            {% else %}
-                <p><b>You must be logged in to rate this book.</b></p>
-            {% endif %}
-            <div id="average-score">
-                <h3>Average Score: <span id="average-score-value">{{ average_score }}</span></h3>
+    {% if user.is_authenticated %}
+        <h3>Rate this Book:</h3>
+        <form id="score-form" action="{% url 'submit-score' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="book_id" value="{{ book.id }}">
+
+            <div class="star-rating">
+                {% for star in range_5 %}
+                <input id="star-{{ star }}" type="radio" name="score" value="{{ star }}" required/>
+                <label for="star-{{ star }}" title="{{ star }} stars">&#9733;</label>
+                {% endfor %}
             </div>
-        </section>
+
+            <input type="submit" value="Submit Score">
+        </form>
+    {% else %}
+        <p><b>You must be logged in to rate this book.</b></p>
+    {% endif %}
+    <div id="average-score">
+        <h3>Average Score: <span id="average-score-value">{{ average_score }}</span></h3>
+    </div>
+</section>
+
 
         <section id="reviews">
             <h2>Reviews</h2>
@@ -103,7 +109,7 @@
 {% endblock %}
 
 {% block javascript %}
-    
+
     <script src="{% static "/js/add-to-cart.js" %}"></script>
     <script src="{% static "/js/review.js" %}"></script>
     <script src="{% static "/js/score.js" %}"></script>
