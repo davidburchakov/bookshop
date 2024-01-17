@@ -42,5 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function displayMessage(message, type) {
     const messageContainer = document.getElementById('message-container');
     messageContainer.innerText = message;
-    messageContainer.className = type; // You can use this to apply different styles for success/error messages
+    messageContainer.className = type; // Apply success/error class
+    messageContainer.style.display = 'block'; // Show the message container
+
+    // Hide the message after 5 seconds
+    setTimeout(() => {
+        messageContainer.style.display = 'none';
+    }, 5000);
 }

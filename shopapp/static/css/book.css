@@ -103,14 +103,30 @@ figcaption {
     background-color: #ddd;
 }
 
+
+/*---------------------------------------- Feedback message ----------------------------------------*/
+#message-container {
+    position: fixed;
+    top: 10px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    background-color: #f0f0f0; /* Light gray background */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: none; /* Hidden by default */
+}
+
 #message-container.success {
     color: green;
-    /* other styling for success messages */
+    border-color: green;
 }
 
 #message-container.error {
     color: red;
-    /* other styling for error messages */
+    border-color: red;
 }
 
 
