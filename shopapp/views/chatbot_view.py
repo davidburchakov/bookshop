@@ -24,31 +24,33 @@ def preprocess_text(text):
 conversation_context = {}
 
 
+def update_quantity(total_quantity):
+    return JsonResponse({'status': 'success', 'total_quantity': total_quantity})
+
+
 def find_closest_match(user_input, user_id, request):
     if user_id in conversation_context and conversation_context[user_id]['action'] == 'confirm_add_to_cart':
         if 'yes' in user_input.lower():
             book_title = conversation_context[user_id]['book_title']
-            book_id = conversation_context[user_id]['book_id']
+            book_id = str(conversation_context[user_id]['book_id'])
             quantity = int(request.POST.get('quantity', 1))
 
             try:
                 book = get_object_or_404(Books, pk=book_id)
                 cart = request.session.get('cart', {})
-                print("CART")
-                print(cart)
                 if book_id in cart:
-                    cart[book_id]['quantity'] += quantity
+                    current_quantity = int(cart[book_id]['quantity'])
+                    updated_quantity = current_quantity + 1
+                    cart[book_id] = {'quantity': updated_quantity, 'price': str(book.price)}
                 else:
                     cart[book_id] = {'quantity': quantity, 'price': str(book.price)}
-
                 request.session['cart'] = cart
-                total_quantity = sum(item['quantity'] for item in cart.values())
                 del conversation_context[user_id]
                 return f"'{book_title}' has been added to your cart."
 
             except Exception as e:
                 del conversation_context[user_id]
-                return "error occurred"
+                return f"error occurred {e}"
 
         else:
             # Clear the context if user responds with anything other than 'yes'
@@ -89,10 +91,9 @@ def chatbot_response(request):
         data = json.loads(request.body)
         user_message = data['message']
         user_id = request.session.session_key
-        bot_reply = find_closest_match(user_message, user_id, request)
+        response_message = find_closest_match(user_message, user_id, request)
 
-
-        return JsonResponse({'reply': bot_reply})
+        return JsonResponse({'reply': response_message})
 
     return JsonResponse({'reply': 'Invalid request'}, status=400)
 
