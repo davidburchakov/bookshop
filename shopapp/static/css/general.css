@@ -366,6 +366,42 @@ label[for="search-query"]
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
+.send-message:hover{
+    background-color: #404e9b;
+}
+
+.chatbot-content {
+    padding: 10px;
+    height: calc(100% - 120px); /* Adjust height to account for header, input area, and demo button */
+    overflow-y: auto;
+    position: relative; /* Needed for absolute positioning of the demo button */
+}
+
+.demo-button {
+    position: absolute;
+    bottom: 60px; /* Position at the bottom */
+    left: 27%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for exact centering */
+    background-color: dodgerblue; /* Green color to make it stand out */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-left: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease;
+}
+
+
+.demo-button:hover {
+    background-color: #2fbed7;
+}
+
+.demo-button:active {
+    background-color: #072360; /* Even darker shade when clicked */
+}
+
 
 /* Responsive Design */
 @media (max-width: 600px) {
