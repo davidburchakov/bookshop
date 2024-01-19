@@ -39,6 +39,27 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
+
+     var demoButton = document.getElementById('demoButton');
+
+    function sendDemoMessage() {
+        var demoMessage = "add to cart Letters from a Stoic";
+        chatContent.innerHTML += '<div>User: ' + demoMessage + '</div>';
+
+        fetch('/chatbot-response', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: demoMessage }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            chatContent.innerHTML += '<div>Bot: ' + data.reply + '</div>';
+        });
+    }
+
+    demoButton.addEventListener('click', sendDemoMessage);
 });
 
 

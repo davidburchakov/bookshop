@@ -71,7 +71,7 @@ def find_closest_match(user_input, user_id, request):
             if book['title'].lower() in user_input.lower():
                 conversation_context[user_id] = {'action': 'confirm_add_to_cart', 'book_title': book['title'],
                                                  'book_id': book['id']}
-                return "Proceed with adding '" + book['title'] + "' to the cart?"
+                return "Proceed with adding '" + book['title'] + "' to the cart? (yes/no)"
 
     return best_match or "I'm sorry, I don't understand your question."
 
