@@ -6,6 +6,8 @@ from nltk.corpus import stopwords
 from ..views.book_view import get_all_books
 from django.shortcuts import get_object_or_404
 import json
+import numpy as np
+import pandas as pd
 import nltk
 
 lemmatizer = WordNetLemmatizer()
@@ -88,6 +90,95 @@ def chatbot_response(request):
         user_message = data['message']
         user_id = request.session.session_key
         bot_reply = find_closest_match(user_message, user_id, request)
+
+
         return JsonResponse({'reply': bot_reply})
 
     return JsonResponse({'reply': 'Invalid request'}, status=400)
+
+
+# ---------------------------- Word2Vec/Gensim ----------------------------
+
+# descriptions = [book['description'] for book in books]
+# descriptions_df = pd.DataFrame(descriptions, columns=['Description'])
+#
+# descriptions_df.to_csv('bookshop_descriptions.csv', index=False)
+#
+#
+#
+#
+# from gensim.models import Word2Vec
+# import nltk
+# from nltk.tokenize import WordPunctTokenizer
+# # import time
+# # start_time = time.time()
+# # Tokenize sentences in the 'Review' column of the corpus
+# wpt = WordPunctTokenizer()
+# tokenized_corpus = [wpt.tokenize(document) for document in descriptions_df['Description']]
+#
+# # Set values for various parameters
+# feature_size = 100  # Word vector dimensionality
+# window_context = 30  # Context window size
+# min_word_count = 5  # Minimum word count
+# sample = 1e-3  # Downsample setting for frequent words
+#
+# # Initialize and train the model (this may take some time)
+# w2v_model = Word2Vec(vector_size=feature_size,
+#                      window=window_context,
+#                      min_count=min_word_count,
+#                      sample=sample,
+#                      epochs=50)
+#
+# # Build the vocabulary and train the Word2Vec model
+# w2v_model.build_vocab(tokenized_corpus)
+# w2v_model.train(tokenized_corpus, total_examples=w2v_model.corpus_count, epochs=w2v_model.epochs)
+#
+#
+#
+# from sklearn.metrics.pairwise import cosine_similarity
+# from nltk.tokenize import WordPunctTokenizer
+#
+# def sentence_similarity(sentence1, sentence2, w2v_model):
+#
+#     # processed_sentence1 = process_sentence(sentence1)
+#     # processed_sentence2 = process_sentence(sentence2)
+#     processed_sentence1 = sentence1
+#     processed_sentence2 = sentence2
+#
+#     tokenizer = WordPunctTokenizer()
+#
+#     # Tokenize sentences
+#     words1 = tokenizer.tokenize(processed_sentence1)
+#     words2 = tokenizer.tokenize(processed_sentence2)
+#
+#     # Compute average vector for each sentence
+#     vector1 = np.mean([w2v_model.wv[word] for word in words1 if word in w2v_model.wv] or [np.zeros(w2v_model.vector_size)], axis=0)
+#     vector2 = np.mean([w2v_model.wv[word] for word in words2 if word in w2v_model.wv] or [np.zeros(w2v_model.vector_size)], axis=0)
+#
+#     # Compute cosine similarity and convert it to percentage
+#     similarity = cosine_similarity([vector1], [vector2])[0][0]
+#     return (similarity + 1) / 2 * 100
+#
+# # Example usage
+# sentence1 = "The story follows Harry Potter, a young wizard who discovers his magical heritage as he makes close friends and a few enemies in his first year at the Hogwarts School of Witchcraft and Wizardry."
+# sentence2 = "Harry Potter and the Half-Blood Prince, the sixth book in the Harry Potter series by J.K. Rowling, delves into the history of Lord Voldemort's dark past and Harry's preparations for the final battle against him."
+#
+# # Assuming w2v_model is your Word2Vec model
+# similarity_percentage = sentence_similarity(sentence1, sentence2, w2v_model)
+# print(f"The similarity between the sentences is: {similarity_percentage:.2f}%")
+#
+#
+#
+# def recommend_book_by_description(user_input):
+#     highest_similarity = 0
+#     best_match = None
+#
+#     for book in books:  # Assuming books is a list of books with descriptions
+#         book_description = book['description']
+#         similarity = sentence_similarity(user_input, book_description, w2v_model)
+#
+#         if similarity > highest_similarity:
+#             highest_similarity = similarity
+#             best_match = book
+#
+#     return best_match

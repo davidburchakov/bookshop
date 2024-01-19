@@ -52,44 +52,26 @@
         </section>
 
         <section id="score-section">
-    {% if user.is_authenticated %}
-        <h3>Rate this Book:</h3>
-        <form id="score-form" action="{% url 'submit-score' %}" method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="book_id" value="{{ book.id }}">
-
-            <div class="star-rating">
-                {% for star in range_5 %}
-                <input id="star-{{ star }}" type="radio" name="score" value="{{ star }}" required/>
-                <label for="star-{{ star }}" title="{{ star }} stars">&#9733;</label>
-                {% endfor %}
+            {% if user.is_authenticated %}
+                <h3>Rate this Book:</h3>
+                <form id="score-form" action="{% url 'submit-score' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="book_id" value="{{ book.id }}">
+        
+                    <div class="star-rating">
+                        {% for star in range_5 %}
+                        <input id="star-{{ star }}" type="radio" name="score" value="{{ star }}" required/>
+                        <label for="star-{{ star }}" title="{{ star }} stars">&#9733;</label>
+                        {% endfor %}
+                    </div>
+                </form>
+            {% else %}
+                <p><b>You must be logged in to rate this book.</b></p>
+            {% endif %}
+            <div id="average-score">
+                <h3>Average Score: <span id="average-score-value">{{ average_score }}</span></h3>
             </div>
-        </form>
-{#        <h3>Form 2</h3>#}
-{#        <form id="score-form" action="{% url 'submit-score' %}" method="POST">#}
-{#            {% csrf_token %}#}
-{#            <input type="hidden" name="book_id2" value="{{ book.id }}">#}
-{##}
-{#            <div class="star-rating">#}
-{#                <h1>HERE</h1>#}
-{#                {% for star in range_5 %}#}
-{#                <input id="star-{{ star }}" type="radio" name="score" value="{{ star }}" required/>#}
-{#                <label for="star-{{ star }}" title="{{ star }} stars">#}
-{#                    &#9733;#}
-{#                    <button type="submit" class="star-submit" style="display:none;"></button>#}
-{#                </label>#}
-{#                {% endfor %}#}
-{#            </div>#}
-{#        </form>#}
-
-
-    {% else %}
-        <p><b>You must be logged in to rate this book.</b></p>
-    {% endif %}
-    <div id="average-score">
-        <h3>Average Score: <span id="average-score-value">{{ average_score }}</span></h3>
-    </div>
-</section>
+        </section>
 
 
         <section id="reviews">
@@ -116,12 +98,8 @@
                 <p><b>You must be logged in to post a review.</b></p>
             {% endif %}
         </section>
-
-
-    </main>
     
-            <script>
-            </script>
+    </main>
 {% endblock %}
 
 {% block javascript %}

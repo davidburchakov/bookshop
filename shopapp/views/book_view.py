@@ -6,6 +6,7 @@ from ..models.models import Review, Books, Score
 from django.db.models import Avg
 from django.core.exceptions import ValidationError
 
+
 def get_all_books():
     books = []
     with connection.cursor() as cursor:
@@ -185,7 +186,6 @@ def post_review(request, book_id):
     return JsonResponse({'status': 'error', 'message': 'Invalid request'})
 
 
-
 def submit_score(request):
     if request.method == 'POST' and request.user.is_authenticated:
         try:
@@ -224,4 +224,3 @@ def submit_score(request):
             return JsonResponse({'status': 'error', 'message': str(e)})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request or not authenticated'})
-

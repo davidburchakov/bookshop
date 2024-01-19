@@ -104,24 +104,23 @@
             {% endblock %}
             
         
-        
-            <!-- Chatbot Trigger Button -->
-            <button id="chatbotTrigger" class="chatbot-trigger">Chat with us!</button>
-            
-            <!-- Chatbot Container -->
-            <div id="chatbotContainer" class="chatbot-container">
-                <div class="chatbot-header">
-                    <h2>Chatbot</h2>
-                    <button id="closeChatbot" class="chatbot-close">&times;</button>
+            <section id="chatbot">
+                <button id="chatbotTrigger" class="chatbot-trigger">Chat with us!</button>
+                
+                <div id="chatbotContainer" class="chatbot-container">
+                    <div class="chatbot-header">
+                        <h2>Chatbot</h2>
+                        <button id="closeChatbot" class="chatbot-close">&times;</button>
+                    </div>
+                    <div class="chatbot-content">
+                        <!-- Area where chat messages will be displayed -->
+                    </div>
+                    <div class="chatbot-input-area">
+                        <input type="text" id="chatInput" class="chat-input" placeholder="Type your message...">
+                        <button id="sendMessage" class="send-message">Send</button>
+                    </div>
                 </div>
-                <div class="chatbot-content">
-                    <!-- Area where chat messages will be displayed -->
-                </div>
-                <div class="chatbot-input-area">
-                    <input type="text" id="chatInput" class="chat-input" placeholder="Type your message...">
-                    <button id="sendMessage" class="send-message">Send</button>
-                </div>
-            </div>
+            </section>
 
 
     
