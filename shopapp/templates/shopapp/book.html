@@ -21,7 +21,7 @@
             <h3>Price: ${{ book.price }}</h3>
             <h1>book id: {{ book.id }}</h1>
 
-            
+
             <h3>Categories:</h3>
             {% for category in categories %}
                 <a href="{% url 'browse' %}?category={{ category }}" class="category-tag">

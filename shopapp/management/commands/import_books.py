@@ -17,7 +17,7 @@ class Command(BaseCommand):
 
         # Read the CSV file with pandas
         df = pd.read_csv(csv_file_path, nrows=7000)
-        df.dropna(subset=['Title', 'description', 'authors', 'image', 'previewLink'], inplace=True)
+        df.dropna(subset=['Title', 'description', 'authors', 'image', 'previewLink', 'categories'], inplace=True)
 
         for index, row in df.iterrows():
             # Handle authors

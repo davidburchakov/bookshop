@@ -48,11 +48,38 @@ def get_all_books():
     return books
 
 
-
 books = get_all_books()
 
 
-def get_all_categories(book_id):
+def get_all_categories():
+    categories = {}
+    with connection.cursor() as cursor:
+        cursor.execute("""
+                SELECT EXISTS (
+                    SELECT FROM information_schema.tables
+                    WHERE table_schema = 'public'
+                    AND table_name = 'shopapp_category'
+                    );
+            """)
+
+        table_exists = cursor.fetchone()[0]
+
+        if table_exists:
+            cursor.execute("""
+                    SELECT id, name
+                    FROM shopapp_category
+                """)
+
+            rows = cursor.fetchall()
+            for row in rows:
+                categories[row[0]] = row[1]
+    return categories
+
+
+categories = get_all_categories()
+
+
+def get_categories_by_id(book_id):
     categories = {"categories": []}
     with connection.cursor() as cursor:
         cursor.execute("""
@@ -80,6 +107,39 @@ def get_all_categories(book_id):
     return categories
 
 
+def get_all_book_categories():
+    book_categories = {}
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables
+                WHERE table_schema = 'public'
+                AND table_name = 'shopapp_bookscategories'
+            );
+        """)
+
+        table_exists = cursor.fetchone()[0]
+
+        if table_exists:
+            cursor.execute("""
+                SELECT a.id, c.name
+                FROM shopapp_books a
+                LEFT JOIN shopapp_bookscategories b ON a.id = b.book_id
+                LEFT JOIN shopapp_category c ON b.category_id = c.id
+            """)
+
+            rows = cursor.fetchall()
+            for book_id, category_name in rows:
+                if book_id not in book_categories:
+                    book_categories[book_id] = []
+                if category_name:  # Check if category_name is not None
+                    book_categories[book_id].append(category_name)
+
+    return book_categories
+
+book_category = get_all_book_categories()
+
+
 def books_view(request: HttpRequest):
     context = {
         # "products": products
@@ -89,7 +149,7 @@ def books_view(request: HttpRequest):
 
 def single_book_view(request: HttpRequest, slug):
     book = [i for i in books if i["slug"] == slug][0]
-    categories = get_all_categories(book['id'])
+    categories = get_categories_by_id(book['id'])
     categories['categories'] = list(map(lambda x: x.lower(), categories['categories']))
     reviews = Review.objects.filter(book_id=book['id'])
     average_score = Score.objects.filter(book_id=book['id']).aggregate(Avg('score'))['score__avg'] or "Not yet rated"
@@ -109,7 +169,7 @@ def browse_view(request: HttpRequest):
     # free_read_filter = request.GET.get('free', 'off') == 'on'
     # available_stock_filter = request.GET.get('available_stock', 'off') == 'on'
     #
-    # category_filter = request.GET.get('category', 'none')
+    category_filter = request.GET.get('category', 'none')
     #
     # query = request.GET.get('search_query', '')
     # if query:
@@ -121,33 +181,36 @@ def browse_view(request: HttpRequest):
     # if available_stock_filter:
     #     filtered_books = [book for book in filtered_books if int(book['stock']) > 0]
     #
-    # if category_filter != 'none':
-    #     filtered_books = [book for book in filtered_books if
-    #                       category_filter.lower() in [b.lower() for b in get_all_categories(book['id'])['categories']]]
+    print(category_filter)
+    print(book_category)
+    if category_filter != 'none':
+        filtered_books = [book for book in filtered_books if
+                          book_category[book['id']] and
+                          category_filter.lower() == book_category[book['id']][0].lower()]
 
-
-    try:
-        min_price = int(request.GET.get('min_price', '10'))
-        if min_price < 0:
-            min_price = 10
-    except ValueError:
-        min_price = 10
-
-    try:
-        max_price = int(request.GET.get('max_price', '200'))
-        if max_price < 0:
-            max_price = 200
-    except ValueError:
-        max_price = 200
-
-    # Ensure min_price is not greater than max_price
-    if min_price > max_price:
-        min_price, max_price = 10, 200
-
-    filtered_books = [book for book in filtered_books if min_price <= book['price'] <= max_price]
+    # try:
+    #     min_price = int(request.GET.get('min_price', '10'))
+    #     if min_price < 0:
+    #         min_price = 10
+    # except ValueError:
+    #     min_price = 10
+    #
+    # try:
+    #     max_price = int(request.GET.get('max_price', '200'))
+    #     if max_price < 0:
+    #         max_price = 200
+    # except ValueError:
+    #     max_price = 200
+    #
+    # # Ensure min_price is not greater than max_price
+    # if min_price > max_price:
+    #     min_price, max_price = 10, 200
+    #
+    # filtered_books = [book for book in filtered_books if min_price <= book['price'] <= max_price]
 
     context = {
-        "books": books
+        "books": filtered_books,
+        "categories": categories
     }
     return render(request, 'shopapp/browse.html', context=context)
 

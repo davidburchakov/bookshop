@@ -36,27 +36,15 @@
                     <option value="germany" {% if request.GET.country == 'germany' %} selected="selected" {% endif %}>Germany</option>
                 </select>
 
-                <label for="language">Language</label>
-                <select name="language" id="language" onchange="this.form.submit()">
-                    <option value="none" {% if request.GET.language == 'none' %} selected="selected" {% endif %}>Select Language</option>
-                    <option value="english" {% if request.GET.language == 'english' %} selected="selected" {% endif %}>English</option>
-                    <option value="russian" {% if request.GET.language == 'russian' %} selected="selected" {% endif %}>Russian</option>
-                    <option value="polish" {% if request.GET.language == 'polish' %} selected="selected" {% endif %}>Polish</option>
-                    <option value="french" {% if request.GET.language == 'french' %} selected="selected" {% endif %}>French</option>
-                    <option value="german" {% if request.GET.language == 'german' %} selected="selected" {% endif %}>German</option>
+                <label for="category">Category</label>
+{#                <h3>{{ categories.values }}</h3>#}
+                <select name="category" id="category" onchange="this.form.submit()">
+                    <option value="none" {% if request.GET.category == 'none' %}selected="selected"{% endif %}>Select category</option>
+                    {% for category in categories.values %}
+                        <option value="{{ category }}" {% if request.GET.category == category %}selected="selected"{% endif %}>{{ category }}</option>
+                    {% endfor %}
                 </select>
 
-                <label for="category">Category</label>
-                <select name="category" id="category" onchange="this.form.submit()">
-                    <option value="none" {% if request.GET.category == 'none' %}selected="selected" {% endif %}>Select category</option>
-                    <option value="classics" {% if request.GET.category == 'classics' %} selected="selected" {% endif %}>Classics</option>
-                    <option value="fantasy" {% if request.GET.category == 'fantasy' %} selected="selected" {% endif %}>Fantasy</option>
-                    <option value="philosophy" {% if request.GET.category == 'philosophy' %} selected="selected" {% endif %}>Philosophy</option>
-                    <option value="novel" {% if request.GET.category == 'novel' %} selected="selected" {% endif %}>Novel</option>
-                    <option value="existentialism" {% if request.GET.category == 'existentialism' %} selected="selected" {% endif %}>Existentialism</option>
-                    <option value="absurdism" {% if request.GET.category == 'absurdism' %} selected="selected" {% endif %}>Absurdism</option>
-                    <option value="historical fiction" {% if request.GET.category == 'historical fiction' %} selected="selected" {% endif %}>Historical Fiction</option>
-                </select>
     
                  <div class="card">
                     <h4>Price Range</h4>
