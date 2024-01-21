@@ -22,10 +22,12 @@ def get_all_books():
 
         if table_exists:
             cursor.execute("""
-                SELECT b.slug, a.fullname, b.title, b.img, b.description, b.stock, b.price, b.id, b.read, b.language, b.original_language, a.country_id, c.name
+                SELECT b.slug, b.title, b.img, b.description, b.stock, b.price, b.id, b.read, 
+                       ARRAY_AGG(a.fullname) as authors
                 FROM shopapp_books b
-                INNER JOIN shopapp_authors a ON b.author_id = a.id
-                INNER JOIN shopapp_country c ON a.country_id = c.id
+                INNER JOIN shopapp_books_authors ba ON b.id = ba.books_id
+                INNER JOIN shopapp_authors a ON ba.authors_id = a.id
+                GROUP BY b.slug, b.title, b.img, b.description, b.stock, b.price, b.id, b.read
             """)
             rows = cursor.fetchall()
 
@@ -33,21 +35,18 @@ def get_all_books():
             books = [
                 {
                     "slug": row[0],
-                    "author": row[1],
-                    "title": row[2],
-                    "img": row[3],
-                    "description": row[4],
-                    "stock": row[5],
-                    "price": row[6],
-                    "id": row[7],
-                    "read": row[8],
-                    "language": row[9],
-                    "original_language": row[10],
-                    "country_id": row[11],
-                    "country_name": row[12]
+                    "title": row[1],
+                    "img": row[2],
+                    "description": row[3],
+                    "stock": row[4],
+                    "price": row[5],
+                    "id": row[6],
+                    "read": row[7],
+                    "authors": row[8]  # This will be a list of author names
                 } for row in rows
             ]
     return books
+
 
 
 books = get_all_books()
@@ -106,33 +105,26 @@ def single_book_view(request: HttpRequest, slug):
 
 
 def browse_view(request: HttpRequest):
-    free_read_filter = request.GET.get('free', 'off') == 'on'
-    available_stock_filter = request.GET.get('available_stock', 'off') == 'on'
-
-    country_filter = request.GET.get('country', 'none')
-    available_language_filter = request.GET.get('language', 'none')
-    category_filter = request.GET.get('category', 'none')
-
     filtered_books = books
-    query = request.GET.get('search_query', '')
-    if query:
-        filtered_books = search_books_by_query(books, query)
+    # free_read_filter = request.GET.get('free', 'off') == 'on'
+    # available_stock_filter = request.GET.get('available_stock', 'off') == 'on'
+    #
+    # category_filter = request.GET.get('category', 'none')
+    #
+    # query = request.GET.get('search_query', '')
+    # if query:
+    #     filtered_books = search_books_by_query(books, query)
+    #
+    # if free_read_filter:
+    #     filtered_books = [book for book in filtered_books if book['read']]
+    #
+    # if available_stock_filter:
+    #     filtered_books = [book for book in filtered_books if int(book['stock']) > 0]
+    #
+    # if category_filter != 'none':
+    #     filtered_books = [book for book in filtered_books if
+    #                       category_filter.lower() in [b.lower() for b in get_all_categories(book['id'])['categories']]]
 
-    if free_read_filter:
-        filtered_books = [book for book in filtered_books if book['read']]
-
-    if available_stock_filter:
-        filtered_books = [book for book in filtered_books if int(book['stock']) > 0]
-
-    if country_filter != 'none':
-        filtered_books = [book for book in filtered_books if book['country_name'].lower() == country_filter]
-
-    if available_language_filter != 'none':
-        filtered_books = [book for book in filtered_books if book['language'].lower() == available_language_filter]
-
-    if category_filter != 'none':
-        filtered_books = [book for book in filtered_books if
-                          category_filter.lower() in [b.lower() for b in get_all_categories(book['id'])['categories']]]
 
     try:
         min_price = int(request.GET.get('min_price', '10'))
@@ -155,7 +147,7 @@ def browse_view(request: HttpRequest):
     filtered_books = [book for book in filtered_books if min_price <= book['price'] <= max_price]
 
     context = {
-        "books": filtered_books
+        "books": books
     }
     return render(request, 'shopapp/browse.html', context=context)
 

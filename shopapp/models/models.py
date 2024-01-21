@@ -11,14 +11,9 @@ class UserProfile(models.Model):
         return self.user.username
 
 
-class Country(models.Model):
-    name = models.CharField(max_length=25)
-
-
 class Authors(models.Model):
-    fullname = models.CharField(max_length=25)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
-    date_of_birth = models.CharField(default="", max_length=10)
+    fullname = models.CharField(max_length=255)
+    date_of_birth = models.CharField(default="", max_length=10, blank=True)
     date_of_death = models.CharField(default="", max_length=10, blank=True)
 
     def __str__(self):
@@ -26,23 +21,21 @@ class Authors(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=25)
+    name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
 
 
 class Books(models.Model):
-    slug = models.SlugField(default="")
-    author = models.ForeignKey(Authors, on_delete=models.CASCADE, default=1)
-    title = models.CharField(max_length=100, default="Book")
-    img = models.CharField(max_length=35, default='default.jpg')
+    slug = models.SlugField(default="", max_length=255)
+    authors = models.ManyToManyField(Authors, related_name='books')
+    title = models.CharField(max_length=255, default="Book")
+    img = models.TextField(default='https://angelbookhouse.com/assets/front/img/product/edition_placeholder.png')
     description = models.TextField(default="Description is not available")
     stock = models.IntegerField(default=0)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
     read = models.BooleanField(default=False)
-    language = models.CharField(max_length=20, default="English")
-    original_language = models.CharField(max_length=20, default="English")
     categories = models.ManyToManyField(Category, blank=True, through="BooksCategories")
 
     def __str__(self):

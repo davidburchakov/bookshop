@@ -5,21 +5,23 @@
 {% endblock %}
 {% block main %}
     <main>
-        <h1>Single book</h1>
+        <h1>{{ book.title }}</h1>
+        <h2>
+            {% for author in book.authors %}
+                {{ author }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </h2>
         <section id="single-book">
             <figure>
-                <img class="book-cover" src="/static/img/{{ book.img }}" alt="book title">
+                <img class="book-cover" src="{{ book.img }}" alt="book title">
                 <figcaption>{{ book.author }}</figcaption>
             </figure>
             <p>{{ book.description }}</p>
             <h4>Available in stock: {{ book.stock }}</h4>
             <h3>Price: ${{ book.price }}</h3>
             <h1>book id: {{ book.id }}</h1>
-            <h4>Language:
-                <a href="{% url 'browse' %}?language={{ book.language|lower }}"><b>{{ book.language }}</b></a>
-            </h4>
-        
-            <h4>Original Language: {{ book.original_language }}</h4>
+
+            
             <h3>Categories:</h3>
             {% for category in categories %}
                 <a href="{% url 'browse' %}?category={{ category }}" class="category-tag">
