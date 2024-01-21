@@ -166,47 +166,44 @@ def single_book_view(request: HttpRequest, slug):
 
 def browse_view(request: HttpRequest):
     filtered_books = books
-    # free_read_filter = request.GET.get('free', 'off') == 'on'
-    # available_stock_filter = request.GET.get('available_stock', 'off') == 'on'
-    #
+    free_read_filter = request.GET.get('free', 'off') == 'on'
+    available_stock_filter = request.GET.get('available_stock', 'off') == 'on'
     category_filter = request.GET.get('category', 'none')
-    #
-    # query = request.GET.get('search_query', '')
-    # if query:
-    #     filtered_books = search_books_by_query(books, query)
-    #
-    # if free_read_filter:
-    #     filtered_books = [book for book in filtered_books if book['read']]
-    #
-    # if available_stock_filter:
-    #     filtered_books = [book for book in filtered_books if int(book['stock']) > 0]
-    #
-    print(category_filter)
+
+    query = request.GET.get('search_query', '')
+    if query:
+        filtered_books = search_books_by_query(books, query)
+
+    if free_read_filter:
+        filtered_books = [book for book in filtered_books if book['read']]
+
+    if available_stock_filter:
+        filtered_books = [book for book in filtered_books if int(book['stock']) > 0]
 
     if category_filter != 'none':
         filtered_books = [book for book in filtered_books if
                           book_category[book['id']] and
                           category_filter.lower() == book_category[book['id']][0].lower()]
 
-    # try:
-    #     min_price = int(request.GET.get('min_price', '10'))
-    #     if min_price < 0:
-    #         min_price = 10
-    # except ValueError:
-    #     min_price = 10
-    #
-    # try:
-    #     max_price = int(request.GET.get('max_price', '200'))
-    #     if max_price < 0:
-    #         max_price = 200
-    # except ValueError:
-    #     max_price = 200
-    #
-    # # Ensure min_price is not greater than max_price
-    # if min_price > max_price:
-    #     min_price, max_price = 10, 200
-    #
-    # filtered_books = [book for book in filtered_books if min_price <= book['price'] <= max_price]
+    try:
+        min_price = int(request.GET.get('min_price', '10'))
+        if min_price < 0:
+            min_price = 10
+    except ValueError:
+        min_price = 10
+
+    try:
+        max_price = int(request.GET.get('max_price', '200'))
+        if max_price < 0:
+            max_price = 200
+    except ValueError:
+        max_price = 200
+
+    # Ensure min_price is not greater than max_price
+    if min_price > max_price:
+        min_price, max_price = 10, 200
+
+    filtered_books = [book for book in filtered_books if min_price <= book['price'] <= max_price]
 
     context = {
         "books": filtered_books,

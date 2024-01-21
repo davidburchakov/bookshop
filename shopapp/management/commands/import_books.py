@@ -2,8 +2,9 @@ from django.core.management.base import BaseCommand
 import pandas as pd
 import ast
 from django.utils.text import slugify
-
 from ...models.models import Books, Authors, Category, BooksCategories
+import random
+
 
 class Command(BaseCommand):
     help = 'Import books from a CSV file into the database'
@@ -16,9 +17,9 @@ class Command(BaseCommand):
         csv_file_path = options['csvfile']
 
         # Read the CSV file with pandas
-        df = pd.read_csv(csv_file_path, nrows=7000)
+        df = pd.read_csv(csv_file_path, nrows=3000)
         df.dropna(subset=['Title', 'description', 'authors', 'image', 'previewLink', 'categories'], inplace=True)
-
+        print("number of entries: ", len(df))
         for index, row in df.iterrows():
             # Handle authors
             try:
@@ -44,14 +45,14 @@ class Command(BaseCommand):
 
             title = row['Title'][:255]
             img = row['image']
-
+            random_price = random.randint(10, 199) + 0.99
             # Create the book instance without authors
             book = Books.objects.create(
                 title=title,
                 description=row['description'],
                 img=img,
                 stock=50,
-                price=100.0,
+                price=random_price,
             )
 
             # Add authors to the book
