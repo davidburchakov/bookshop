@@ -22,19 +22,7 @@
                 <input type="checkbox" name="free" id="free" onchange="this.form.submit()" {% if request.GET.free == 'on' %}checked{% endif %}>
                 <label for="available_stock">Available in stock</label>
                 <input type="checkbox" name="available_stock" id="available_stock" onchange="this.form.submit()" {% if request.GET.available_stock == 'on' %}checked{% endif %}>
-
-                <label for="country">Country</label>
-                <select name="country" id="country" onchange="this.form.submit()">
-                    <option value="none" {% if request.GET.country == 'none' %} selected="selected" {% endif %} >Select a Country</option>
-                    <option value="poland" {% if request.GET.country == 'poland' %} selected="selected" {% endif %}>Poland</option>
-                    <option value="united kingdom" {% if request.GET.country == 'united kingdom' %} selected="selected" {% endif %}>United Kingdom</option>
-                    <option value="russia" {% if request.GET.country == 'russia' %} selected="selected" {% endif %}>Russia</option>
-                    <option value="rome" {% if request.GET.country == 'rome' %} selected="selected" {% endif %}>Ancient Rome</option>
-                    <option value="czech republic" {% if request.GET.country == 'czech republic' %} selected="selected" {% endif %}>Czech Republic</option>
-                    <option value="japan" {% if request.GET.country == 'japan' %} selected="selected" {% endif %}>Japan</option>
-                    <option value="france" {% if request.GET.country == 'france' %} selected="selected" {% endif %}>France</option>
-                    <option value="germany" {% if request.GET.country == 'germany' %} selected="selected" {% endif %}>Germany</option>
-                </select>
+            
 
                 <label for="category">Category</label>
 {#                <h3>{{ categories.values }}</h3>#}

@@ -24,8 +24,9 @@
 
             <h3>Categories:</h3>
             {% for category in categories %}
-                <a href="{% url 'browse' %}?category={{ category }}" class="category-tag">
-                    <b>{{ category|lower|capfirst }}</b>
+                <p>{{ category }}</p>
+                <a href="{% url 'browse' %}?category={{ category|urlencode }}" class="category-tag">
+                    <b>{{ category}}</b>
                 </a>
             {% endfor %}
             {% if book.read == True %}

@@ -150,7 +150,7 @@ def books_view(request: HttpRequest):
 def single_book_view(request: HttpRequest, slug):
     book = [i for i in books if i["slug"] == slug][0]
     categories = get_categories_by_id(book['id'])
-    categories['categories'] = list(map(lambda x: x.lower(), categories['categories']))
+    categories['categories'] = categories['categories']
     reviews = Review.objects.filter(book_id=book['id'])
     average_score = Score.objects.filter(book_id=book['id']).aggregate(Avg('score'))['score__avg'] or "Not yet rated"
 
@@ -182,7 +182,7 @@ def browse_view(request: HttpRequest):
     #     filtered_books = [book for book in filtered_books if int(book['stock']) > 0]
     #
     print(category_filter)
-    print(book_category)
+
     if category_filter != 'none':
         filtered_books = [book for book in filtered_books if
                           book_category[book['id']] and
