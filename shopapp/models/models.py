@@ -94,9 +94,6 @@ class Review(models.Model):
         self.clean()
         super(Review, self).save(*args, **kwargs)
 
-    class Meta:
-        unique_together = (('book', 'user'), ('book', 'session_id'))
-
 
 class Rule(models.Model):
     input = models.TextField()

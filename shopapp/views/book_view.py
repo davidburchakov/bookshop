@@ -187,18 +187,17 @@ def submit_score(request):
 
             book = Books.objects.get(id=book_id)
 
-            # Get session ID
-            session_id = request.session.session_key or request.session.create()
-
-            user = request.user if request.user.is_authenticated else None
-
-            defaults = {'score': score_value}
-            if user is None:
-                defaults['session_id'] = session_id
-
-            review, created = Review.objects.update_or_create(
-                book=book, user=user, session_id=session_id,
-                defaults=defaults)
+            if request.user.is_authenticated:
+                # For authenticated users, update or create a review with the score
+                review, created = Review.objects.update_or_create(
+                    book=book, user=request.user,
+                    defaults={'score': score_value, 'text': ''})  # You can keep text empty or handle it differently
+            else:
+                # For anonymous users, handle session-based scoring
+                session_id = request.session.session_key or request.session.create()
+                review, created = Review.objects.update_or_create(
+                    book=book, session_id=session_id,
+                    defaults={'score': score_value, 'text': ''})
 
             average_score = Review.objects.filter(book=book).aggregate(Avg('score'))['score__avg']
             if average_score is not None:
@@ -212,9 +211,10 @@ def submit_score(request):
             return JsonResponse({'status': 'error', 'message': 'Invalid data'})
         except ValidationError as e:
             return JsonResponse({'status': 'error', 'message': str(e)})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request'})
-
 
 
 
@@ -284,15 +284,26 @@ def search_books_by_query(all_books, query):
 def post_review(request, book_id):
     if request.method == 'POST' and request.user.is_authenticated:
         text = request.POST.get('text')
+        score = request.POST.get('score', None)  # Score is optional
+
         try:
             book = Books.objects.get(id=book_id)
-            review = Review.objects.create(book=book, user=request.user, text=text)
-            print("REVIEW CREATED")
-            return JsonResponse({'status': 'success', 'review': review.text})
-        except Books.DoesNotExist:
-            print("BOOK NOT FOUND. REVIEW")
-            return JsonResponse({'status': 'error', 'message': 'Book not found'})
-    print("REVIEW INVALID REQUEST")
-    return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+            # Create a new review instance every time
+            review = Review.objects.create(
+                book=book,
+                user=request.user,
+                text=text,
+                score=int(score) if score else None
+            )
 
+            return JsonResponse({'status': 'success', 'review': review.text})
+
+        except Books.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Book not found'})
+        except ValueError:
+            return JsonResponse({'status': 'error', 'message': 'Invalid data'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)})
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'})
 

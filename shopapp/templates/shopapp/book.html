@@ -81,6 +81,13 @@
                 <form id="review-form" method="post" data-action-url="{% url 'post_review' book.id %}">
                     {% csrf_token %}
                     <textarea name="text" required></textarea>
+                                    <!-- Score input for Registered Users -->
+                    <div class="star-rating">
+                        {% for star in range_5 %}
+                        <input id="registered-star-{{ star }}" type="radio" name="score" value="{{ star }}" />
+                        <label for="registered-star-{{ star }}" title="{{ star }} stars">&#9733;</label>
+                        {% endfor %}
+                    </div>
                     <input type="submit" value="Submit Review">
                 </form>
 
