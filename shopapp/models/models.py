@@ -11,14 +11,9 @@ class UserProfile(models.Model):
         return self.user.username
 
 
-class Country(models.Model):
-    name = models.CharField(max_length=25)
-
-
 class Authors(models.Model):
-    fullname = models.CharField(max_length=25)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
-    date_of_birth = models.CharField(default="", max_length=10)
+    fullname = models.CharField(max_length=255)
+    date_of_birth = models.CharField(default="", max_length=10, blank=True)
     date_of_death = models.CharField(default="", max_length=10, blank=True)
 
     def __str__(self):
@@ -26,23 +21,21 @@ class Authors(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=25)
+    name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
 
 
 class Books(models.Model):
-    slug = models.SlugField(default="")
-    author = models.ForeignKey(Authors, on_delete=models.CASCADE, default=1)
-    title = models.CharField(max_length=100, default="Book")
-    img = models.CharField(max_length=35, default='default.jpg')
+    slug = models.SlugField(default="", max_length=255)
+    authors = models.ManyToManyField(Authors, related_name='books')
+    title = models.CharField(max_length=255, default="Book")
+    img = models.TextField(default='https://angelbookhouse.com/assets/front/img/product/edition_placeholder.png')
     description = models.TextField(default="Description is not available")
     stock = models.IntegerField(default=0)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    price = models.DecimalField(max_digits=5, decimal_places=2, default=10.00)
     read = models.BooleanField(default=False)
-    language = models.CharField(max_length=20, default="English")
-    original_language = models.CharField(max_length=20, default="English")
     categories = models.ManyToManyField(Category, blank=True, through="BooksCategories")
 
     def __str__(self):
@@ -80,6 +73,8 @@ class Review(models.Model):
     book = models.ForeignKey(Books, on_delete=models.CASCADE)  # Assuming your book model is named 'Books'
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
+    summary = models.TextField(blank=True, null=True)
+    score = models.FloatField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -87,9 +82,22 @@ class Review(models.Model):
 
 
 class Score(models.Model):
-    book = models.ForeignKey(Books, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='scores')
     score = models.IntegerField()
 
     class Meta:
-        unique_together = ('book', 'user')
+        unique_together = ('review',)
+
+
+
+
+class Rule(models.Model):
+    input = models.TextField()
+    output = models.TextField()
+
+    def __str__(self):
+        return self.input
+
+    class Meta:
+        managed: False
+        db_table = 'rules'

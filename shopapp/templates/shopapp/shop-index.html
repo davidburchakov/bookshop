@@ -9,7 +9,7 @@
         <h1>Hello shop index</h1>
         <div id="popular-books">
             <ul class="books-ul">
-                {% for book in books %}
+                {% for book in books|slice:":25" %}
                     <li>
                         {% if book %}
                             <article>
@@ -20,9 +20,13 @@
                                     <span class="stock-badge">Out of Stock</span>
                                 {% endif %}
                                 <figure>
-                                    <img class="book-cover" src="/static/img/{{ book.img }}" alt="book name">
+                                    <img class="book-cover" src="{{ book.img }}" alt="book name">
                                     <a href="{% url 'book' slug=book.slug %}">
-                                        <figcaption>{{ book.author }}, {{ book.title }}</figcaption>
+                                        <figcaption>
+                                            {% for author in book.authors %}
+                                                {{ author }}{% if not forloop.last %}, {% endif %}
+                                            {% endfor %}, {{ book.title }}
+                                        </figcaption>
                                     </a>
                                 </figure>
                             </article>

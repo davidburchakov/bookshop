@@ -13,7 +13,7 @@
                 {{ item.book.title }} -
             <figure>
                  <a href="{% url "book" slug=item.book.slug %}">
-                    <img class="book-cover" src="/static/img/{{ item.book.img }}" alt="book name">
+                    <img class="book-cover" src="{{ item.book.img }}" alt="book name">
                     <figcaption>{{ item.book.author }}, {{ item.book.title }}</figcaption>
                  </a>    
             </figure>

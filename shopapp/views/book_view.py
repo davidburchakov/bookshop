@@ -4,6 +4,7 @@ from django.db import connection
 from django.http import JsonResponse
 from ..models.models import Review, Books, Score
 from django.db.models import Avg
+from django.core.exceptions import ValidationError
 
 
 def get_all_books():
@@ -21,10 +22,12 @@ def get_all_books():
 
         if table_exists:
             cursor.execute("""
-                SELECT b.slug, a.fullname, b.title, b.img, b.description, b.stock, b.price, b.id, b.read, b.language, b.original_language, a.country_id, c.name
+                SELECT b.slug, b.title, b.img, b.description, b.stock, b.price, b.id, b.read, 
+                       ARRAY_AGG(a.fullname) as authors
                 FROM shopapp_books b
-                INNER JOIN shopapp_authors a ON b.author_id = a.id
-                INNER JOIN shopapp_country c ON a.country_id = c.id
+                INNER JOIN shopapp_books_authors ba ON b.id = ba.books_id
+                INNER JOIN shopapp_authors a ON ba.authors_id = a.id
+                GROUP BY b.slug, b.title, b.img, b.description, b.stock, b.price, b.id, b.read
             """)
             rows = cursor.fetchall()
 
@@ -32,18 +35,14 @@ def get_all_books():
             books = [
                 {
                     "slug": row[0],
-                    "author": row[1],
-                    "title": row[2],
-                    "img": row[3],
-                    "description": row[4],
-                    "stock": row[5],
-                    "price": row[6],
-                    "id": row[7],
-                    "read": row[8],
-                    "language": row[9],
-                    "original_language": row[10],
-                    "country_id": row[11],
-                    "country_name": row[12]
+                    "title": row[1],
+                    "img": row[2],
+                    "description": row[3],
+                    "stock": row[4],
+                    "price": row[5],
+                    "id": row[6],
+                    "read": row[7],
+                    "authors": row[8]  # This will be a list of author names
                 } for row in rows
             ]
     return books
@@ -52,7 +51,35 @@ def get_all_books():
 books = get_all_books()
 
 
-def get_all_categories(book_id):
+def get_all_categories():
+    categories = {}
+    with connection.cursor() as cursor:
+        cursor.execute("""
+                SELECT EXISTS (
+                    SELECT FROM information_schema.tables
+                    WHERE table_schema = 'public'
+                    AND table_name = 'shopapp_category'
+                    );
+            """)
+
+        table_exists = cursor.fetchone()[0]
+
+        if table_exists:
+            cursor.execute("""
+                    SELECT id, name
+                    FROM shopapp_category
+                """)
+
+            rows = cursor.fetchall()
+            for row in rows:
+                categories[row[0]] = row[1]
+    return categories
+
+
+categories = get_all_categories()
+
+
+def get_categories_by_id(book_id):
     categories = {"categories": []}
     with connection.cursor() as cursor:
         cursor.execute("""
@@ -80,6 +107,39 @@ def get_all_categories(book_id):
     return categories
 
 
+def get_all_book_categories():
+    book_categories = {}
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables
+                WHERE table_schema = 'public'
+                AND table_name = 'shopapp_bookscategories'
+            );
+        """)
+
+        table_exists = cursor.fetchone()[0]
+
+        if table_exists:
+            cursor.execute("""
+                SELECT a.id, c.name
+                FROM shopapp_books a
+                LEFT JOIN shopapp_bookscategories b ON a.id = b.book_id
+                LEFT JOIN shopapp_category c ON b.category_id = c.id
+            """)
+
+            rows = cursor.fetchall()
+            for book_id, category_name in rows:
+                if book_id not in book_categories:
+                    book_categories[book_id] = []
+                if category_name:  # Check if category_name is not None
+                    book_categories[book_id].append(category_name)
+
+    return book_categories
+
+book_category = get_all_book_categories()
+
+
 def books_view(request: HttpRequest):
     context = {
         # "products": products
@@ -89,30 +149,31 @@ def books_view(request: HttpRequest):
 
 def single_book_view(request: HttpRequest, slug):
     book = [i for i in books if i["slug"] == slug][0]
-    categories = get_all_categories(book['id'])
-    categories['categories'] = list(map(lambda x: x.lower(), categories['categories']))
+    categories = get_categories_by_id(book['id'])
+    categories['categories'] = categories['categories']
     reviews = Review.objects.filter(book_id=book['id'])
-    average_score = Score.objects.filter(book_id=book['id']).aggregate(Avg('score'))['score__avg'] or "Not yet rated"
-
+    # To store scores for each review
+    review_scores = {review.id: review.scores.first().score for review in reviews if review.scores.exists()}
+    # Calculate the average score for the book
+    average_score = Score.objects.filter(review__book=book['id']).aggregate(Avg('score'))['score__avg'] or "Not yet rated"
     context = {
         "book": book,
         "categories": categories['categories'],
         "reviews": reviews,
         "average_score": average_score,
+        "review_scores": review_scores,
         "range_5": reversed(range(1, 6))
     }
     return render(request, "shopapp/book.html", context=context)
 
 
 def browse_view(request: HttpRequest):
+    filtered_books = books
     free_read_filter = request.GET.get('free', 'off') == 'on'
     available_stock_filter = request.GET.get('available_stock', 'off') == 'on'
-
-    country_filter = request.GET.get('country', 'none')
-    available_language_filter = request.GET.get('language', 'none')
     category_filter = request.GET.get('category', 'none')
-
-    filtered_books = books
+    print("books length")
+    print(len(books))
     query = request.GET.get('search_query', '')
     if query:
         filtered_books = search_books_by_query(books, query)
@@ -123,15 +184,10 @@ def browse_view(request: HttpRequest):
     if available_stock_filter:
         filtered_books = [book for book in filtered_books if int(book['stock']) > 0]
 
-    if country_filter != 'none':
-        filtered_books = [book for book in filtered_books if book['country_name'].lower() == country_filter]
-
-    if available_language_filter != 'none':
-        filtered_books = [book for book in filtered_books if book['language'].lower() == available_language_filter]
-
     if category_filter != 'none':
         filtered_books = [book for book in filtered_books if
-                          category_filter.lower() in [b.lower() for b in get_all_categories(book['id'])['categories']]]
+                          book_category[book['id']] and
+                          category_filter.lower() == book_category[book['id']][0].lower()]
 
     try:
         min_price = int(request.GET.get('min_price', '10'))
@@ -154,7 +210,8 @@ def browse_view(request: HttpRequest):
     filtered_books = [book for book in filtered_books if min_price <= book['price'] <= max_price]
 
     context = {
-        "books": filtered_books
+        "books": filtered_books,
+        "categories": categories
     }
     return render(request, 'shopapp/browse.html', context=context)
 
@@ -187,30 +244,39 @@ def post_review(request, book_id):
 
 def submit_score(request):
     if request.method == 'POST' and request.user.is_authenticated:
-        book_id = request.POST.get('book_id')
-        score = request.POST.get('score')
-        book = Books.objects.get(id=book_id)
-
         try:
+            book_id = request.POST.get('book_id')
+            score = request.POST.get('score')
+
+            # Validate that book_id is an integer
+            book_id = int(book_id)
+
+            # Validate that score is an integer and within the expected range
+            score = int(score)
+            if score < 1 or score > 5:
+                raise ValidationError("Score must be between 1 and 5")
+
+            # Check if the book exists
+            book = Books.objects.get(id=book_id)
+
             # Check if the user has already submitted a score for this book
             existing_score = Score.objects.filter(book=book, user=request.user).first()
 
             if existing_score:
-                # Option 1: Update the existing score
                 existing_score.score = score
                 existing_score.save()
-                # Option 2: Return an error message (uncomment the following two lines)
-                # return JsonResponse({'status': 'error', 'message': 'You have already rated this book'})
-
             else:
                 Score.objects.create(book=book, user=request.user, score=score)
 
+            # Calculate and return the average score
             average_score = Score.objects.filter(book=book).aggregate(Avg('score'))['score__avg']
-
             return JsonResponse({'status': 'success', 'average_score': average_score})
 
         except Books.DoesNotExist:
             return JsonResponse({'status': 'error', 'message': 'Book not found'})
+        except ValueError:
+            return JsonResponse({'status': 'error', 'message': 'Invalid data'})
+        except ValidationError as e:
+            return JsonResponse({'status': 'error', 'message': str(e)})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request or not authenticated'})
-

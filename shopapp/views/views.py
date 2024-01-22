@@ -3,7 +3,6 @@ from django.shortcuts import render
 from .book_view import get_all_books
 from django.db import connection
 
-
 def get_all_faq():
     with connection.cursor() as cursor:
         cursor.execute("""

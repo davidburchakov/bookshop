@@ -1,3 +1,5 @@
+python manage.py import_books path_to_your_csv_file.csv
+
 Book shop checklist:
 
 --- Pages:
@@ -22,7 +24,8 @@ Book shop checklist:
 1	View a list of books
 1   Populate with books
 1	Display content of free books. Read the book
-0	View popular books, depending on how many views (how often the page is opened)
+	View popular books, depending on how many views (how often the page is opened)
+	book corousel 
 
 1	Add to card as user
 1	View Cart 
@@ -51,10 +54,16 @@ Book shop checklist:
 
 --- Advanced:
 1	Comments/Review section
-	Score/likes
+1	Score/likes
 	Chatbot with semantic analysis, that improves the user experience
-		able to add to cart via chatbot
-		Able to ask for advise from chatbot
+1		able to add to cart via chatbot
+		book recommender - books you would probably be interested
+		display popular books
+
+
+1	add 5000 books using amazon dataset and google api
+
+
 
 	Confirm Email
 	Password recovery	
@@ -64,7 +73,9 @@ Book shop checklist:
 
 	Captcha
 	Payment
-
+		After payment complete, -= stock
+		save payment data
+		send info to email
 	Deploy
 	
 --- Database:

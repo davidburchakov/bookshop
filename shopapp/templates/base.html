@@ -102,6 +102,35 @@
             {% block main %}
                 
             {% endblock %}
+            
+        
+            <section id="chatbot">
+                <button id="chatbotTrigger" class="chatbot-trigger">Chat with us!</button>
+                
+                <div id="chatbotContainer" class="chatbot-container">
+                    <div class="chatbot-header">
+                        <h2>Chatbot</h2>
+                        <button id="closeChatbot" class="chatbot-close">&times;</button>
+                    </div>
+                    <div class="chatbot-content">
+                        <!-- Area where chat messages will be displayed -->
+                        
+                        <!-- Added demonstration button here -->
+                        <button id="demoButton" class="demo-button">Add to Cart Letters from a Stoic</button>
+                    </div>
+                    
+                    <div class="chatbot-input-area">
+                        <input type="text" id="chatInput" class="chat-input" placeholder="Type your message...">
+                        <button id="sendMessage" class="send-message">Send</button>
+                    </div>
+                </div>
+            </section>
+
+
+
+    
+    
+    
     </div>
     {% block footer %}
         
@@ -128,6 +157,7 @@
 <script src="{% static "js/sidebar.js" %}"></script>
 <script src="{% static "js/update_quantity.js" %}"></script>
 <script src="{% static "js/cookies.js" %}"></script>
+<script src="{% static "js/chatbot.js" %}"></script>
 
 {% block javascript %}
     
