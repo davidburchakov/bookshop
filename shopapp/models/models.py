@@ -34,7 +34,7 @@ class Books(models.Model):
     img = models.TextField(default='https://angelbookhouse.com/assets/front/img/product/edition_placeholder.png')
     description = models.TextField(default="Description is not available")
     stock = models.IntegerField(default=0)
-    price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
+    price = models.DecimalField(max_digits=5, decimal_places=2, default=10.00)
     read = models.BooleanField(default=False)
     categories = models.ManyToManyField(Category, blank=True, through="BooksCategories")
 
@@ -73,6 +73,8 @@ class Review(models.Model):
     book = models.ForeignKey(Books, on_delete=models.CASCADE)  # Assuming your book model is named 'Books'
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
+    summary = models.TextField(blank=True, null=True)
+    score = models.FloatField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -80,12 +82,13 @@ class Review(models.Model):
 
 
 class Score(models.Model):
-    book = models.ForeignKey(Books, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='scores')
     score = models.IntegerField()
 
     class Meta:
-        unique_together = ('book', 'user')
+        unique_together = ('review',)
+
+
 
 
 class Rule(models.Model):

@@ -45,14 +45,13 @@ class Command(BaseCommand):
 
             title = row['Title'][:255]
             img = row['image']
-            random_price = random.randint(10, 199) + 0.99
+            random_stock = random.randint(0, 120)
             # Create the book instance without authors
             book = Books.objects.create(
                 title=title,
                 description=row['description'],
                 img=img,
-                stock=50,
-                price=random_price,
+                stock=random_stock,
             )
 
             # Add authors to the book

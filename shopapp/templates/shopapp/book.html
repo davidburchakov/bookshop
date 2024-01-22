@@ -82,6 +82,11 @@
             <div id="review-list">
                 {% for review in reviews %}
                     <div class="review">
+                        {% for key, value in review_scores.items %}
+                            {% if key == review.id %}
+                                <p>Score: {{ value }}</p>
+                            {% endif %}
+                        {% endfor %}
                         <p>{{ review.text }}</p>
                         <small>Reviewed by {{ review.user.username }} on {{ review.created_at|date:"Y-m-d H:i" }}</small>
                     </div>
