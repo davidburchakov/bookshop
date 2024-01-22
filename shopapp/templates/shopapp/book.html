@@ -55,7 +55,7 @@
         </section>
 
         <section id="score-section">
-            {% if user.is_authenticated %}
+            {% if not user.is_authenticated %}
                 <h3>Rate this Book:</h3>
                 <form id="score-form" action="{% url 'submit-score' %}" method="POST">
                     {% csrf_token %}
@@ -79,6 +79,16 @@
 
         <section id="reviews">
             <h2>Reviews</h2>
+                    {% if user.is_authenticated %}
+                <form id="review-form" method="post" data-action-url="{% url 'post_review' book.id %}">
+                    {% csrf_token %}
+                    <textarea name="text" required></textarea>
+                    <input type="submit" value="Submit Review">
+                </form>
+
+            {% else %}
+                <p><b>You must be logged in to post a review.</b></p>
+            {% endif %}
             <div id="review-list">
                 {% for review in reviews %}
                     <div class="review">
@@ -101,16 +111,7 @@
                 {% endfor %}
             </div>
 
-            {% if user.is_authenticated %}
-                <form id="review-form" method="post" data-action-url="{% url 'post_review' book.id %}">
-                    {% csrf_token %}
-                    <textarea name="text" required></textarea>
-                    <input type="submit" value="Submit Review">
-                </form>
 
-            {% else %}
-                <p><b>You must be logged in to post a review.</b></p>
-            {% endif %}
         </section>
     
     </main>

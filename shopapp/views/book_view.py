@@ -187,14 +187,14 @@ def submit_score(request):
             book = Books.objects.get(id=book_id)
 
             review, review_created = Review.objects.get_or_create(book=book, user=request.user)
-            # score, score_created = Score.objects.get_or_create(review=review, defaults={'score': score_value})
-            # if not score_created:
-            #     score.score = score_value
-            #     score.save()
-            #
-            # # Calculate and return the average score
-            # average_score = Score.objects.filter(review__book=book).aggregate(Avg('score'))['score__avg']
-            return JsonResponse({'status': 'success', 'average_score': "average_score"})
+            score, score_created = Score.objects.get_or_create(review=review, defaults={'score': score_value})
+            if not score_created:
+                score.score = score_value
+                score.save()
+
+            # Calculate and return the average score
+            average_score = Score.objects.filter(review__book=book).aggregate(Avg('score'))['score__avg']
+            return JsonResponse({'status': 'success', 'average_score': average_score})
 
         except Books.DoesNotExist:
             return JsonResponse({'status': 'error', 'message': 'Book not found'})
