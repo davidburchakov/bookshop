@@ -154,16 +154,17 @@ def single_book_view(request: HttpRequest, slug):
     reviews = Review.objects.filter(book_id=book['id'])
 
     # review_scores = {review.id: review.scores.first().score for review in reviews if review.scores.exists()}
-    # average_score_query = Score.objects.filter(review__book=book['id']).aggregate(Avg('score'))['score__avg']
-    # if average_score_query is not None:
-    #     average_score = round(average_score_query, 2)
-    # else:
-    #     average_score = "Not yet rated"
+    average_score = Review.objects.filter(book=book['id']).aggregate(Avg('score'))['score__avg']
+    if average_score is not None:
+        average_score = round(average_score, 2)
+    else:
+        average_score = "Not yet rated"
+
     context = {
         "book": book,
         "categories": categories['categories'],
         "reviews": reviews,
-        # "average_score": average_score,
+        "average_score": average_score,
         # "review_scores": review_scores,
         "range_5": reversed(range(1, 6)),
         "list_5": list(reversed(range(1, 6))),
@@ -171,8 +172,9 @@ def single_book_view(request: HttpRequest, slug):
     return render(request, "shopapp/book.html", context=context)
 
 
+
 def submit_score(request):
-    if request.method == 'POST' and request.user.is_authenticated:
+    if request.method == 'POST':
         try:
             book_id = request.POST.get('book_id')
             score_value = request.POST.get('score')
@@ -183,17 +185,25 @@ def submit_score(request):
             if score_value < 1 or score_value > 5:
                 raise ValidationError("Score must be between 1 and 5")
 
-            # Check if the book exists
             book = Books.objects.get(id=book_id)
 
-            review, review_created = Review.objects.get_or_create(book=book, user=request.user)
-            score, score_created = Score.objects.get_or_create(review=review, defaults={'score': score_value})
-            if not score_created:
-                score.score = score_value
-                score.save()
+            # Get session ID
+            session_id = request.session.session_key or request.session.create()
 
-            # Calculate and return the average score
-            average_score = Score.objects.filter(review__book=book).aggregate(Avg('score'))['score__avg']
+            user = request.user if request.user.is_authenticated else None
+
+            defaults = {'score': score_value}
+            if user is None:
+                defaults['session_id'] = session_id
+
+            review, created = Review.objects.update_or_create(
+                book=book, user=user, session_id=session_id,
+                defaults=defaults)
+
+            average_score = Review.objects.filter(book=book).aggregate(Avg('score'))['score__avg']
+            if average_score is not None:
+                average_score = round(average_score, 2)
+
             return JsonResponse({'status': 'success', 'average_score': average_score})
 
         except Books.DoesNotExist:
@@ -203,7 +213,9 @@ def submit_score(request):
         except ValidationError as e:
             return JsonResponse({'status': 'error', 'message': str(e)})
 
-    return JsonResponse({'status': 'error', 'message': 'Invalid request or not authenticated'})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+
+
 
 
 

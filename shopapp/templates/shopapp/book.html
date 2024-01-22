@@ -68,8 +68,6 @@
                         {% endfor %}
                     </div>
                 </form>
-            {% else %}
-                <p><b>You must be logged in to rate this book.</b></p>
             {% endif %}
             <div id="average-score">
                 <h3>Average Score: <span id="average-score-value">{{ average_score }}</span></h3>
@@ -93,7 +91,6 @@
                 {% for review in reviews %}
                     <div class="review">
                         <div class="star-rating">
-                            <p><i>numeric score: {{ review.score }}</i></p>
                             {% for i in list_5 %}
                                 {% if i <= review.score %}
                                     &#9733;
@@ -102,9 +99,14 @@
                                 {% endif %}
                             {% endfor %}
                         </div>
-
-                        <p>{{ review.text }}</p>
-                        <small>Reviewed by {{ review.user.username }} on {{ review.created_at|date:"Y-m-d H:i" }}</small>
+                        {% if review.text != none %}
+                            <p>{{ review.text }}</p>
+                        {% endif %}
+                        {% if review.user.username != None %}
+                            <small>Reviewed by <i>{{ review.user.username }}</i> on {{ review.created_at|date:"Y-m-d H:i" }}</small>
+                        {% else %}
+                            <small>Reviewed by <i>Anonymous</i> on {{ review.created_at|date:"Y-m-d H:i" }}</small>
+                        {% endif %}
                     </div>
                 {% empty %}
                     <p>No reviews yet.</p>

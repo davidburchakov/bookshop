@@ -75,7 +75,9 @@ from django.core.exceptions import ValidationError
 
 class Review(models.Model):
     book = models.ForeignKey(Books, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    session_id = models.CharField(max_length=32, blank=True, null=True)
+    summary = models.TextField(blank=True, null=True)
     text = models.TextField(blank=True, null=True)
     score = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -91,6 +93,9 @@ class Review(models.Model):
     def save(self, *args, **kwargs):
         self.clean()
         super(Review, self).save(*args, **kwargs)
+
+    class Meta:
+        unique_together = (('book', 'user'), ('book', 'session_id'))
 
 
 class Rule(models.Model):
