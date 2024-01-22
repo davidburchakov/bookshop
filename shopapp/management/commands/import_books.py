@@ -17,7 +17,7 @@ class Command(BaseCommand):
         csv_file_path = options['csvfile']
 
         # Read the CSV file with pandas
-        df = pd.read_csv(csv_file_path, nrows=3000)
+        df = pd.read_csv(csv_file_path)
         df.dropna(subset=['Title', 'description', 'authors', 'image', 'previewLink', 'categories'], inplace=True)
         print("number of entries: ", len(df))
         for index, row in df.iterrows():
