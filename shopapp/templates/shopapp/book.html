@@ -55,7 +55,7 @@
         </section>
 
         <section id="score-section">
-            {% if user.is_authenticated %}
+            {% if not user.is_authenticated %}
                 <h3>Rate this Book:</h3>
                 <form id="score-form" action="{% url 'submit-score' %}" method="POST">
                     {% csrf_token %}
@@ -68,8 +68,6 @@
                         {% endfor %}
                     </div>
                 </form>
-            {% else %}
-                <p><b>You must be logged in to rate this book.</b></p>
             {% endif %}
             <div id="average-score">
                 <h3>Average Score: <span id="average-score-value">{{ average_score }}</span></h3>
@@ -79,32 +77,50 @@
 
         <section id="reviews">
             <h2>Reviews</h2>
-            <div id="review-list">
-                {% for review in reviews %}
-                    <div class="review">
-                        {% for key, value in review_scores.items %}
-                            {% if key == review.id %}
-                                <p>Score: {{ value }}</p>
-                            {% endif %}
-                        {% endfor %}
-                        <p>{{ review.text }}</p>
-                        <small>Reviewed by {{ review.user.username }} on {{ review.created_at|date:"Y-m-d H:i" }}</small>
-                    </div>
-                {% empty %}
-                    <p>No reviews yet.</p>
-                {% endfor %}
-            </div>
-
-            {% if user.is_authenticated %}
+                    {% if user.is_authenticated %}
                 <form id="review-form" method="post" data-action-url="{% url 'post_review' book.id %}">
                     {% csrf_token %}
                     <textarea name="text" required></textarea>
+                                    <!-- Score input for Registered Users -->
+                    <div class="star-rating">
+                        {% for star in range_5 %}
+                        <input id="registered-star-{{ star }}" type="radio" name="score" value="{{ star }}" />
+                        <label for="registered-star-{{ star }}" title="{{ star }} stars">&#9733;</label>
+                        {% endfor %}
+                    </div>
                     <input type="submit" value="Submit Review">
                 </form>
 
             {% else %}
                 <p><b>You must be logged in to post a review.</b></p>
             {% endif %}
+            <div id="review-list">
+                {% for review in reviews %}
+                    <div class="review">
+                        <div class="star-rating">
+                            {% for i in list_5 %}
+                                {% if i <= review.score %}
+                                    &#9733;
+                                {% else %}
+                                    &#9734;
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% if review.text != none %}
+                            <p>{{ review.text }}</p>
+                        {% endif %}
+                        {% if review.user.username != None %}
+                            <small>Reviewed by <i>{{ review.user.username }}</i> on {{ review.created_at|date:"Y-m-d H:i" }}</small>
+                        {% else %}
+                            <small>Reviewed by <i>Anonymous</i> on {{ review.created_at|date:"Y-m-d H:i" }}</small>
+                        {% endif %}
+                    </div>
+                {% empty %}
+                    <p>No reviews yet.</p>
+                {% endfor %}
+            </div>
+
+
         </section>
     
     </main>

@@ -197,6 +197,10 @@ figcaption {
     background-color: #0056b3;
 }
 
+#review-form input[type="submit"]:active {
+    background-color: #0600b3;
+}
+
 .logged-out-message {
     color: #d9534f;
     font-weight: bold;

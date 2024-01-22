@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.utils.text import slugify
 from datetime import datetime
 import random
-from ...models.models import UserProfile, Books, Review, Score
+from ...models.models import UserProfile, Books, Review
 
 class Command(BaseCommand):
     help = 'Import users, books, and reviews from a CSV file'
@@ -16,7 +16,7 @@ class Command(BaseCommand):
         csv_file_path = options['csvfile']
 
         # Read the CSV file using pandas
-        df = pd.read_csv(csv_file_path, nrows=100)
+        df = pd.read_csv(csv_file_path, nrows=50)
 
         for _, row in df.iterrows():
             # Create or get user
@@ -31,35 +31,38 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.SUCCESS(f'User {profile_name} CREATED'))
             else:
                 self.stdout.write(self.style.ERROR(f'User {profile_name} already exists'))
+
             # Create or get book
             book_title = row['Title'].strip()[:255]
             book_slug = slugify(book_title)
-            book_price = float(row['Price'])  # Read the price from the CSV file
+            book_price = float(row['Price'])
             book, book_created = Books.objects.get_or_create(
                 slug=book_slug,
-                defaults={'title': book_title, 'price': book_price}  # Use the price here
+                defaults={'title': book_title, 'price': book_price}
             )
 
-            # If the book already exists, update the price
             if not book_created:
                 book.price = book_price
                 book.save()
                 self.stdout.write(self.style.SUCCESS(f'Book {book_title} already exists. Updating price...'))
 
-            # Create review
+            # Create or update review
             review_time = datetime.fromtimestamp(int(row['review/time']))
             review_text = row['review/text'].strip()
             review_summary = row['review/summary'].strip()
             review_score = float(row['review/score'])
-            review, review_created = Review.objects.get_or_create(
+            review, review_created = Review.objects.update_or_create(
                 book=book,
                 user=user,
-                defaults={'text': review_text, 'created_at': review_time, 'summary': review_summary}
+                defaults={
+                    'text': review_text,
+                    'summary': review_summary,
+                    'score': review_score,
+                    'created_at': review_time
+                }
             )
 
-            # Create score for the review
             if review_created:
-                Score.objects.create(review=review, score=review_score)
                 self.stdout.write(self.style.SUCCESS(f"{profile_name}'s review created"))
 
             if user_created or book_created or review_created:
