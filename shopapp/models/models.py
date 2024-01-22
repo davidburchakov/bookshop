@@ -28,7 +28,7 @@ class Category(models.Model):
 
 
 class Books(models.Model):
-    slug = models.SlugField(default="", max_length=255)
+    slug = models.SlugField(max_length=255, unique=True, null=False)
     authors = models.ManyToManyField(Authors, related_name='books')
     title = models.CharField(max_length=255, default="Book")
     img = models.TextField(default='https://angelbookhouse.com/assets/front/img/product/edition_placeholder.png')
@@ -69,26 +69,28 @@ class UserActivity(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
+from django.db import models
+from django.core.exceptions import ValidationError
+
+
 class Review(models.Model):
-    book = models.ForeignKey(Books, on_delete=models.CASCADE)  # Assuming your book model is named 'Books'
+    book = models.ForeignKey(Books, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.TextField()
-    summary = models.TextField(blank=True, null=True)
-    score = models.FloatField(blank=True, null=True)
+    text = models.TextField(blank=True, null=True)
+    score = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Review by {self.user.username} on {self.book.title}"
 
+    def clean(self):
+        # Ensure that either text or score is provided
+        if not self.text and self.score is None:
+            raise ValidationError("A review must have either text or a score.")
 
-class Score(models.Model):
-    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='scores')
-    score = models.IntegerField()
-
-    class Meta:
-        unique_together = ('review',)
-
-
+    def save(self, *args, **kwargs):
+        self.clean()
+        super(Review, self).save(*args, **kwargs)
 
 
 class Rule(models.Model):
