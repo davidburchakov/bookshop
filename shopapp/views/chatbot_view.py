@@ -98,6 +98,34 @@ def chatbot_response(request):
     return JsonResponse({'reply': 'Invalid request'}, status=400)
 
 
+import os
+from django.conf import settings
+
+book_title = ("Python Programming with the Java Class Libraries: A Tutorial for Building Web and Enterprise Applications "
+           "with Jython")
+
+doc_sim_path = os.path.join(settings.BASE_DIR, 'shopapp', 'static', 'nlp', 'doc_sim_df_NOT_compressed.csv.gz')
+doc_sim_df = pd.read_csv(doc_sim_path, compression='gzip')
+
+amazon_books_path = os.path.join(settings.BASE_DIR, 'amazon_books_data_4500.csv')
+amazon_book_df = pd.read_csv(amazon_books_path)
+
+books_list = amazon_book_df['Title'].values
+
+
+def get_recommended_books(b_title=book_title, books=books_list, doc_sims=doc_sim_df):
+    # find movie id
+    movie_idx = np.where(books == b_title)[0][0]
+    # get movie similarities
+    movie_similarities = doc_sims.iloc[movie_idx].values
+    # get top 5 similar movie IDs
+    similar_movie_idxs = np.argsort(-movie_similarities)[1:6]
+    # get top 5 movies
+    similar_movies = books[similar_movie_idxs]
+    # return the top 5 movies
+    return list(similar_movies)
+
+
 # ---------------------------- Word2Vec/Gensim ----------------------------
 
 # descriptions = [book['description'] for book in books]

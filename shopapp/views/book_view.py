@@ -223,8 +223,7 @@ def browse_view(request: HttpRequest):
     free_read_filter = request.GET.get('free', 'off') == 'on'
     available_stock_filter = request.GET.get('available_stock', 'off') == 'on'
     category_filter = request.GET.get('category', 'none')
-    print("books length")
-    print(len(books))
+
     query = request.GET.get('search_query', '')
     if query:
         filtered_books = search_books_by_query(books, query)
@@ -308,3 +307,5 @@ def post_review(request, book_id):
             return JsonResponse({'status': 'error', 'message': str(e)})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+
+
