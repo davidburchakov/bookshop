@@ -40,7 +40,7 @@ document.getElementById('review-form').addEventListener('submit', function(e) {
     .catch(error => console.error('Error:', error));
 });
 
-function updateReviewList(reviewText, score) {
+function updateReviewList(reviewText, score, username, createdAt) {
     const reviewList = document.getElementById('review-list');
     const newReview = document.createElement('div');
     newReview.classList.add('review');
@@ -48,9 +48,9 @@ function updateReviewList(reviewText, score) {
     // Create the star rating element
     const starRating = document.createElement('div');
     starRating.classList.add('star-rating');
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 5; i >= 1; i--) {
         const star = document.createElement('span');
-        star.innerHTML = i <= score ? '&#9733;' : '&#9734;'; // Filled or empty star
+        star.innerHTML = i <= score ? '&#9733;' : '&#9734;';
         starRating.appendChild(star);
     }
     newReview.appendChild(starRating);
@@ -62,6 +62,12 @@ function updateReviewList(reviewText, score) {
         newReview.appendChild(reviewTextElement);
     }
 
-    // Append the new review to the list
-    reviewList.appendChild(newReview);
+    // Add reviewer's username and the date of the review
+    const reviewInfo = document.createElement('small');
+    reviewInfo.innerHTML = `Reviewed by <i>${username}</i> on ${createdAt}`;
+    newReview.appendChild(reviewInfo);
+
+    // Insert the new review as the first in the list
+    reviewList.insertBefore(newReview, reviewList.firstChild);
 }
+

@@ -137,6 +137,7 @@ def get_all_book_categories():
 
     return book_categories
 
+
 book_category = get_all_book_categories()
 
 
@@ -151,8 +152,9 @@ def single_book_view(request: HttpRequest, slug):
     book = [i for i in books if i["slug"] == slug][0]
     categories = get_categories_by_id(book['id'])
     categories['categories'] = categories['categories']
-    reviews = Review.objects.filter(book_id=book['id'])
-
+    reviews = Review.objects.filter(book_id=book['id']).order_by('-created_at')
+    for review in reviews:
+        print(review.created_at)
     # review_scores = {review.id: review.scores.first().score for review in reviews if review.scores.exists()}
     average_score = Review.objects.filter(book=book['id']).aggregate(Avg('score'))['score__avg']
     if average_score is not None:
@@ -170,7 +172,6 @@ def single_book_view(request: HttpRequest, slug):
         "list_5": list(reversed(range(1, 6))),
     }
     return render(request, "shopapp/book.html", context=context)
-
 
 
 def submit_score(request):
@@ -215,10 +216,6 @@ def submit_score(request):
             return JsonResponse({'status': 'error', 'message': str(e)})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request'})
-
-
-
-
 
 
 def browse_view(request: HttpRequest):
@@ -306,4 +303,3 @@ def post_review(request, book_id):
             return JsonResponse({'status': 'error', 'message': str(e)})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request'})
-
