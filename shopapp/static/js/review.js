@@ -31,7 +31,7 @@ document.getElementById('review-form').addEventListener('submit', function(e) {
     .then(data => {
         if(data.status === 'success') {
             // Update the UI to show the new review
-            updateReviewList(text, scoreValue);
+            updateReviewList(text, scoreValue, data.username, data.createdAt);
             form.reset(); // Reset the form after successful submission
         } else {
             alert(data.message);

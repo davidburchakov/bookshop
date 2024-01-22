@@ -293,7 +293,12 @@ def post_review(request, book_id):
                 score=int(score) if score else None
             )
 
-            return JsonResponse({'status': 'success', 'review': review.text})
+            return JsonResponse({
+                'status': 'success',
+                'review': review.text,
+                'username': request.user.username,  # Add username to the response
+                'createdAt': review.created_at.strftime("%Y-%m-%d %H:%M")  # Format the datetime
+            })
 
         except Books.DoesNotExist:
             return JsonResponse({'status': 'error', 'message': 'Book not found'})
