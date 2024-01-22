@@ -422,38 +422,34 @@ label[for="search-query"]
 
 #recommended-books {
     margin: 20px 0;
+    position: relative;
 }
 
 .carousel {
     display: flex;
-    overflow-x: auto;
+    overflow: hidden; /* Hide overflow */
     padding: 10px 0;
-    scroll-behavior: smooth;
 }
 
 .carousel-item {
-    flex: 0 0 auto;
+    flex: none; /* Do not grow or shrink */
     width: 200px; /* Width of each carousel item */
     margin-right: 15px;
     text-align: center;
 }
 
-.carousel-item img {
-    width: 100%; /* Make image responsive */
-    height: auto;
-    border-radius: 10px; /* Optional: for rounded corners */
+/* ... Other styles remain the same ... */
+
+#recommended-books .carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-.carousel-item p {
-    margin-top: 5px;
-    font-size: 1em;
-    color: #333; /* Or any color of your choice */
+#carousel-prev {
+    left: 0;
 }
 
-/* Optional: Add some styling on hover */
-.carousel-item:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease-in-out;
+#carousel-next {
+    right: 0;
 }
-
-

@@ -9,7 +9,10 @@
         <h1>Hello shop index</h1>
     
         <div id="recommended-books">
-        <h2>Recommended for You</h2>
+            <h2>Recommended for You</h2>
+            <div class="carousel-controls">
+                <button id="carousel-prev">&lt;</button>  <!-- Left arrow -->
+            </div>
             <div class="carousel">
                 {% for book in recommended_books %}
                     <div class="carousel-item">
@@ -20,7 +23,11 @@
                     </div>
                 {% endfor %}
             </div>
+            <div class="carousel-controls">
+                <button id="carousel-next">&gt;</button>  <!-- Right arrow -->
+            </div>
         </div>
+
     
     <div id="popular-books">
         <ul class="books-ul">
@@ -52,4 +59,8 @@
     </div>
 
     </main>
+
+{% endblock %}
+{% block javascript %}
+    <script src="{% static "/js/carousel.js" %}"></script>
 {% endblock %}

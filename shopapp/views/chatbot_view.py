@@ -119,7 +119,7 @@ def get_recommended_books(b_title=book_title, books=books_list, doc_sims=doc_sim
     # get movie similarities
     movie_similarities = doc_sims.iloc[movie_idx].values
     # get top 5 similar movie IDs
-    similar_movie_idxs = np.argsort(-movie_similarities)[1:6]
+    similar_movie_idxs = np.argsort(-movie_similarities)[1:26]
     # get top 5 movies
     similar_movies = books[similar_movie_idxs]
     # return the top 5 movies
