@@ -16,7 +16,7 @@ class Command(BaseCommand):
         csv_file_path = options['csvfile']
 
         # Read the CSV file using pandas
-        df = pd.read_csv(csv_file_path, nrows=50)
+        df = pd.read_csv(csv_file_path)
 
         for _, row in df.iterrows():
             # Create or get user

@@ -55,10 +55,14 @@ Book shop checklist:
 --- Advanced:
 1	Comments/Review section
 1	Score/likes
-	Chatbot with semantic analysis, that improves the user experience
-1		able to add to cart via chatbot
+
+	nlp:
 		book recommender - books you would probably be interested
 		display popular books
+		
+	Chatbot with semantic analysis, that improves the user experience
+1		able to add to cart via chatbot
+
 
 
 1	add 5000 books using amazon dataset and google api

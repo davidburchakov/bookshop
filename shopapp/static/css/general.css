@@ -9,6 +9,7 @@ main{
     display: flex;
     flex-direction: column;
     text-align: center;
+    align-items: center;
 }
 
 #content-wrapper {
@@ -53,7 +54,7 @@ li {
     text-align: left;
 }
 
-#topnav a {
+a {
     color: #2a2a2a;
     text-decoration: none;
     margin-left: 20px;
@@ -423,22 +424,23 @@ label[for="search-query"]
 #recommended-books {
     margin: 20px 0;
     position: relative;
+    /*width: 25vw;*/
 }
 
 .carousel {
     display: flex;
     overflow: hidden; /* Hide overflow */
+    width:35vw;
+    max-height: 35vh;
     padding: 10px 0;
 }
 
 .carousel-item {
     flex: none; /* Do not grow or shrink */
     width: 200px; /* Width of each carousel item */
-    margin-right: 15px;
+    margin-right: 0px;
     text-align: center;
 }
-
-/* ... Other styles remain the same ... */
 
 #recommended-books .carousel-controls {
     position: absolute;
@@ -447,9 +449,21 @@ label[for="search-query"]
 }
 
 #carousel-prev {
-    left: 0;
+    position: absolute;
+    right: 0;
 }
 
 #carousel-next {
-    right: 0;
+    position: absolute;
+    left: 35vw;
+    margin: 0 10px;
 }
+
+.carousel-controls button{
+    background-color: transparent;
+    border-color: #8cbef0;
+    border-radius: 50%;
+    border-width: 1px;
+    cursor: pointer;
+}
+
