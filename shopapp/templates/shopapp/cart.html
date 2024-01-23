@@ -28,9 +28,36 @@
         <button>Checkout</button>
     </section>
     
+    <div id="recommended-books">
+            <h2>Recommended for You</h2>
+            
+            <div class="carousel-controls">
+                <button id="carousel-next">&gt;</button>
+            </div>
+            <div class="carousel">
+                {% for book in recommended_books %}
+                    <div class="carousel-item">
+                        <figure>
+                            <img class="book-cover" src="{{ book.img }}" alt="book name">
+                            <a href="{% url 'book' slug=book.slug %}">
+                                <figcaption>
+                                    {% for author in book.authors %}
+                                        {{ author }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}, {{ book.title }}
+                                </figcaption>
+                            </a>
+                        </figure>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <div class="carousel-controls" id="carousel-prev-controls">
+                <button id="carousel-prev">&lt;</button>
+            </div>
+        </div>
 </main>
 {% endblock %}
 
 {% block javascript %}
-    
+    <script src="{% static "js/carousel.js" %}"></script>
 {% endblock %}

@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from ..models.models import Books
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from .chatbot_view import get_recommended_books
+from .book_view import get_all_books
 import json
 
 
@@ -20,7 +22,7 @@ def add_to_cart(request):
             if book_id in cart:
                 cart[book_id]['quantity'] += quantity
             else:
-                cart[book_id] = {'quantity': quantity, 'price': str(book.price)}
+                cart[book_id] = {'quantity': quantity, 'price': str(book.price), 'title': book.title}
 
             request.session['cart'] = cart
             total_quantity = sum(item['quantity'] for item in cart.values())
@@ -32,8 +34,18 @@ def add_to_cart(request):
     return JsonResponse({'status': 'invalid request'}, status=400)
 
 
+books = get_all_books()
+
+
 def cart_view(request):
-    return render(request, 'shopapp/cart.html')
+    recommended_books = []
+    if not books:
+        context = {"error": "No books found"}
+    else:
+        recommended_books = get_recommended_books(request)
+        context = {"books": books, "recommended_books": recommended_books}
+
+    return render(request, 'shopapp/cart.html', context)
 
 
 def process_purchase(request):

@@ -113,18 +113,39 @@ amazon_book_df = pd.read_csv(amazon_books_path)
 books_list = amazon_book_df['Title'].values
 
 
-def get_recommended_books(b_title=book_title, books=books_list, doc_sims=doc_sim_df):
-    # find movie id
-    movie_idx = np.where(books == b_title)[0][0]
-    # get movie similarities
-    movie_similarities = doc_sims.iloc[movie_idx].values
-    # get top 5 similar movie IDs
-    similar_movie_idxs = np.argsort(-movie_similarities)[1:26]
-    # get top 5 movies
-    similar_movies = books[similar_movie_idxs]
-    # return the top 5 movies
-    return list(similar_movies)
+def get_recommended_books_titles(b_title=book_title, list_books=books_list, doc_sims=doc_sim_df):
 
+    book_idx = np.where(list_books == b_title)[0][0]
+    book_similarities = doc_sims.iloc[book_idx].values
+    similar_book_idxs = np.argsort(-book_similarities)[1:6] # get top 5 similar book IDs
+    similar_books = list_books[similar_book_idxs]
+
+    return list(similar_books)
+
+
+def get_recommended_books(request):
+    recommended_books = []
+    try:
+        cart = request.session.get('cart', {})
+        if cart:
+            for key, value in cart.items():
+                recommended_book_title = value.get('title')
+                if recommended_book_title:
+                    recommended_books_titles = get_recommended_books_titles(recommended_book_title)
+                    for book in books:
+                        if book['title'] in recommended_books_titles:
+                            recommended_books.append(book)
+        else:
+            recommended_books_titles = get_recommended_books_titles()
+            for book in books:
+                if book['title'] in recommended_books_titles:
+                    recommended_books.append(book)
+    except:
+        recommended_books_titles = get_recommended_books_titles()
+        for book in books:
+            if book['title'] in recommended_books_titles:
+                recommended_books.append(book)
+    return recommended_books
 
 # ---------------------------- Word2Vec/Gensim ----------------------------
 
