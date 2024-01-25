@@ -1,19 +1,20 @@
-/*---------------------------------------- Popular Books Section Styling ----------------------------------------*/
+/*---------------------------------------- All Books Section Styling ----------------------------------------*/
 
-#popular-books {
+#list-books {
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
+    min-width: 90vw;
 }
 
-#popular-books a {
+#list-books a {
     color: #3a3d42;
     text-decoration: none;
 }
 
-#popular-books a:hover {
+#list-books a:hover {
     color: lightslategrey;
 }
 

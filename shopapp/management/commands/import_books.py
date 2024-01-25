@@ -17,7 +17,7 @@ class Command(BaseCommand):
         csv_file_path = options['csvfile']
 
         # Read the CSV file with pandas
-        df = pd.read_csv(csv_file_path, nrows=200)
+        df = pd.read_csv(csv_file_path)
         df.dropna(subset=['Title', 'description', 'authors', 'image', 'previewLink', 'categories'], inplace=True)
         print("number of entries: ", len(df))
         for index, row in df.iterrows():
@@ -46,27 +46,24 @@ class Command(BaseCommand):
             title = row['Title'][:255]
             img = row['image']
             random_stock = random.randint(0, 120)
-            # Create the book instance without authors
-            book = Books.objects.create(
-                title=title,
-                description=row['description'],
-                img=img,
-                stock=random_stock,
-            )
+            slug = slugify(title)
 
-            # Add authors to the book
-            book.authors.set(author_objects)
+            # Check if the book with the same slug already exists
+            if not Books.objects.filter(slug=slug).exists():
+                # Only create a new book if a book with the same slug doesn't exist
+                book = Books.objects.create(
+                    title=title,
+                    description=row['description'],
+                    img=img,
+                    stock=random_stock,
+                    slug=slug
+                )
 
-            # Add authors to the book
-            for author in author_objects:
-                book.authors.add(author)
+                # Add authors and categories to the book
+                book.authors.set(author_objects)
+                for category in category_objects:
+                    BooksCategories.objects.create(book=book, category=category)
+            else:
+                self.stdout.write(f"Book '{title}' already exists in the database.")
 
-            # Add categories to the book through the through model
-            for category in category_objects:
-                BooksCategories.objects.create(book=book, category=category)
-
-            # Handle slug creation
-            book.slug = slugify(book.title)
-            book.save()
-
-        self.stdout.write(self.style.SUCCESS('Successfully imported books'))
+        self.stdout.write(self.style.SUCCESS('Completed importing books'))

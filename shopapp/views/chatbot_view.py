@@ -5,6 +5,7 @@ from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 from ..views.book_view import get_all_books
 from django.shortcuts import get_object_or_404
+from django.db.models import Avg, Count
 import json
 import numpy as np
 import pandas as pd
@@ -96,6 +97,78 @@ def chatbot_response(request):
         return JsonResponse({'reply': response_message})
 
     return JsonResponse({'reply': 'Invalid request'}, status=400)
+
+
+import os
+from django.conf import settings
+
+book_title = ("Python Programming with the Java Class Libraries: A Tutorial for Building Web and Enterprise Applications "
+           "with Jython")
+
+doc_sim_path = os.path.join(settings.BASE_DIR, 'shopapp', 'static', 'nlp', 'doc_sim_df_NOT_compressed.csv.gz')
+doc_sim_df = pd.read_csv(doc_sim_path, compression='gzip')
+
+amazon_books_path = os.path.join(settings.BASE_DIR, 'amazon_books_data_4500.csv')
+amazon_book_df = pd.read_csv(amazon_books_path)
+
+books_list = amazon_book_df['Title'].values
+
+
+def get_recommended_books_titles(b_title=book_title, list_books=books_list, doc_sims=doc_sim_df):
+
+    book_idx = np.where(list_books == b_title)[0][0]
+    book_similarities = doc_sims.iloc[book_idx].values
+    similar_book_idxs = np.argsort(-book_similarities)[1:6] # get top 5 similar book IDs
+    similar_books = list_books[similar_book_idxs]
+
+    return list(similar_books)
+
+
+def get_recommended_books(request):
+    recommended_books = []
+    try:
+        cart = request.session.get('cart', {})
+        if cart:
+            for key, value in cart.items():
+                recommended_book_title = value.get('title')
+                if recommended_book_title:
+                    recommended_books_titles = get_recommended_books_titles(recommended_book_title)
+                    for book in books:
+                        if book['title'] in recommended_books_titles:
+                            recommended_books.append(book)
+        else:
+            recommended_books_titles = get_recommended_books_titles()
+            for book in books:
+                if book['title'] in recommended_books_titles:
+                    recommended_books.append(book)
+    except:
+        recommended_books_titles = get_recommended_books_titles()
+        for book in books:
+            if book['title'] in recommended_books_titles:
+                recommended_books.append(book)
+    return recommended_books
+
+
+from django.db.models import Count, Avg
+
+
+def get_most_popular_books():
+    # Annotate books with their review count and average score
+    books_with_stats = Books.objects.annotate(
+        review_count=Count('review'),
+        average_score=Avg('review__score')
+    )
+
+    # First, get the books with the most reviews
+    most_reviewed_books = books_with_stats.order_by('-review_count')
+
+    # From these, take the top 15
+    top_15_most_reviewed = most_reviewed_books[:15]
+
+    # Then, sort these top 15 books by their average score in descending order
+    top_books_sorted_by_score = sorted(top_15_most_reviewed, key=lambda x: x.average_score, reverse=True)
+
+    return top_books_sorted_by_score
 
 
 # ---------------------------- Word2Vec/Gensim ----------------------------

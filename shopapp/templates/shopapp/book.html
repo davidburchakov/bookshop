@@ -76,7 +76,7 @@
 
 
         <section id="reviews">
-            <h2>Reviews</h2>
+            <h2>Reviews ({{ review_length }})</h2>
                     {% if user.is_authenticated %}
                 <form id="review-form" method="post" data-action-url="{% url 'post_review' book.id %}">
                     {% csrf_token %}

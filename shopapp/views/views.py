@@ -2,6 +2,7 @@ from django.http import HttpRequest
 from django.shortcuts import render
 from .book_view import get_all_books
 from django.db import connection
+from .chatbot_view import get_recommended_books, get_most_popular_books
 
 def get_all_faq():
     with connection.cursor() as cursor:
@@ -29,12 +30,17 @@ books = get_all_books()
 
 
 def index_view(request: HttpRequest):
+    most_popular_books = get_most_popular_books()
     if not books:
         context = {"error": "No books found"}
     else:
+        recommended_books = get_recommended_books(request)
         context = {
-            "books": books
+            "books": books,
+            "recommended_books": recommended_books,
+            "most_popular_books": most_popular_books
         }
+
     return render(request, 'shopapp/shop-index.html', context=context)
 
 

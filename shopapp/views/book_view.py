@@ -141,21 +141,11 @@ def get_all_book_categories():
 book_category = get_all_book_categories()
 
 
-def books_view(request: HttpRequest):
-    context = {
-        # "products": products
-    }
-    return render(request, 'shopapp/books.html', context=context)
-
-
 def single_book_view(request: HttpRequest, slug):
     book = [i for i in books if i["slug"] == slug][0]
     categories = get_categories_by_id(book['id'])
     categories['categories'] = categories['categories']
     reviews = Review.objects.filter(book_id=book['id']).order_by('-created_at')
-    for review in reviews:
-        print(review.created_at)
-    # review_scores = {review.id: review.scores.first().score for review in reviews if review.scores.exists()}
     average_score = Review.objects.filter(book=book['id']).aggregate(Avg('score'))['score__avg']
     if average_score is not None:
         average_score = round(average_score, 2)
@@ -166,8 +156,8 @@ def single_book_view(request: HttpRequest, slug):
         "book": book,
         "categories": categories['categories'],
         "reviews": reviews,
+        "review_length": len(reviews),
         "average_score": average_score,
-        # "review_scores": review_scores,
         "range_5": reversed(range(1, 6)),
         "list_5": list(reversed(range(1, 6))),
     }
@@ -223,8 +213,7 @@ def browse_view(request: HttpRequest):
     free_read_filter = request.GET.get('free', 'off') == 'on'
     available_stock_filter = request.GET.get('available_stock', 'off') == 'on'
     category_filter = request.GET.get('category', 'none')
-    print("books length")
-    print(len(books))
+
     query = request.GET.get('search_query', '')
     if query:
         filtered_books = search_books_by_query(books, query)
@@ -308,3 +297,4 @@ def post_review(request, book_id):
             return JsonResponse({'status': 'error', 'message': str(e)})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+

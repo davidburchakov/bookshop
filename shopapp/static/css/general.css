@@ -9,6 +9,7 @@ main{
     display: flex;
     flex-direction: column;
     text-align: center;
+    align-items: center;
 }
 
 #content-wrapper {
@@ -53,7 +54,7 @@ li {
     text-align: left;
 }
 
-#topnav a {
+a {
     color: #2a2a2a;
     text-decoration: none;
     margin-left: 20px;
@@ -219,7 +220,7 @@ label[for="search-query"]
 }
 
 /* ---------------------------- books styling ---------------------------- */
-#popular-books li {
+#list-books li {
     list-style-type: none;
 }
 
@@ -417,3 +418,132 @@ label[for="search-query"]
 
 
 
+
+/* ----------------------------  recommended books ---------------------------- */
+
+#recommended-books {
+    margin: 20px 0;
+    position: relative;
+    /*width: 25vw;*/
+}
+
+.carousel {
+    display: flex;
+    overflow: hidden; /* Hide overflow */
+    width:35vw;
+    max-height: 35vh;
+    padding: 10px 0;
+}
+
+.carousel-item {
+    flex: none; /* Do not grow or shrink */
+    width: 200px; /* Width of each carousel item */
+    margin-right: 0px;
+    text-align: center;
+}
+
+#recommended-books .carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#carousel-prev {
+    position: absolute;
+    right: 0;
+}
+
+#carousel-next {
+    position: absolute;
+    left: 35vw;
+    margin: 0 10px;
+}
+
+.carousel-controls button{
+    background-color: transparent;
+    border-color: #8cbef0;
+    border-radius: 50%;
+    border-width: 1px;
+    cursor: pointer;
+}
+
+
+/* ---------------------------- Most Popular Books ---------------------------- */
+
+#most-popular-books {
+    margin: 30px 0;
+    color: #333;
+    position: relative;
+}
+
+#most-popular-books .carousel {
+    display: flex;
+    overflow: hidden;
+    width: 40vw;
+    max-height: 30vh;
+    padding: 15px 0;
+    border: 2px solid #8cbef0;
+    background-color: #f3f3f3;
+}
+
+#most-popular-books .carousel-item {
+    width: 120px;
+    margin: 0 7px;
+    text-align: center;
+    font-size: 10.5pt;
+}
+
+#most-popular-books .carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#most-popular-carousel-prev {
+    position: absolute;
+    left: -1.2vw;
+    z-index: 1;
+}
+
+#most-popular-carousel-next {
+    position: absolute;
+    left: 40vw;
+    margin: 0 10px;
+    z-index: 1;
+}
+
+#most-popular-books .carousel-controls button{
+    background-color: #8cbef0;
+    border-color: #333;
+    color: white;
+    border-radius: 50%;
+    border-width: 1px;
+    cursor: pointer;
+}
+
+#most-popular-books .carousel-item figure {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+#most-popular-books .carousel-item figcaption {
+    font-size: 0.9em;
+    margin: 0;
+    padding: 5px 0 0 0;
+    text-align: center;
+}
+
+#most-popular-books .carousel-item a {
+    font-size: 0.9em;
+    margin: 0;
+    padding: 0;
+}
+
+#most-popular-books .carousel-item img {
+    width: 100%;
+    height: 180px;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
