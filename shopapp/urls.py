@@ -3,7 +3,7 @@ from django.urls import path
 from shopapp.views.cookies_view import set_cookie_consent
 from shopapp.views.chatbot_view import chatbot_response
 from shopapp.views.views import (index_view, about_view, faq_view)
-from shopapp.views.book_view import books_view, single_book_view, browse_view, post_review, submit_score
+from shopapp.views.book_view import single_book_view, browse_view, post_review, submit_score
 from shopapp.views.cart_view import cart_view, add_to_cart, update_cart
 from shopapp.views.seneka_view import pdf_view, letter_view
 from shopapp.views.user_view import (login_view, profile_view,
@@ -18,7 +18,6 @@ urlpatterns = [
     path('login', login_view, name='login'),
     path('register', register_view, name='register'),
     path('logout', logout_view, name='logout'),
-    path("books", books_view, name='books'),
     path("book/<slug:slug>", single_book_view, name="book"),  # /posts/first-post
     path("profile", profile_view, name="profile"),
     path("profile-update-page", profile_update_view_page, name="profile-update-page"),

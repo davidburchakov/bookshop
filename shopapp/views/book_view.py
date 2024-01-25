@@ -141,13 +141,6 @@ def get_all_book_categories():
 book_category = get_all_book_categories()
 
 
-def books_view(request: HttpRequest):
-    context = {
-        # "products": products
-    }
-    return render(request, 'shopapp/books.html', context=context)
-
-
 def single_book_view(request: HttpRequest, slug):
     book = [i for i in books if i["slug"] == slug][0]
     categories = get_categories_by_id(book['id'])
@@ -307,5 +300,4 @@ def post_review(request, book_id):
             return JsonResponse({'status': 'error', 'message': str(e)})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request'})
-
 
