@@ -467,3 +467,82 @@ label[for="search-query"]
     cursor: pointer;
 }
 
+
+/* ---------------------------- Most Popular Books ---------------------------- */
+
+#most-popular-books {
+    margin: 30px 0;
+    color: #333;
+    position: relative;
+}
+
+#most-popular-books .carousel {
+    display: flex;
+    overflow: hidden;
+    width: 40vw;
+    max-height: 30vh;
+    padding: 15px 0;
+    border: 2px solid #8cbef0;
+    background-color: #f3f3f3;
+}
+
+#most-popular-books .carousel-item {
+    width: 120px;
+    margin: 0 7px;
+    text-align: center;
+    font-size: 10.5pt;
+}
+
+#most-popular-books .carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#most-popular-carousel-prev {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+}
+
+#most-popular-carousel-next {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+}
+
+#most-popular-books .carousel-controls button{
+    background-color: #8cbef0;
+    border-color: #333;
+    color: white;
+    border-radius: 50%;
+    border-width: 1px;
+    cursor: pointer;
+}
+
+#most-popular-books .carousel-item figure {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+#most-popular-books .carousel-item figcaption {
+    font-size: 0.9em;
+    margin: 0;
+    padding: 5px 0 0 0;
+    text-align: center;
+}
+
+#most-popular-books .carousel-item a {
+    font-size: 0.9em;
+    margin: 0;
+    padding: 0;
+}
+
+#most-popular-books .carousel-item img {
+    width: 100%;
+    height: 180px;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
