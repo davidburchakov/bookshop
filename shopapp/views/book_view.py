@@ -146,9 +146,6 @@ def single_book_view(request: HttpRequest, slug):
     categories = get_categories_by_id(book['id'])
     categories['categories'] = categories['categories']
     reviews = Review.objects.filter(book_id=book['id']).order_by('-created_at')
-    for review in reviews:
-        print(review.created_at)
-    # review_scores = {review.id: review.scores.first().score for review in reviews if review.scores.exists()}
     average_score = Review.objects.filter(book=book['id']).aggregate(Avg('score'))['score__avg']
     if average_score is not None:
         average_score = round(average_score, 2)
@@ -159,8 +156,8 @@ def single_book_view(request: HttpRequest, slug):
         "book": book,
         "categories": categories['categories'],
         "reviews": reviews,
+        "review_length": len(reviews),
         "average_score": average_score,
-        # "review_scores": review_scores,
         "range_5": reversed(range(1, 6)),
         "list_5": list(reversed(range(1, 6))),
     }

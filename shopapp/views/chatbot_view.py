@@ -5,7 +5,7 @@ from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 from ..views.book_view import get_all_books
 from django.shortcuts import get_object_or_404
-from django.db.models import Avg
+from django.db.models import Avg, Count
 import json
 import numpy as np
 import pandas as pd
@@ -149,13 +149,27 @@ def get_recommended_books(request):
     return recommended_books
 
 
-def get_most_popular_books():
-    # Get all books with their average score
-    books_with_avg_score = Books.objects.annotate(average_score=Avg('review__score'))
+from django.db.models import Count, Avg
 
-    # Order the books by their average score in descending order and get the top 5
-    top_books = books_with_avg_score.order_by('-average_score')[:5]
-    return top_books
+
+def get_most_popular_books():
+    # Annotate books with their review count and average score
+    books_with_stats = Books.objects.annotate(
+        review_count=Count('review'),
+        average_score=Avg('review__score')
+    )
+
+    # First, get the books with the most reviews
+    most_reviewed_books = books_with_stats.order_by('-review_count')
+
+    # From these, take the top 15
+    top_15_most_reviewed = most_reviewed_books[:15]
+
+    # Then, sort these top 15 books by their average score in descending order
+    top_books_sorted_by_score = sorted(top_15_most_reviewed, key=lambda x: x.average_score, reverse=True)
+
+    return top_books_sorted_by_score
+
 
 # ---------------------------- Word2Vec/Gensim ----------------------------
 
