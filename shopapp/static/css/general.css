@@ -501,13 +501,14 @@ label[for="search-query"]
 
 #most-popular-carousel-prev {
     position: absolute;
-    left: 0;
+    left: -1.2vw;
     z-index: 1;
 }
 
 #most-popular-carousel-next {
     position: absolute;
-    right: 0;
+    left: 40vw;
+    margin: 0 10px;
     z-index: 1;
 }
 
