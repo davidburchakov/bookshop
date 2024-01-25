@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from ..models.models import Books
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from .chatbot_view import get_recommended_books
+from .chatbot_view import get_recommended_books, get_most_popular_books
 from .book_view import get_all_books
 import json
 
@@ -38,12 +38,17 @@ books = get_all_books()
 
 
 def cart_view(request):
-    recommended_books = []
+
     if not books:
         context = {"error": "No books found"}
     else:
+        most_popular_books = get_most_popular_books()
         recommended_books = get_recommended_books(request)
-        context = {"books": books, "recommended_books": recommended_books}
+        context = {
+            "books": books,
+            "recommended_books": recommended_books,
+            "most_popular_books": most_popular_books
+        }
 
     return render(request, 'shopapp/cart.html', context)
 

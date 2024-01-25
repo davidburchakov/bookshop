@@ -55,6 +55,33 @@
                 <button id="carousel-prev">&lt;</button>
             </div>
         </div>
+
+        <div id="most-popular-books">
+            <h2>Popular Books</h2>
+            
+            <div class="carousel-controls">
+                <button id="most-popular-carousel-next">&gt;</button>
+            </div>
+            <div class="carousel" id="most-popular-carousel">
+                {% for book in most_popular_books %}
+                    <div class="carousel-item">
+                        <figure>
+                            <img class="book-cover" src="{{ book.img }}" alt="{{ book.title }}">
+                            <a href="{% url 'book' slug=book.slug %}">
+                                <figcaption>
+                                    {{ book.title }}
+                                </figcaption>
+                            </a>
+                        </figure>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <div class="carousel-controls" id="most-popular-carousel-prev-controls">
+                <button id="most-popular-carousel-prev">&lt;</button>
+            </div>
+        </div>
+
 </main>
 {% endblock %}
 
