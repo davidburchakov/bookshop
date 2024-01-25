@@ -1,28 +1,75 @@
-.register-card{
-    display: flex;
-    flex-direction: column;
-    border-color: black;
-    border-style: solid;
-    text-align: center;
-    align-content: center;
-    /*justify-content: center;*/
-    height: 25rem;
-    width: 25rem;
-}
-
-.register-card input{
-    width: 20rem;
-}
-
-.register-card form{
-    align-items: center;
-}
-
-main{
+/* General Styling for Main Section */
+main {
     display: flex;
     justify-content: center;
-    /*text-align: center;*/
-    /*align-content: center;*/
-    /*align-items: center;*/
-    /*align-self: center;*/
+    align-items: center;
+    height: 100%;
+    background-color: #f3f3f3;
+    margin: 0;
+}
+
+/* Styling for Registration Card */
+.register-card {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    position: relative;
+    bottom: 10vh;
+}
+
+.register-card h1 {
+    margin-bottom: 30px;
+    font-size: 2em;
+    color: #333;
+}
+
+.register-card input {
+    width: calc(100% - 20px); /* Full width minus padding */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.register-card input[type="submit"] {
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.register-card input[type="submit"]:hover {
+    background-color: #357ABD;
+}
+
+/* Error Message Styling */
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+    border: 1px solid #f5c6cb;
+    text-align: left;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .register-card {
+        padding: 20px;
+        max-width: 300px;
+        top: 0;
+    }
+
+    .register-card h1 {
+        font-size: 1.5em;
+    }
 }
