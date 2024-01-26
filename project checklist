@@ -24,8 +24,7 @@ Book shop checklist:
 1	View a list of books
 1   Populate with books
 1	Display content of free books. Read the book
-	View popular books, depending on how many views (how often the page is opened)
-	book corousel 
+1	book corousel 
 
 1	Add to card as user
 1	View Cart 
@@ -56,15 +55,16 @@ Book shop checklist:
 1	Comments/Review section
 1	Score/likes
 
-	nlp:
-		book recommender - books you would probably be interested
-		display popular books
+1	nlp:
+1		book recommender - books you would probably be interested
+1		display popular books, based on how many reviews
 		
 	Chatbot with semantic analysis, that improves the user experience
+		use custom Large Language Models
 1		able to add to cart via chatbot
 
 
-
+1	Populate:
 1	add 5000 books using amazon dataset and google api
 
 

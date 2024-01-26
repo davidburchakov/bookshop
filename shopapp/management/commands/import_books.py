@@ -18,7 +18,8 @@ class Command(BaseCommand):
 
         # Read the CSV file with pandas
         df = pd.read_csv(csv_file_path)
-        df.dropna(subset=['Title', 'description', 'authors', 'image', 'previewLink', 'categories'], inplace=True)
+        df.dropna(subset=['Title', 'description', 'authors', 'image', 'previewLink', 'categories', 'processed_title'],
+                  inplace=True)
         print("number of entries: ", len(df))
         for index, row in df.iterrows():
             # Handle authors

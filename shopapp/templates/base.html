@@ -38,11 +38,9 @@
                 {% else %}
                     <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
                 {% endif %}
-            </nav>
-        
-            <nav>
                 <a href="/browse">Browse</a>
             </nav>
+
             <button class="hamburger" id="hamburger-button">
                 <img src="{% static "img/cart.png" %}" alt="cart icon">
                 <span class="quantity">{{ total_quantity }}</span>
@@ -61,7 +59,7 @@
                                     <div class="div4">
                                         <button onclick="updateQuantity('{{ item.book.id }}', 1)">+</button>
                                         <div class="count">{{ item.quantity }}</div>
-                                        
+
                                         <button onclick="updateQuantity('{{ item.book.id }}', -1)">-</button>
                                     </div>
                                 </div>
@@ -69,12 +67,12 @@
                                     <div class="div2">
                                         <p>{{ item.book.title }}</p>
                                     </div>
-                                        
+
                                     <div class="div3">
                                         price: ${{ item.total_price }}, {{ item.quantity }} x {{ item.book.price }}
                                     </div>
                                 </div>
-                                
+
                             </li>
                         {% endfor %}
                     {% else %}
@@ -114,9 +112,9 @@
                     </div>
                     <div class="chatbot-content">
                         <!-- Area where chat messages will be displayed -->
-                        
+
                         <!-- Added demonstration button here -->
-                        <button id="demoButton" class="demo-button">Add to Cart Letters from a Stoic</button>
+                        <button id="demoButton" class="demo-button" onclick="hideDemo()">Recommend a book on stoicism</button>
                     </div>
                     
                     <div class="chatbot-input-area">
@@ -159,8 +157,17 @@
 <script src="{% static "js/cookies.js" %}"></script>
 <script src="{% static "js/chatbot.js" %}"></script>
 
+<script>
+function hideDemo() {
+    const demoButton = document.getElementById('demoButton');
+    demoButton.offsetHeight;
+    demoButton.classList.add('demo-button-clicked'); // This triggers the fade-out transition
+}
+
+</script>
+
 {% block javascript %}
-    
+
 {% endblock %}
 
 
