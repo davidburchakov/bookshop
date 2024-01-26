@@ -2,18 +2,17 @@ from ..models.models import Books
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from ..views.book_view import get_all_books
-from django.shortcuts import get_object_or_404
+from django.db.models import Count, Avg
 import json
 import numpy as np
 import pandas as pd
 import nltk
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-
-books = get_all_books()
-
 import os
 from django.conf import settings
+
+books = get_all_books()
 
 book_title = (
     "Python Programming with the Java Class Libraries: A Tutorial for Building Web and Enterprise Applications "
@@ -62,9 +61,6 @@ def get_recommended_books(request):
     return recommended_books
 
 
-from django.db.models import Count, Avg
-
-
 def get_most_popular_books():
     # Annotate books with their review count and average score
     books_with_stats = Books.objects.annotate(
@@ -87,12 +83,6 @@ def get_most_popular_books():
 # ---------------------------- Openai and tf-idf ----------------------------
 
 
-conversation_context = {}
-
-
-def update_quantity(total_quantity):
-    return JsonResponse({'status': 'success', 'total_quantity': total_quantity})
-
 @csrf_exempt
 def chatbot_response(request):
     if request.method == 'POST':
@@ -109,6 +99,7 @@ def chatbot_response(request):
 
 # pip install openai
 from openai import OpenAI
+
 
 def get_chatgpt_response(chat_prompt, title, description, authors):
     temperature = .4
@@ -144,6 +135,7 @@ books_data_df.dropna(inplace=True)
 
 # Preprocessing
 from nltk.corpus import stopwords
+
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 
