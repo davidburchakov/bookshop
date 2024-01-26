@@ -112,9 +112,9 @@
                     </div>
                     <div class="chatbot-content">
                         <!-- Area where chat messages will be displayed -->
-                        
+
                         <!-- Added demonstration button here -->
-                        <button id="demoButton" class="demo-button">Add to Cart Letters from a Stoic</button>
+                        <button id="demoButton" class="demo-button" onclick="hideDemo()">Recommend a book on stoicism</button>
                     </div>
                     
                     <div class="chatbot-input-area">
@@ -157,8 +157,17 @@
 <script src="{% static "js/cookies.js" %}"></script>
 <script src="{% static "js/chatbot.js" %}"></script>
 
+<script>
+function hideDemo() {
+    const demoButton = document.getElementById('demoButton');
+    demoButton.offsetHeight;
+    demoButton.classList.add('demo-button-clicked'); // This triggers the fade-out transition
+}
+
+</script>
+
 {% block javascript %}
-    
+
 {% endblock %}
 
 

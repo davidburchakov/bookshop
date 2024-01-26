@@ -43,9 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
      var demoButton = document.getElementById('demoButton');
 
     function sendDemoMessage() {
-        var demoMessage = "add to cart Letters from a Stoic";
+        var demoMessage = "Recommend a book on stoicism";
         chatContent.innerHTML += '<div>User: ' + demoMessage + '</div>';
-
+        // Hide the demo button with a transition
+        demoButton.classList.add('hidden');
         fetch('/chatbot-response', {
             method: 'POST',
             headers: {
@@ -57,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             chatContent.innerHTML += '<div>Bot: ' + data.reply + '</div>';
         });
+
     }
 
     demoButton.addEventListener('click', sendDemoMessage);

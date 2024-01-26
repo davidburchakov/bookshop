@@ -399,7 +399,8 @@ label[for="search-query"]
     border-radius: 15px;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    transition: background-color 0.3s ease;
+    transition: opacity 2s ease-in-out; /* Transition for 2 seconds */
+    opacity: 1; /* Start fully visible */
 }
 
 
@@ -410,6 +411,11 @@ label[for="search-query"]
 .demo-button:active {
     background-color: #072360; /* Even darker shade when clicked */
 }
+
+.demo-button-clicked {
+    opacity: 0;
+}
+
 
 
 /* Responsive Design */

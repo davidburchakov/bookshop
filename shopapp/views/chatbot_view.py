@@ -21,7 +21,7 @@ book_title = (
 doc_sim_path = os.path.join(settings.BASE_DIR, 'shopapp', 'static', 'nlp', 'doc_sim_df_NOT_compressed.csv.gz')
 doc_sim_df = pd.read_csv(doc_sim_path, compression='gzip')
 
-amazon_books_path = os.path.join(settings.BASE_DIR, 'amazon_books_data_4500.csv')
+amazon_books_path = os.path.join(settings.BASE_DIR, 'books_data_df_4500_processed.csv')
 amazon_book_df = pd.read_csv(amazon_books_path)
 
 books_list = amazon_book_df['Title'].values
