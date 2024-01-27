@@ -59,9 +59,8 @@ Book shop checklist:
 1		book recommender - books you would probably be interested
 1		display popular books, based on how many reviews
 		
-	Chatbot with semantic analysis, that improves the user experience
-		use custom Large Language Models
-1		able to add to cart via chatbot
+1	Chatbot with semantic analysis, that improves the user experience
+1		use openai Large Language Models
 
 
 1	Populate:

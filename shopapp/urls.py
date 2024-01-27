@@ -9,7 +9,8 @@ from shopapp.views.seneka_view import pdf_view, letter_view
 from shopapp.views.user_view import (login_view, profile_view,
                                      register_view, logout_view,
                                      profile_update_view_page, profile_update_view,
-                                     profile_delete, password_change_view_page, password_change_view)
+                                     profile_delete, password_change_view_page, password_change_view,
+                                     activate)
 
 
 urlpatterns = [
@@ -36,6 +37,7 @@ urlpatterns = [
     path("password-change", password_change_view, name='password-change'),
     path('post-review/<int:book_id>/', post_review, name='post_review'),
     path("submit-score", submit_score, name='submit-score'),
-    path("chatbot-response", chatbot_response, name='chatbot-response')
+    path("chatbot-response", chatbot_response, name='chatbot-response'),
+    path('activate/<uidb64>/<token>/', activate, name='activate'),
 
 ]
