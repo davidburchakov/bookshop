@@ -99,7 +99,7 @@ def chatbot_response(request):
 
 # pip install openai
 from openai import OpenAI
-
+from decouple import config
 
 def get_chatgpt_response(chat_prompt, title, description, authors):
     temperature = .4
@@ -107,7 +107,7 @@ def get_chatgpt_response(chat_prompt, title, description, authors):
 
     client = OpenAI(
         # defaults to os.environ.get("OPENAI_API_KEY")
-        api_key="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",
+        api_key=config('API_KEY'),
     )
 
     chat_completion = client.chat.completions.create(
@@ -136,7 +136,7 @@ books_data_df.dropna(inplace=True)
 # Preprocessing
 from nltk.corpus import stopwords
 
-nltk.download('stopwords')
+# nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 
 

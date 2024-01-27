@@ -11,6 +11,20 @@
                 <p>Email {{ user.email }}</p>
                 <p>Phone {{ phone }}</p>
                 <p>Joined: {{ user.date_joined }}</p>
+                
+                {% if not email_verified %}
+                    <p style="background-color: indianred">Your email is not verified. Please check your email for the verification link.</p>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <button type="submit" name="resend_email">Resend Verification Email</button>
+                    </form>
+                    {% if email_resent %}
+                        <p>A verification email has been resent to your email address.</p>
+                    {% endif %}
+                {% else %}
+                    <p style="background-color: lawngreen">Your email is verified.</p>
+                {% endif %}
+                
             {% else %}
                 <h1>User's not authenticated</h1>
                 <h2>{{ error }}</h2>
