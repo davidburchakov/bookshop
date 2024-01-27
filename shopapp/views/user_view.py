@@ -117,7 +117,9 @@ def activate(request, uidb64, token):
 
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
+        user.userprofile.email_verified = True
         user.save()
+        user.userprofile.save()
 
         # Log the user in and redirect to home page
         login(request, user)
@@ -158,7 +160,13 @@ def profile_view(request):
                 'user': request.user,
                 'profile': user_profile,
                 'phone': user_profile.phone if user_profile.phone else "No phone number provided",
+                'email_verified': user_profile.email_verified
             }
+
+            # Resend email verification if requested
+            if request.method == "POST" and 'resend_email' in request.POST:
+                send_confirmation_email(request, request.user)
+                context['email_resent'] = True
 
             # Check for cookie consent
             if 'cookie_consent' in request.COOKIES:
