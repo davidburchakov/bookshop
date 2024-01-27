@@ -1,5 +1,5 @@
-from django.urls import path
-
+from django.urls import path, include
+from django.contrib.auth import views as auth_views
 from shopapp.views.cookies_view import set_cookie_consent
 from shopapp.views.chatbot_view import chatbot_response
 from shopapp.views.views import (index_view, about_view, faq_view)
@@ -39,5 +39,23 @@ urlpatterns = [
     path("submit-score", submit_score, name='submit-score'),
     path("chatbot-response", chatbot_response, name='chatbot-response'),
     path('activate/<uidb64>/<token>/', activate, name='activate'),
+    path('password_reset/', auth_views.PasswordResetView.as_view(
+        template_name='registration/pass_reset_form.html',
+        email_template_name='registration/pass_reset_email.html',
+        subject_template_name='registration/password_reset_subject.txt',
+    ), name='password_reset'),
+    # Password reset done view
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(
+        template_name='registration/pass_reset_done.html',  # Specify your custom template here
+    ), name='password_reset_done'),
+
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
+        template_name='registration/pass_reset_confirm.html',  # Specify your custom template here
+    ), name='password_reset_confirm'),
+
+    # Password reset complete view
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(
+        template_name='registration/pass_reset_complete.html',  # Specify your custom template here
+    ), name='password_reset_complete'),
 
 ]
