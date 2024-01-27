@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
+{% block links %}
+    <link rel="stylesheet" href="{% static "css/password-recovery.css" %}">
+{% endblock %}
 {% block main %}
-    <h2>Email Sent</h2>
-    <p>We've emailed you instructions for setting your password. You should receive the email shortly!</p>
+    <div class="container">
+        <h2>Email Sent</h2>
+        <p>We've emailed you instructions for setting your password. You should receive the email shortly!</p>
+    </div>
 {% endblock %}
