@@ -14,7 +14,7 @@
             <figure>
                  <a href="{% url "book" slug=item.book.slug %}">
                     <img class="book-cover" src="{{ item.book.img }}" alt="book name">
-                    <figcaption>{{ item.book.author }}, {{ item.book.title }}</figcaption>
+                    <figcaption>{{ item.book.title }}</figcaption>
                  </a>    
             </figure>
             Quantity: {{ item.quantity }}

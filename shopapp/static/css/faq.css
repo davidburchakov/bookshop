@@ -57,3 +57,15 @@
 .faq-question.active + .faq-answer {
     max-height: 120px; /* Adjust as needed */
 }
+
+dotlottie-player {
+    align-self: center;
+}
+
+@media all and (max-width: 800px) {
+  .faq-gif {
+    width: 20rem;
+    height: 15rem;
+    align-self: center;
+}
+}

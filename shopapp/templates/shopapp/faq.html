@@ -6,7 +6,9 @@
 {% endblock %}
 {% block main %}
     <div class="faq-container">
-        <img src="{% static 'img/faq.gif' %}" alt="FAQ" class="faq-gif">
+        <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+
+        <dotlottie-player src="https://lottie.host/1a064d79-5dfa-4a49-a82d-319e43210ec0/0y0AfJEWoW.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
         <h1>FAQ</h1>
         <div class="faq">
             {% for q_a in faq %}

@@ -75,8 +75,8 @@ Book shop checklist:
 1	Store user location, ip, only if cookies allowed
 
 1	Display more books on scroll - index
-	Captcha
-	Payment
+	
+1	Payment
 1		After payment complete, -= stock
 1		send info to email
 	Deploy
@@ -85,23 +85,15 @@ Book shop checklist:
 --- Style:
 1	General page styling
 1	Style the free book and out of stock badge
-	Top navbar
+1	Top navbar
+1	favicon
 1	Footer
-	sidebar styling
-0	cookie style
+1	sidebar styling
+1	cookie style
 	
-	Responsive Design
-	HTML validation
-	CSS validation
-	Input validation on client (frontend)
-	Input validation on server (backend) 
-	Contextual support
-
---- Admin:
-	User Access Control - meaning some features are available only to admins
-	Administration features
-	Create a book as an admin
-	Load the image for the book
-	Update a book description as an admin
-	Remove a book as an admin
-	Remove the user as an admin
+1	Responsive Design
+1	HTML validation
+1	CSS validation
+1	Input validation on client (frontend)
+1	Input validation on server (backend) 
+1	Contextual support
