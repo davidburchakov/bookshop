@@ -1,0 +1,7 @@
+.purchase-complete {
+    text-align: center;
+    padding: 50px;
+}
+.purchase-complete h2 {
+    color: #4CAF50;  /* Example color */
+}

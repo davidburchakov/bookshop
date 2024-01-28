@@ -142,6 +142,7 @@ book_category = get_all_book_categories()
 
 
 def single_book_view(request: HttpRequest, slug):
+    books = get_all_books()
     book = [i for i in books if i["slug"] == slug][0]
     categories = get_categories_by_id(book['id'])
     categories['categories'] = categories['categories']

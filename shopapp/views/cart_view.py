@@ -58,12 +58,22 @@ def process_purchase(request):
 
     for book_id, data in cart.items():
         book = get_object_or_404(Books, id=book_id)
-        book.stock -= data['quantity']
+        new_stock = book.stock - data['quantity']
+        print(data['quantity'])
+        print(type(data['quantity'])) #int
+        print("book id: ", book_id)
+        print("book data\n", data)
+        print("new stock: ", new_stock)
+        book.stock = max(0, new_stock)  # Ensures stock doesn't go negative
         book.save()
 
     request.session['cart'] = {}
     return redirect('purchase_complete')  # Redirect to a confirmation page
 
+
+def purchase_complete(request):
+    # You can add any additional context or logic here if needed
+    return render(request, 'shopapp/purchase_complete.html')
 
 @require_POST
 def update_cart(request):
