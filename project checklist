@@ -85,12 +85,13 @@ Book shop checklist:
 --- Style:
 1	General page styling
 1	Style the free book and out of stock badge
-	Top navbar
+1	Top navbar
+1	favicon
 1	Footer
-	sidebar styling
+0	sidebar styling
 0	cookie style
 	
-	Responsive Design
+1	Responsive Design
 	HTML validation
 	CSS validation
 	Input validation on client (frontend)
