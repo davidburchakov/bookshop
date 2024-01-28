@@ -1,5 +1,5 @@
 python manage.py import_books path_to_your_csv_file.csv
-
+python manage.pt import_ratings path_to_your_csv_file.csv
 Book shop checklist:
 
 --- Pages:
