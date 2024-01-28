@@ -74,12 +74,12 @@ Book shop checklist:
 1	Do not use non-essential cookies if not allowed
 1	Store user location, ip, only if cookies allowed
 
-	Display more books on scroll - index, browse
+1	Display more books on scroll - index
 	Captcha
 	Payment
-		After payment complete, -= stock
-		save payment data
-		send info to email
+1		After payment complete, -= stock
+0		save payment data
+0		send info to email
 	Deploy
 	
 --- Database:
