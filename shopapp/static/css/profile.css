@@ -12,13 +12,22 @@ main {
     align-items: center;
     align-self: center;
     background-color: #f9f9f9;
-    width: 50rem;
+    width: 30vw;
+    height: 75vh;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 2rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    margin: 10px;
+}
 .profile h2 {
     margin-top: 0;
     color: #333;
@@ -87,6 +96,12 @@ main {
     text-decoration: none;
 }
 
+@media all and (max-width: 800px) {
+  .profile{
+      width: 60vw;
+      height: 100vh;
+  }
+}
 
         /*.modal {*/
         /*    display: none;*/

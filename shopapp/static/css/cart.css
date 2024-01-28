@@ -69,4 +69,8 @@ figcaption {
     margin: 0 5px;
 }
 
-/* Adjust styles if needed for specific elements like quantity display */
+@media all and (max-width: 800px) {
+  .cart-div ul li {
+      flex-direction: column;
+  }
+}

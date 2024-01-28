@@ -75,8 +75,8 @@ Book shop checklist:
 1	Store user location, ip, only if cookies allowed
 
 1	Display more books on scroll - index
-	Captcha
-	Payment
+	
+1	Payment
 1		After payment complete, -= stock
 1		send info to email
 	Deploy
