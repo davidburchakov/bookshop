@@ -81,20 +81,15 @@ Book shop checklist:
 0		save payment data
 0		send info to email
 	Deploy
-	
---- Database:
-	Create Triggers
-	Different Indexes
-	Transactions
 
 
 --- Style:
 1	General page styling
 1	Style the free book and out of stock badge
 	Top navbar
-	Footer
+1	Footer
 	sidebar styling
-	cookie style
+0	cookie style
 	
 	Responsive Design
 	HTML validation
