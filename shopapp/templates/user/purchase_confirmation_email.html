@@ -1,0 +1,12 @@
+Hello {{ user.username }},
+Thank you for your purchase! Here are the details of your order:
+
+{% for book_id, data in cart.items %}
+    {{ data.title }}
+    Quantity: {{ data.quantity }}
+{% endfor %}
+Visit our website for more amazing books: http://127.0.0.1:8000/
+
+
+THIS MESSAGE IS NOT FROM A REAL MARKET
+DO NOT ENTER ANY SENSITIVE CREDENTIALS

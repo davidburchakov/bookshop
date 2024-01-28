@@ -1,4 +1,6 @@
+from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
 from ..models.models import Books
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -38,7 +40,6 @@ books = get_all_books()
 
 
 def cart_view(request):
-
     if not books:
         context = {"error": "No books found"}
     else:
@@ -56,24 +57,37 @@ def cart_view(request):
 def process_purchase(request):
     cart = request.session.get('cart', {})
 
+    # Process the purchase
     for book_id, data in cart.items():
         book = get_object_or_404(Books, id=book_id)
         new_stock = book.stock - data['quantity']
-        print(data['quantity'])
-        print(type(data['quantity'])) #int
-        print("book id: ", book_id)
-        print("book data\n", data)
-        print("new stock: ", new_stock)
-        book.stock = max(0, new_stock)  # Ensures stock doesn't go negative
+        book.stock = max(0, new_stock)
         book.save()
 
+    # Send confirmation email
+    if request.user.is_authenticated:
+        send_purchase_confirmation_email(request, request.user, cart)
+
+    # Clear the cart
     request.session['cart'] = {}
-    return redirect('purchase_complete')  # Redirect to a confirmation page
+
+    return redirect('purchase_complete')
+
+
+def send_purchase_confirmation_email(request, user, cart):
+    current_site = get_current_site(request)
+    subject = 'Your Purchase Confirmation'
+    message = render_to_string('user/purchase_confirmation_email.html', {
+        'user': user,
+        'cart': cart,
+        'domain': current_site.domain
+    })
+    user.email_user(subject, message)
 
 
 def purchase_complete(request):
-    # You can add any additional context or logic here if needed
     return render(request, 'shopapp/purchase_complete.html')
+
 
 @require_POST
 def update_cart(request):

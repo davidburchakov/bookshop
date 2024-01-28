@@ -78,7 +78,6 @@ Book shop checklist:
 	Captcha
 	Payment
 1		After payment complete, -= stock
-0		save payment data
 0		send info to email
 	Deploy
 
