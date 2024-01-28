@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>
         {%  block  title %}
-            My App
+            Book store
         {% endblock %}
     </title>
 
@@ -24,7 +24,7 @@
         <header id="topnav">
             <div id="logo">
                 <a href="{% url "index" %}">
-                    <img src="../static/img/bookman.png" alt="bookman logo" id="logo-img">
+                    <img src="{% static "img/bookman.png" %}" alt="bookman logo" id="logo-img">
                 </a>
             </div>
 
@@ -32,7 +32,7 @@
                 <a href="/about">About</a>
                 <a href="/faq">FAQ</a>
                 {% if user.is_authenticated %}
-                    Welcome, {{ user.username }} | <a href="{% url 'logout' %}">Logout</a>
+                    Welcome, <i>{{ user.username }}</i> | <a href="{% url 'logout' %}">Logout</a>
                     <br>
                     <a href="/profile">Profile</a>
                 {% else %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block links %}
+    <link rel="stylesheet" href="{% static "css/password-recovery.css" %}">
+{% endblock %}
+{% block main %}
+    <div class="container">
+        <h2>Set New Password</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Set Password</button>
+        </form>
+    </div>
+{% endblock %}

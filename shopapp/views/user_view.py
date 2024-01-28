@@ -166,7 +166,8 @@ def profile_view(request):
             # Resend email verification if requested
             if request.method == "POST" and 'resend_email' in request.POST:
                 send_confirmation_email(request, request.user)
-                context['email_resent'] = True
+                # context['email_resent'] = True
+                messages.success(request, "An verification email has been sent")
 
             # Check for cookie consent
             if 'cookie_consent' in request.COOKIES:
