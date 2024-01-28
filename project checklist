@@ -69,11 +69,12 @@ Book shop checklist:
 
 
 1	Confirm Email
-	Password recovery	
+1	Password recovery	
 1	Cookie notice
 1	Do not use non-essential cookies if not allowed
 1	Store user location, ip, only if cookies allowed
 
+	Display more books on scroll - index, browse
 	Captcha
 	Payment
 		After payment complete, -= stock
