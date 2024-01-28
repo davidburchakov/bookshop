@@ -25,23 +25,61 @@ def get_all_faq():
         return faq_list
 
 
+from ..models.models import Books
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+def get_all_books_paginator(page_num=1, books_per_page=30):
+    books_qs = Books.objects.all().prefetch_related('authors').order_by('id')
+    paginator = Paginator(books_qs, books_per_page)
+
+    try:
+        books_page = paginator.page(page_num)
+    except PageNotAnInteger:
+        books_page = paginator.page(1)
+    except EmptyPage:
+        books_page = paginator.page(paginator.num_pages)
+
+    books = [
+        {
+            "slug": book.slug,
+            "title": book.title,
+            "img": book.img,
+            "description": book.description,
+            "stock": book.stock,
+            "price": book.price,
+            "id": book.id,
+            "read": book.read,
+            "authors": [author.fullname for author in book.authors.all()]
+        } for book in books_page
+    ]
+    return books
+
+
 faq = get_all_faq()
 books = get_all_books()
 
 
+
+
 def index_view(request: HttpRequest):
+    page = request.GET.get('page', 1)  # Get the page number from query params
     most_popular_books = get_most_popular_books()
-    if not books:
-        context = {"error": "No books found"}
-    else:
-        recommended_books = get_recommended_books(request)
-        context = {
-            "books": books,
-            "recommended_books": recommended_books,
-            "most_popular_books": most_popular_books
-        }
+    recommended_books = get_recommended_books(request)
+    books_page = get_all_books_paginator(page_num=page)  # Fetch the correct page
+    context = {
+        "books_page": books_page,  # This is already a paginated list of books
+        "recommended_books": recommended_books,
+        "most_popular_books": most_popular_books
+    }
+    # Check if the request is AJAX
+    # Detect AJAX request
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        books_page = get_all_books_paginator(page_num=page)  # Fetch the correct page
+        print("AJAX DETECTED")
+        return render(request, 'shopapp/books_list.html', {"books_page": books_page})
 
     return render(request, 'shopapp/shop-index.html', context=context)
+
+
 
 
 def about_view(request: HttpRequest):

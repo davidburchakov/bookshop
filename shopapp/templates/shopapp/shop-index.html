@@ -64,32 +64,12 @@
 
     
         <div id="list-books">
-            <ul class="books-ul">
-                {% for book in books|slice:":25" %}
-                    <li>
-                        {% if book %}
-                            <article>
-                                {% if book.read %}
-                                    <span class="free-badge">Read online</span>
-                                {% endif %}
-                                {% if book.stock < 1 %}
-                                    <span class="stock-badge">Out of Stock</span>
-                                {% endif %}
-                                <figure>
-                                    <img class="book-cover" src="{{ book.img }}" alt="book name">
-                                    <a href="{% url 'book' slug=book.slug %}">
-                                        <figcaption>
-                                            {% for author in book.authors %}
-                                                {{ author }}{% if not forloop.last %}, {% endif %}
-                                            {% endfor %}, {{ book.title }}
-                                        </figcaption>
-                                    </a>
-                                </figure>
-                            </article>
-                        {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
+            <div id="list-books">
+                {% include 'shopapp/books_list.html' %}
+                <div id="load-more" style="display: none;"></div>
+            </div>
+
+        <div id="load-more" style="display: none;"></div>
         </div>
 
     </main>
@@ -97,4 +77,5 @@
 {% endblock %}
 {% block javascript %}
     <script src="{% static "/js/carousel.js" %}"></script>
+    <script src="{% static '/js/book_display.js' %}"></script>
 {% endblock %}
