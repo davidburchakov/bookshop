@@ -69,31 +69,26 @@ Book shop checklist:
 
 
 1	Confirm Email
-	Password recovery	
+1	Password recovery	
 1	Cookie notice
 1	Do not use non-essential cookies if not allowed
 1	Store user location, ip, only if cookies allowed
 
+1	Display more books on scroll - index
 	Captcha
 	Payment
-		After payment complete, -= stock
-		save payment data
-		send info to email
+1		After payment complete, -= stock
+1		send info to email
 	Deploy
-	
---- Database:
-	Create Triggers
-	Different Indexes
-	Transactions
 
 
 --- Style:
 1	General page styling
 1	Style the free book and out of stock badge
 	Top navbar
-	Footer
+1	Footer
 	sidebar styling
-	cookie style
+0	cookie style
 	
 	Responsive Design
 	HTML validation

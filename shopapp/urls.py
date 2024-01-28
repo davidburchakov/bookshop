@@ -4,7 +4,7 @@ from shopapp.views.cookies_view import set_cookie_consent
 from shopapp.views.chatbot_view import chatbot_response
 from shopapp.views.views import (index_view, about_view, faq_view)
 from shopapp.views.book_view import single_book_view, browse_view, post_review, submit_score
-from shopapp.views.cart_view import cart_view, add_to_cart, update_cart
+from shopapp.views.cart_view import cart_view, add_to_cart, update_cart, process_purchase, purchase_complete
 from shopapp.views.seneka_view import pdf_view, letter_view
 from shopapp.views.user_view import (login_view, profile_view,
                                      register_view, logout_view,
@@ -57,5 +57,9 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(
         template_name='registration/pass_reset_complete.html',  # Specify your custom template here
     ), name='password_reset_complete'),
+
+    path('process-purchase/', process_purchase, name='process-purchase'),
+    path('purchase-complete/', purchase_complete, name='purchase_complete'),
+
 
 ]

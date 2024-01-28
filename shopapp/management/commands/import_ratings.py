@@ -48,6 +48,7 @@ class Command(BaseCommand):
 
             # Create or update review
             review_time = datetime.fromtimestamp(int(row['review/time']))
+            print("REVIEW TIME:", review_time)
             review_text = row['review/text'].strip()
             review_summary = row['review/summary'].strip()
             review_score = float(row['review/score'])

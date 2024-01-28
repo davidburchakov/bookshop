@@ -1,0 +1,16 @@
+{% extends "base.html" %}  <!-- Assuming you have a base template -->
+{% load static %}
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/purchase_complete.css' %}">
+{% endblock %}
+{% block main %}
+
+<div class="purchase-complete">
+    <h2>Thank You for Your Purchase!</h2>
+    <p>Your order has been processed successfully.</p>
+    <a href="{% url 'index' %}">Return to Home</a>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    <dotlottie-player src="https://lottie.host/76c5c8db-aee8-4230-a836-e698fe7a2aea/V8wrypEd7K.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+
+</div>
+{% endblock %}

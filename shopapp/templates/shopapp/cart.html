@@ -25,7 +25,11 @@
             {% endfor %}
         </ul>
         <div class="final-price"><h3>Total Price: {{ cart_final_price }}</h3></div>
-        <button>Checkout</button>
+        <form action="{% url 'process-purchase' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Checkout</button>
+        </form>
+
     </section>
     
     <div id="recommended-books">
