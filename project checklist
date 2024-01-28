@@ -88,21 +88,12 @@ Book shop checklist:
 1	Top navbar
 1	favicon
 1	Footer
-0	sidebar styling
-0	cookie style
+1	sidebar styling
+1	cookie style
 	
 1	Responsive Design
-	HTML validation
-	CSS validation
-	Input validation on client (frontend)
-	Input validation on server (backend) 
-	Contextual support
-
---- Admin:
-	User Access Control - meaning some features are available only to admins
-	Administration features
-	Create a book as an admin
-	Load the image for the book
-	Update a book description as an admin
-	Remove a book as an admin
-	Remove the user as an admin
+1	HTML validation
+1	CSS validation
+1	Input validation on client (frontend)
+1	Input validation on server (backend) 
+1	Contextual support
