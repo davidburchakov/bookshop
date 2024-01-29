@@ -46,8 +46,6 @@ def index_view(request: HttpRequest):
     most_popular_books = get_most_popular_books()
     recommended_books = get_recommended_books(request)
     books_page = get_all_books_paginator(page_num=page)  # Fetch the correct page
-    print("RECOMMENDED BOOKS")
-    print(recommended_books)
     context = {
         "books_page": books_page,  # This is already a paginated list of books
         "recommended_books": recommended_books,
