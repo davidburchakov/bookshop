@@ -75,9 +75,15 @@ def get_most_popular_books():
     top_15_most_reviewed = most_reviewed_books[:15]
 
     # Then, sort these top 15 books by their average score in descending order
-    top_books_sorted_by_score = sorted(top_15_most_reviewed, key=lambda x: x.average_score, reverse=True)
+    # Treat None as the lowest possible value
+    top_books_sorted_by_score = sorted(
+        top_15_most_reviewed,
+        key=lambda x: x.average_score if x.average_score is not None else float('-inf'),
+        reverse=True
+    )
 
     return top_books_sorted_by_score
+
 
 
 # ---------------------------- Openai and tf-idf ----------------------------
