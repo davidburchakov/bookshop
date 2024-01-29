@@ -12,7 +12,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 import os
 from django.conf import settings
 
-books = get_all_books()
 
 book_title = (
     "Python Programming with the Java Class Libraries: A Tutorial for Building Web and Enterprise Applications "
@@ -37,6 +36,7 @@ def get_recommended_books_titles(b_title=book_title, list_books=books_list, doc_
 
 
 def get_recommended_books(request):
+    books = get_all_books()
     recommended_books = []
     try:
         cart = request.session.get('cart', {})

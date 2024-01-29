@@ -1,28 +1,12 @@
 from django.http import HttpRequest
 from django.shortcuts import render
-from .book_view import get_all_books
-from django.db import connection
 from .chatbot_view import get_recommended_books, get_most_popular_books
+from ..models.models import Faq
 
 def get_all_faq():
-    with connection.cursor() as cursor:
-        cursor.execute("""
-        SELECT EXISTS(
-                SELECT FROM information_schema.tables
-                WHERE table_schema='public'
-                AND   table_name='shopapp_faq'
-            );
-        """)
-
-        table_exists = cursor.fetchone()[0]
-        faq_list = []
-        if table_exists:
-            cursor.execute("""
-            SELECT question, answer FROM shopapp_faq; 
-            """)
-            rows = cursor.fetchall()
-            faq_list = [{"question": row[0], "answer": row[1]} for row in rows]
-        return faq_list
+    faqs = Faq.objects.all()
+    faq_list = [{"question": faq.question, "answer": faq.answer} for faq in faqs]
+    return faq_list
 
 
 from ..models.models import Books
@@ -54,10 +38,6 @@ def get_all_books_paginator(page_num=1, books_per_page=30):
     return books
 
 
-faq = get_all_faq()
-books = get_all_books()
-
-
 
 
 def index_view(request: HttpRequest):
@@ -87,6 +67,7 @@ def about_view(request: HttpRequest):
 
 
 def faq_view(request: HttpRequest):
+    faq = get_all_faq()
     context = {
         "faq": faq,
     }
