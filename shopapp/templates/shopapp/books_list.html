@@ -1,20 +1,38 @@
 <!-- books_list.html -->
 <ul class="books-ul" id="books-list">
-    {% for book in books_page %}
-        <li>
-            <!-- Your code to display each book -->
-            <article>
-                <figure>
-                    <img class="book-cover" src="{{ book.img }}" alt="{{ book.title }}">
-                    <a href="{% url 'book' slug=book.slug %}">
-                        <figcaption>
-                            {% for author in book.authors %}
-                                {{ author }}{% if not forloop.last %}, {% endif %}
-                            {% endfor %}, {{ book.title }}
-                        </figcaption>
-                    </a>
-                </figure>
-            </article>
-        </li>
-    {% endfor %}
+    {% if books_page %}
+        {% for book in books_page %}
+            <li>
+                <!-- Your code to display each book -->
+                <article>
+                    <figure>
+                        <img class="book-cover" src="{{ book.img }}" alt="{{ book.title }}">
+                        <a href="{% url 'book' slug=book.slug %}">
+                            <figcaption>
+                                {% for author in book.authors %}
+                                    {{ author }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}, {{ book.title }}
+                            </figcaption>
+                        </a>
+                    </figure>
+                </article>
+            </li>
+        {% endfor %}
+    {% else %}
+        {% for book in range_30 %}
+            <li>
+                <!-- Your code to display each book -->
+                <article>
+                    <figure>
+                        <img class="book-cover" src="https://angelbookhouse.com/assets/front/img/product/edition_placeholder.png" alt="book not available">
+                        <a href="">
+                            <figcaption>
+                                sorry, book not available =(
+                            </figcaption>
+                        </a>
+                    </figure>
+                </article>
+            </li>
+        {% endfor %}
+    {% endif %}
 </ul>

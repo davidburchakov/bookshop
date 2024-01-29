@@ -11,32 +11,44 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import os
 from django.conf import settings
+from datasets import load_dataset
 
-books = get_all_books()
+
+# load book df
+dataset = load_dataset('spleentery/amazon_data_processed_4500.csv')
+data = dataset['train']
+book_df = data.to_pandas()
+book_df.dropna(subset=['Title', 'description', 'authors', 'image', 'previewLink', 'categories', 'processed_title'],
+          inplace=True)
+
 
 book_title = (
     "Python Programming with the Java Class Libraries: A Tutorial for Building Web and Enterprise Applications "
     "with Jython")
 
-doc_sim_path = os.path.join(settings.BASE_DIR, 'shopapp', 'static', 'nlp', 'doc_sim_df_NOT_compressed.csv.gz')
+doc_sim_path = os.path.join(settings.BASE_DIR, 'shopapp', 'static', 'nlp', 'doc_sim_df.csv.gz')
 doc_sim_df = pd.read_csv(doc_sim_path, compression='gzip')
 
-amazon_books_path = os.path.join(settings.BASE_DIR, 'books_data_df_4500_processed.csv')
-amazon_book_df = pd.read_csv(amazon_books_path)
-
-books_list = amazon_book_df['Title'].values
+books_list = book_df['Title'].values
 
 
 def get_recommended_books_titles(b_title=book_title, list_books=books_list, doc_sims=doc_sim_df):
-    book_idx = np.where(list_books == b_title)[0][0]
-    book_similarities = doc_sims.iloc[book_idx].values
-    similar_book_idxs = np.argsort(-book_similarities)[1:6]  # get top 5 similar book IDs
-    similar_books = list_books[similar_book_idxs]
+    if b_title in list_books:
+        book_idx = np.where(list_books == b_title)[0][0]
+        book_similarities = doc_sims.iloc[book_idx].values
+        similar_book_idxs = np.argsort(-book_similarities)[1:6]  # get top 5 similar book IDs
+        similar_books = list_books[similar_book_idxs]
+        return list(similar_books)
+    else:
+        print(f"Book title '{b_title}' not found in the books list.")
+        # Handle the case where book title is not found
+        # Maybe return a default list or an empty list
+        return []
 
-    return list(similar_books)
 
 
 def get_recommended_books(request):
+    books = get_all_books()
     recommended_books = []
     try:
         cart = request.session.get('cart', {})
@@ -75,9 +87,15 @@ def get_most_popular_books():
     top_15_most_reviewed = most_reviewed_books[:15]
 
     # Then, sort these top 15 books by their average score in descending order
-    top_books_sorted_by_score = sorted(top_15_most_reviewed, key=lambda x: x.average_score, reverse=True)
+    # Treat None as the lowest possible value
+    top_books_sorted_by_score = sorted(
+        top_15_most_reviewed,
+        key=lambda x: x.average_score if x.average_score is not None else float('-inf'),
+        reverse=True
+    )
 
     return top_books_sorted_by_score
+
 
 
 # ---------------------------- Openai and tf-idf ----------------------------
@@ -129,9 +147,8 @@ def get_chatgpt_response(chat_prompt, title, description, authors):
     return chat_completion.choices[0].message.content
 
 
-books_data_path = os.path.join(settings.BASE_DIR, 'books_data_df_4500_processed.csv')
-books_data_df = pd.read_csv(books_data_path)
-books_data_df.dropna(inplace=True)
+
+
 
 # Preprocessing
 from nltk.corpus import stopwords
@@ -150,7 +167,7 @@ def preprocess(text):
 
 # Vectorization
 vectorizer = TfidfVectorizer()
-tfidf_matrix = vectorizer.fit_transform(books_data_df['processed_title'])
+tfidf_matrix = vectorizer.fit_transform(book_df['processed_title'])
 
 
 # Function to find most similar book
@@ -160,6 +177,6 @@ def find_most_similar_book(query, vectorizer_fun=vectorizer, tfidf_matrix_fun=tf
     query_vec = vectorizer_fun.transform([query])
     cosine_similarities = cosine_similarity(query_vec, tfidf_matrix_fun).flatten()
     most_similar_book_index = np.argmax(cosine_similarities)
-    return (books_data_df.iloc[most_similar_book_index]['Title'],
-            books_data_df.iloc[most_similar_book_index]['description'],
-            books_data_df.iloc[most_similar_book_index]['authors'])
+    return (book_df.iloc[most_similar_book_index]['Title'],
+            book_df.iloc[most_similar_book_index]['description'],
+            book_df.iloc[most_similar_book_index]['authors'])

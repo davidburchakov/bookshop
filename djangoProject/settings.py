@@ -91,16 +91,31 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# postgres
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'bookshop',
+#         'USER': 'bookshop_admin',
+#         'PASSWORD': 'admin',
+#         'HOST': 'localhost',  # Set to empty string for localhost.
+#         'PORT': '',           # Set to empty string for default.
+#     }
+# }
+
+
+# Mysql
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bookshop',
         'USER': 'bookshop_admin',
         'PASSWORD': 'admin',
-        'HOST': 'localhost',  # Set to empty string for localhost.
-        'PORT': '',           # Set to empty string for default.
+        'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

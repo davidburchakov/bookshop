@@ -36,10 +36,10 @@ def add_to_cart(request):
     return JsonResponse({'status': 'invalid request'}, status=400)
 
 
-books = get_all_books()
 
 
 def cart_view(request):
+    books = get_all_books()
     if not books:
         context = {"error": "No books found"}
     else:

@@ -5,18 +5,16 @@ from django.utils.text import slugify
 from datetime import datetime
 import random
 from ...models.models import UserProfile, Books, Review
+from datasets import load_dataset
 
 class Command(BaseCommand):
     help = 'Import users, books, and reviews from a CSV file'
 
-    def add_arguments(self, parser):
-        parser.add_argument('csvfile', type=str, help='The CSV file to import.')
-
     def handle(self, *args, **options):
-        csv_file_path = options['csvfile']
-
-        # Read the CSV file using pandas
-        df = pd.read_csv(csv_file_path)
+        dataset = load_dataset('spleentery/books_ratings')
+        data = dataset['train']
+        df = data.to_pandas()
+        df = df.head(100)
 
         for _, row in df.iterrows():
             # Create or get user

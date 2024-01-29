@@ -1,144 +1,68 @@
+# books_view.py
+from collections import defaultdict
 from django.http import HttpRequest
 from django.shortcuts import render
-from django.db import connection
 from django.http import JsonResponse
-from ..models.models import Review, Books
+from ..models.models import Review, Books, Category
 from django.db.models import Avg
 from django.core.exceptions import ValidationError
 
 
 def get_all_books():
-    books = []
-    with connection.cursor() as cursor:
-        # Check if the 'books' table exists
-        cursor.execute("""
-            SELECT EXISTS (
-                SELECT FROM information_schema.tables
-                WHERE  table_schema = 'public'
-                AND    table_name   = 'shopapp_books'
-            );
-        """)
-        table_exists = cursor.fetchone()[0]
-
-        if table_exists:
-            cursor.execute("""
-                SELECT b.slug, b.title, b.img, b.description, b.stock, b.price, b.id, b.read, 
-                       ARRAY_AGG(a.fullname) as authors
-                FROM shopapp_books b
-                INNER JOIN shopapp_books_authors ba ON b.id = ba.books_id
-                INNER JOIN shopapp_authors a ON ba.authors_id = a.id
-                GROUP BY b.slug, b.title, b.img, b.description, b.stock, b.price, b.id, b.read
-            """)
-            rows = cursor.fetchall()
-
-            # Mapping rows to a list of dictionaries
-            books = [
-                {
-                    "slug": row[0],
-                    "title": row[1],
-                    "img": row[2],
-                    "description": row[3],
-                    "stock": row[4],
-                    "price": row[5],
-                    "id": row[6],
-                    "read": row[7],
-                    "authors": row[8]  # This will be a list of author names
-                } for row in rows
-            ]
-    return books
+    books = Books.objects.all().prefetch_related('authors')
+    return [
+        {
+            "slug": book.slug,
+            "title": book.title,
+            "img": book.img,
+            "description": book.description,
+            "stock": book.stock,
+            "price": book.price,
+            "id": book.id,
+            "read": book.read,
+            "authors": [author.fullname for author in book.authors.all()]
+        } for book in books
+    ]
 
 
-books = get_all_books()
+
 
 
 def get_all_categories():
-    categories = {}
-    with connection.cursor() as cursor:
-        cursor.execute("""
-                SELECT EXISTS (
-                    SELECT FROM information_schema.tables
-                    WHERE table_schema = 'public'
-                    AND table_name = 'shopapp_category'
-                    );
-            """)
-
-        table_exists = cursor.fetchone()[0]
-
-        if table_exists:
-            cursor.execute("""
-                    SELECT id, name
-                    FROM shopapp_category
-                """)
-
-            rows = cursor.fetchall()
-            for row in rows:
-                categories[row[0]] = row[1]
-    return categories
+    return {category.id: category.name for category in Category.objects.all()}
 
 
-categories = get_all_categories()
+
+
 
 
 def get_categories_by_id(book_id):
-    categories = {"categories": []}
-    with connection.cursor() as cursor:
-        cursor.execute("""
-            SELECT EXISTS (
-                SELECT FROM information_schema.tables
-                WHERE table_schema = 'public'
-                AND table_name = 'shopapp_category'
-                );
-        """)
+    book = Books.objects.filter(id=book_id).prefetch_related('categories').first()
+    if book:
+        return {"categories": [category.name for category in book.categories.all()]}
+    return {"categories": []}
 
-        table_exists = cursor.fetchone()[0]
-
-        if table_exists:
-            cursor.execute("""
-                SELECT c.name
-                FROM shopapp_bookscategories b
-                INNER JOIN shopapp_books a on a.id = b.book_id
-                INNER JOIN shopapp_category c ON b.category_id = c.id
-                WHERE a.id = %s
-            """, [book_id])
-
-            rows = cursor.fetchall()
-            for row in rows:
-                categories['categories'].append(row[0])
-    return categories
 
 
 def get_all_book_categories():
-    book_categories = {}
-    with connection.cursor() as cursor:
-        cursor.execute("""
-            SELECT EXISTS (
-                SELECT FROM information_schema.tables
-                WHERE table_schema = 'public'
-                AND table_name = 'shopapp_bookscategories'
-            );
-        """)
+    book_categories = defaultdict(list)
+    books = Books.objects.prefetch_related('categories')
 
-        table_exists = cursor.fetchone()[0]
+    for book in books:
+        for category in book.categories.all():
+            book_categories[book.id].append(category.name)
 
-        if table_exists:
-            cursor.execute("""
-                SELECT a.id, c.name
-                FROM shopapp_books a
-                LEFT JOIN shopapp_bookscategories b ON a.id = b.book_id
-                LEFT JOIN shopapp_category c ON b.category_id = c.id
-            """)
-
-            rows = cursor.fetchall()
-            for book_id, category_name in rows:
-                if book_id not in book_categories:
-                    book_categories[book_id] = []
-                if category_name:  # Check if category_name is not None
-                    book_categories[book_id].append(category_name)
-
-    return book_categories
+    return dict(book_categories)
 
 
-book_category = get_all_book_categories()
+
+from django.db.models import Q
+
+def search_books_by_query(all_books, query):
+    return [
+        book for book in all_books if
+        query in book['title'].lower() or query in book['description'].lower()
+    ]
 
 
 def single_book_view(request: HttpRequest, slug):
@@ -210,10 +134,12 @@ def submit_score(request):
 
 
 def browse_view(request: HttpRequest):
+    books = get_all_books()
     filtered_books = books
     free_read_filter = request.GET.get('free', 'off') == 'on'
     available_stock_filter = request.GET.get('available_stock', 'off') == 'on'
     category_filter = request.GET.get('category', 'none')
+    book_category = get_all_book_categories()
 
     query = request.GET.get('search_query', '')
     if query:
@@ -249,7 +175,7 @@ def browse_view(request: HttpRequest):
         min_price, max_price = 10, 200
 
     filtered_books = [book for book in filtered_books if min_price <= book['price'] <= max_price]
-
+    categories = get_all_categories()
     context = {
         "books": filtered_books,
         "categories": categories

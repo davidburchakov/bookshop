@@ -4,20 +4,17 @@ import ast
 from django.utils.text import slugify
 from ...models.models import Books, Authors, Category, BooksCategories
 import random
+from datasets import load_dataset
 
 
 class Command(BaseCommand):
     help = 'Import books from a CSV file into the database'
-
-    def add_arguments(self, parser):
-        parser.add_argument('csvfile', type=str, help='The CSV file to import.')
-
     def handle(self, *args, **options):
-        # Get the path to the CSV file
-        csv_file_path = options['csvfile']
 
-        # Read the CSV file with pandas
-        df = pd.read_csv(csv_file_path)
+        dataset = load_dataset('spleentery/amazon_data_processed_4500.csv')
+        data = dataset['train']
+        df = data.to_pandas()
+        # df = df.head(100)
         df.dropna(subset=['Title', 'description', 'authors', 'image', 'previewLink', 'categories', 'processed_title'],
                   inplace=True)
         print("number of entries: ", len(df))

@@ -14,18 +14,33 @@
                 <button id="most-popular-carousel-next">&gt;</button>
             </div>
             <div class="carousel" id="most-popular-carousel">
-                {% for book in most_popular_books %}
-                    <div class="carousel-item">
-                        <figure>
-                            <img class="book-cover" src="{{ book.img }}" alt="{{ book.title }}">
-                            <a href="{% url 'book' slug=book.slug %}">
-                                <figcaption>
-                                    {{ book.title }}
-                                </figcaption>
-                            </a>
-                        </figure>
-                    </div>
-                {% endfor %}
+                {% if most_popular_books %}
+                    {% for book in most_popular_books %}
+                        <div class="carousel-item">
+                            <figure>
+                                <img class="book-cover" src="{{ book.img }}" alt="{{ book.title }}">
+                                <a href="{% url 'book' slug=book.slug %}">
+                                    <figcaption>
+                                        {{ book.title }}
+                                    </figcaption>
+                                </a>
+                            </figure>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {% for book in range %}
+                        <div class="carousel-item">
+                            <figure>
+                                <img class="book-cover" src="https://angelbookhouse.com/assets/front/img/product/edition_placeholder.png" alt="book not available">
+                                <a href="">
+                                    <figcaption>
+                                        book not available
+                                    </figcaption>
+                                </a>
+                            </figure>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
             
             <div class="carousel-controls" id="most-popular-carousel-prev-controls">
@@ -41,20 +56,35 @@
                 <button id="carousel-next">&gt;</button>
             </div>
             <div class="carousel">
-                {% for book in recommended_books %}
-                    <div class="carousel-item">
-                        <figure>
-                            <img class="book-cover" src="{{ book.img }}" alt="book name">
-                            <a href="{% url 'book' slug=book.slug %}">
-                                <figcaption>
-                                    {% for author in book.authors %}
-                                        {{ author }}{% if not forloop.last %}, {% endif %}
-                                    {% endfor %}, {{ book.title }}
-                                </figcaption>
-                            </a>
-                        </figure>
-                    </div>
-                {% endfor %}
+                {% if recommended_books %}
+                    {% for book in recommended_books %}
+                        <div class="carousel-item">
+                            <figure>
+                                <img class="book-cover" src="{{ book.img }}" alt="book name">
+                                <a href="{% url 'book' slug=book.slug %}">
+                                    <figcaption>
+                                        {% for author in book.authors %}
+                                            {{ author }}{% if not forloop.last %}, {% endif %}
+                                        {% endfor %}, {{ book.title }}
+                                    </figcaption>
+                                </a>
+                            </figure>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {% for book in range %}
+                        <div class="carousel-item">
+                            <figure>
+                                <img class="book-cover" src="https://angelbookhouse.com/assets/front/img/product/edition_placeholder.png" alt="book not available">
+                                <a href="">
+                                    <figcaption>
+                                        book not available
+                                    </figcaption>
+                                </a>
+                            </figure>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
             
             <div class="carousel-controls" id="carousel-prev-controls">
