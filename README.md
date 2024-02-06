@@ -3,7 +3,9 @@
 #### Python Django
 #### Mysql
 
-available [online](https://spleentery.pythonanywhere.com)
+used *Amazon Books Reviews* dataset from Kaggle to populate the database [here](https://www.kaggle.com/datasets/mohamedbakhet/amazon-books-reviews?select=books_data.csv)
+
+### **available [online](https://spleentery.pythonanywhere.com)**
 
 ## Set-up commands:
 ~~~~
