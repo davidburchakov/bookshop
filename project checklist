@@ -96,3 +96,9 @@ Book shop checklist:
 1	Input validation on client (frontend)
 1	Input validation on server (backend) 
 1	Contextual support
+
+
+
+	add book counter
+	fix adding to cart and rating for unregistered users
+	
