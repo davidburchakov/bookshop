@@ -21,7 +21,7 @@ class Command(BaseCommand):
         for index, row in df.iterrows():
             # Handle authors
             try:
-                author_names = ast.literal_eval(row['authors'])  # Safely evaluate the string
+                author_names = ast.literal_eval(row['authors'])
             except (ValueError, SyntaxError):
                 author_names = []
 
@@ -45,6 +45,10 @@ class Command(BaseCommand):
             img = row['image']
             random_stock = random.randint(0, 120)
             slug = slugify(title)
+            previewLink = row['previewLink']
+            publishedDate = row['publishedDate']
+            publisher = row['publisher']
+
 
             # Check if the book with the same slug already exists
             if not Books.objects.filter(slug=slug).exists():
@@ -54,7 +58,10 @@ class Command(BaseCommand):
                     description=row['description'],
                     img=img,
                     stock=random_stock,
-                    slug=slug
+                    slug=slug,
+                    previewLink=previewLink,
+                    publishedDate=publishedDate,
+                    publisher=publisher
                 )
 
                 # Add authors and categories to the book

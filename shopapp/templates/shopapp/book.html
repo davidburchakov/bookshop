@@ -19,7 +19,16 @@
             <p>{{ book.description }}</p>
             <h4>Available in stock: {{ book.stock }}</h4>
             <h3>Price: ${{ book.price }}</h3>
-            <h1>book id: {{ book.id }}</h1>
+
+            {% if book.publisher %}
+                <h4>Publisher: {{ book.publisher }}</h4>
+            {% endif %}
+            {% if book.previewLink %}
+                <a id="preview-link" href="{{ book.previewLink }}" target="_blank">Source</a>
+            {% endif %}
+            {% if book.publishedDate %}
+                <h4>Published Date: {{ book.publishedDate }}</h4>
+            {% endif %}
 
 
             <h3>Categories:</h3>

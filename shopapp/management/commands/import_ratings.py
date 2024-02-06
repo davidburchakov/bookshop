@@ -14,7 +14,7 @@ class Command(BaseCommand):
         dataset = load_dataset('spleentery/books_ratings')
         data = dataset['train']
         df = data.to_pandas()
-        df = df.head(100)
+        # df = df.head(100)
 
         for _, row in df.iterrows():
             # Create or get user

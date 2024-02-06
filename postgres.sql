@@ -7,7 +7,7 @@
 -- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO bookshop_admin;
 
 
-INSERT INTO shopapp_books (slug, title, img, description, stock, price, `read`) VALUES ('seneka-letters', 'Letters from a Stoic','https://ecsmedia.pl/c/letters-from-a-stoic-w-iext137380723.jpg', 'Lucius Annaeus Seneca (often known simply as Seneca or Seneca the Younger); ca. 4 BC – 65 AD) was a Roman Stoic philosopher, statesman, and dramatist of the Silver Age of Latin literature. He was tutor and later advisor to emperor Nero, who later forced him to commit suicide for alleged complicity in the Pisonian conspiracy to have him assassinated.', 112, 10, true);
+INSERT INTO shopapp_books (slug, title, img, description, stock, price, `read`) VALUES ('seneka-letters', 'Letters from a Stoic','https://ecsmedia.pl/c/letters-from-a-stoic-w-iext137380723.jpg', 'Lucius Annaeus Seneca (often known simply as Seneca or Seneca the Younger); ca. 4 BC – 65 AD) was a Roman Stoic philosopher, statesman, and dramatist of the Silver Age of Latin literature and an advocate of stoicism. He was tutor and later advisor to emperor Nero, who later forced him to commit suicide for alleged complicity in the Pisonian conspiracy to have him assassinated. Letters from a Stoic by Seneca is a collection of letters providing practical advice on how to live a fulfilling life. Seneca''s philosophical stoic teachings remain relevant today, offering wisdom on how to live with integrity, face adversity, and find happiness through virtue with stoicism', 112, 10, true);
 
 DROP TABLE IF EXISTS users;
 

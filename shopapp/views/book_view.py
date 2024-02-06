@@ -20,20 +20,16 @@ def get_all_books():
             "price": book.price,
             "id": book.id,
             "read": book.read,
-            "authors": [author.fullname for author in book.authors.all()]
+            "authors": [author.fullname for author in book.authors.all()],
+            "previewLink": book.previewLink,
+            "publishedDate": book.publishedDate,
+            "publisher": book.publisher,
         } for book in books
     ]
 
 
-
-
-
 def get_all_categories():
     return {category.id: category.name for category in Category.objects.all()}
-
-
-
-
 
 
 def get_categories_by_id(book_id):
@@ -41,7 +37,6 @@ def get_categories_by_id(book_id):
     if book:
         return {"categories": [category.name for category in book.categories.all()]}
     return {"categories": []}
-
 
 
 def get_all_book_categories():
@@ -55,8 +50,8 @@ def get_all_book_categories():
     return dict(book_categories)
 
 
-
 from django.db.models import Q
+
 
 def search_books_by_query(all_books, query):
     return [
@@ -153,8 +148,8 @@ def browse_view(request: HttpRequest):
 
     if category_filter != 'none':
         filtered_books = [book for book in filtered_books if
-                          book_category[book['id']] and
-                          category_filter.lower() == book_category[book['id']][0].lower()]
+                          book_category.get(book['id']) and
+                          category_filter.lower() == book_category.get(book['id'], [''])[0].lower()]
 
     try:
         min_price = int(request.GET.get('min_price', '10'))
@@ -176,9 +171,11 @@ def browse_view(request: HttpRequest):
 
     filtered_books = [book for book in filtered_books if min_price <= book['price'] <= max_price]
     categories = get_all_categories()
+    books_count = len(filtered_books)
     context = {
         "books": filtered_books,
-        "categories": categories
+        "categories": categories,
+        "books_count": books_count
     }
     return render(request, 'shopapp/browse.html', context=context)
 
@@ -224,4 +221,3 @@ def post_review(request, book_id):
             return JsonResponse({'status': 'error', 'message': str(e)})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request'})
-

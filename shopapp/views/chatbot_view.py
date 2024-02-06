@@ -120,7 +120,7 @@ from openai import OpenAI
 from decouple import config
 
 def get_chatgpt_response(chat_prompt, title, description, authors):
-    temperature = .4
+    temperature = .9
     number_of_examples = 5
 
     client = OpenAI(
@@ -151,7 +151,7 @@ def get_chatgpt_response(chat_prompt, title, description, authors):
 # Preprocessing
 from nltk.corpus import stopwords
 
-# nltk.download('stopwords')
+nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 
 
