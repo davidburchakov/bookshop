@@ -10,7 +10,7 @@ import json
 
 
 def add_to_cart(request):
-    if request.method == 'POST' and request.user.is_authenticated:
+    if request.method == 'POST':
         book_id = request.POST.get('book_id')
         if not book_id.isdigit():
             return JsonResponse({'status': 'error', 'message': 'Invalid book ID'})
@@ -34,8 +34,6 @@ def add_to_cart(request):
             return JsonResponse({'status': 'error', 'message': str(e)})
 
     return JsonResponse({'status': 'invalid request'}, status=400)
-
-
 
 
 def cart_view(request):
