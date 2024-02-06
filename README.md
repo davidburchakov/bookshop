@@ -3,6 +3,8 @@
 #### Python Django
 #### Mysql
 
+available [online](https://spleentery.pythonanywhere.com)
+
 ## Set-up commands:
 ~~~~
 python3 manage.py runserver # run server in develop mode
