@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
      var demoButton = document.getElementById('demoButton');
 
     function sendDemoMessage() {
-        var demoMessage = "Recommend a book on stoicism";
+        var demoMessage = "Recommend a book on stoicism, Letters from a Stoic";
         chatContent.innerHTML += '<div>User: ' + demoMessage + '</div>';
         // Hide the demo button with a transition
         demoButton.classList.add('hidden');
