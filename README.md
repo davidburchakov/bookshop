@@ -13,6 +13,9 @@ python3 manage.py runserver # run server in develop mode
 ~~~~
 
 ## Project Checklist
+Why creating checklists? 
+
+Checklists are very important part of software development, as they increase efficiency, enhance reliability, and improve the quality of the output. [learn more](https://www.larksuite.com/en_us/topics/productivity-glossary/checklist-manifesto)
 ### Pages
 
 | Status | Page                 |
