@@ -20,14 +20,16 @@ Checklists are very important part of software development, as they increase eff
 
 | Status | Page                 |
 |--------|----------------------|
-| ✅     | Home/Index           |
-| ✅     | About/Contact page   |
-| ✅     | FAQ                  |
-| ✅     | List all books       |
-| ✅     | List a single book details |
-| ✅     | Cart page            |
-| ✅     | User profile page    |
-| ✅     | Read Book            |
+| ✅     | [Index](https://spleentery.pythonanywhere.com/)           |
+| ✅     | [About](https://spleentery.pythonanywhere.com/about)   |
+| ✅     | [FAQ](https://spleentery.pythonanywhere.com/faq)                  |
+| ✅     | [Browse](https://spleentery.pythonanywhere.com/browse)       |
+| ✅     | [List a single book details](https://spleentery.pythonanywhere.com/book/letters-from-a-stoic) |
+| ✅     | [Cart page](https://spleentery.pythonanywhere.com/cart)            |
+| ✅     | [Login](https://spleentery.pythonanywhere.com/login)    |
+| ✅     | [Register](https://spleentery.pythonanywhere.com/register)    |
+| ✅     | [User profile page](https://spleentery.pythonanywhere.com/profile)    |
+| ✅     | [Read Book](https://spleentery.pythonanywhere.com/books/seneka/seneka-read?)            |
 
 ### Features
 
