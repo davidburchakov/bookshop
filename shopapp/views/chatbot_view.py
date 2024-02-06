@@ -148,8 +148,6 @@ def get_chatgpt_response(chat_prompt, title, description, authors):
 
 
 
-
-
 # Preprocessing
 from nltk.corpus import stopwords
 
