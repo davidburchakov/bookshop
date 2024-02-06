@@ -12,6 +12,14 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+#preview-link{
+    margin: 0;
+}
+
+#preview-link:hover{
+    text-decoration: underline overline;
+}
+
 .single-book-header {
     margin-bottom: 20px;
     font-size: 24px;

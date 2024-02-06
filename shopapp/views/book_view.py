@@ -20,20 +20,16 @@ def get_all_books():
             "price": book.price,
             "id": book.id,
             "read": book.read,
-            "authors": [author.fullname for author in book.authors.all()]
+            "authors": [author.fullname for author in book.authors.all()],
+            "previewLink": book.previewLink,
+            "publishedDate": book.publishedDate,
+            "publisher": book.publisher,
         } for book in books
     ]
 
 
-
-
-
 def get_all_categories():
     return {category.id: category.name for category in Category.objects.all()}
-
-
-
-
 
 
 def get_categories_by_id(book_id):
@@ -41,7 +37,6 @@ def get_categories_by_id(book_id):
     if book:
         return {"categories": [category.name for category in book.categories.all()]}
     return {"categories": []}
-
 
 
 def get_all_book_categories():
@@ -55,8 +50,8 @@ def get_all_book_categories():
     return dict(book_categories)
 
 
-
 from django.db.models import Q
+
 
 def search_books_by_query(all_books, query):
     return [
@@ -226,4 +221,3 @@ def post_review(request, book_id):
             return JsonResponse({'status': 'error', 'message': str(e)})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request'})
-
