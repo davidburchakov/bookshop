@@ -1,11 +1,11 @@
 # Full Stack E-commerce project - online Book Shop!
+# **Available [online](https://spleentery.pythonanywhere.com)**
+
 ## Technologies
 #### Python Django
 #### Mysql
 
 used *Amazon Books Reviews* dataset from Kaggle to populate the database [here](https://www.kaggle.com/datasets/mohamedbakhet/amazon-books-reviews?select=books_data.csv)
-
-### **available [online](https://spleentery.pythonanywhere.com)**
 
 ## Set-up commands:
 ~~~~
