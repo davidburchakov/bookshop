@@ -42,19 +42,18 @@ def get_all_books_paginator(page_num=1, books_per_page=30):
 
 
 def index_view(request: HttpRequest):
-    page = request.GET.get('page', 1)  # Get the page number from query params
+    page = request.GET.get('page', 1)
     most_popular_books = get_most_popular_books()
     recommended_books = get_recommended_books(request)
-    books_page = get_all_books_paginator(page_num=page)  # Fetch the correct page
+    books_page = get_all_books_paginator(page_num=page)
     context = {
-        "books_page": books_page,  # This is already a paginated list of books
+        "books_page": books_page,
         "recommended_books": recommended_books,
         "most_popular_books": most_popular_books,
         "range": range(1, 11),
         "range_30": range(1, 31)
     }
-    # Check if the request is AJAX
-    # Detect AJAX request
+
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         books_page = get_all_books_paginator(page_num=page)  # Fetch the correct page
         print("AJAX DETECTED")

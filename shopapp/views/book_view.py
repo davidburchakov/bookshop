@@ -153,8 +153,8 @@ def browse_view(request: HttpRequest):
 
     if category_filter != 'none':
         filtered_books = [book for book in filtered_books if
-                          book_category[book['id']] and
-                          category_filter.lower() == book_category[book['id']][0].lower()]
+                          book_category.get(book['id']) and
+                          category_filter.lower() == book_category.get(book['id'], [''])[0].lower()]
 
     try:
         min_price = int(request.GET.get('min_price', '10'))
@@ -176,9 +176,11 @@ def browse_view(request: HttpRequest):
 
     filtered_books = [book for book in filtered_books if min_price <= book['price'] <= max_price]
     categories = get_all_categories()
+    books_count = len(filtered_books)
     context = {
         "books": filtered_books,
-        "categories": categories
+        "categories": categories,
+        "books_count": books_count
     }
     return render(request, 'shopapp/browse.html', context=context)
 

@@ -89,6 +89,7 @@
 
 
     <div id="popular-books">
+        <h3>Books ({{ books_count }})</h3>
         <ul class="books-ul">
             {% for book in books|slice:":200" %}
                 <li>
