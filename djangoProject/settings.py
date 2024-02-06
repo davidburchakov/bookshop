@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = ['spleentery.pythonanywhere.com']
 
 # Email confirmation
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -104,7 +104,7 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 # }
 
 
-# Mysql
+# Local Mysql
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -116,6 +116,17 @@ DATABASES = {
     }
 }
 
+# Server MySQL
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'spleentery$bookshop',
+#         'USER': 'spleentery',
+#         'PASSWORD': 'rhengh79',
+#         'HOST': 'spleentery.mysql.pythonanywhere-services.com',
+#         'PORT': '3306',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
