@@ -55,6 +55,8 @@ python3 manage.py runserver # run server in develop mode
 | ✅     | Full-text search by description, title   |
 | ✅     | AJAX interactions                        |
 | ✅     | Feedback messages - errors, Notifications |
+| ✅     | Add book counter |
+| ✅     | Fix adding to cart and rating for unregistered users |
 
 ### Advanced Features
 
@@ -75,6 +77,7 @@ python3 manage.py runserver # run server in develop mode
 | ✅     | Payment: After payment complete, -= stock |
 | ✅     | Send info to email                       |
 | ✅     | Deploy                                   |
+| ✅     | Add Seneka and change the books recommender |
 
 ### Style
 
